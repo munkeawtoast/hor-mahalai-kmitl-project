@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json.schemastore.org/jsconfig",
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES5"
+  },
+  "exclude": ["node_modules"]
+}
