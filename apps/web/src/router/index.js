@@ -9,15 +9,68 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
     },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue'),
-    // },
+    {
+      path: '/dorms',
+      name: 'dorms-listing',
+      // component: () => import('../views/DormListing.vue'),
+    },
+    {
+      path: '/dorms/new',
+      name: 'dorm-create',
+      // component: () => import('../views/DormForm.vue')
+      meta: {
+        requireDormOwnerRole: true,
+      },
+    },
+    {
+      path: '/dorms/:id',
+      name: 'dorm-details',
+      // component: () => import('../views/DormDetails.vue'),
+    },
+    {
+      path: '/about',
+      name: 'about',
+      // component: () => import('../views/AboutPage.vue'),
+    },
+    {
+      path: '/login',
+      name: 'login',
+      // component: () => import('../views/LoginPage.vue'),
+      meta: {
+        hideNavBar: true,
+      },
+    },
+    {
+      path: '/register',
+      name: 'register',
+      // component: () => import('../views/LoginPage.vue'),
+      meta: {
+        hideNavBar: true,
+      },
+    },
+    {
+      path: '/users/me',
+      name: 'user-details-self',
+      meta: {
+        requireAuth: true,
+      },
+    },
+    {
+      path: '/users/:id',
+      name: 'user-details',
+      meta: {
+        show404: true,
+      },
+    },
+    {
+      path: '',
+    },
   ],
+})
+
+router.beforeEach((to, from) => {
+  if (to.requireDormOwnerRole) {
+  }
 })
 
 export default router
