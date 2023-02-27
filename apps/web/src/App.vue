@@ -1,12 +1,12 @@
 <script>
 import { RouterView } from 'vue-router'
-import NavBar from './components/NavBar.vue';
+import NavBar from './components/NavBar.vue'
 
 export default {
   components: {
     RouterView,
-    NavBar
-},
+    NavBar,
+  },
 }
 </script>
 
@@ -18,12 +18,12 @@ export default {
 </template>
 
 <style scoped>
+.container {
+  width: 1024px;
+}
+@media (width <= 1366) {
   .container {
-    width: 1024px;
+    width: 100%;
   }
-  @media (width <= 1366) {
-    .container {
-      width: 100%;
-    }
-  }
+}
 </style>
