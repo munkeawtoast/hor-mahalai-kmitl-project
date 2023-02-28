@@ -1,8 +1,9 @@
 {
   "name": "turborepo-vue-starter",
-  "author": "Arneesh Aima",
+  "author": "2gurls",
   "version": "0.0.0",
   "private": true,
+  "license": "UNLICENSED",
   "workspaces": [
     "apps/*",
     "config/*",
