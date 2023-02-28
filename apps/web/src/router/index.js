@@ -8,11 +8,17 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
+      meta: {
+        title: 'หน้าหลัก',
+      },
     },
     {
       path: '/dorms',
       name: 'dorms-listing',
       // component: () => import('../views/DormListing.vue'),
+      meta: {
+        title: 'รายการหอ',
+      },
     },
     {
       path: '/dorms/new',
@@ -20,12 +26,16 @@ const router = createRouter({
       // component: () => import('../views/DormForm.vue')
       meta: {
         requireDormOwnerRole: true,
+        title: 'เพิ่มหอของคุณ',
       },
     },
     {
       path: '/dorms/:id',
       name: 'dorm-details',
       // component: () => import('../views/DormDetails.vue'),
+      meta: {
+        title: () => {},
+      },
     },
     {
       path: '/about',
@@ -61,9 +71,6 @@ const router = createRouter({
       meta: {
         show404: true,
       },
-    },
-    {
-      path: '',
     },
   ],
 })
