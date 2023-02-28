@@ -45,7 +45,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      // component: () => import('../views/LoginPage.vue'),
+      component: () => import('../views/LoginPage.vue'),
       meta: {
         hideNavBar: true,
       },
@@ -53,7 +53,7 @@ const router = createRouter({
     {
       path: '/register',
       name: 'register',
-      // component: () => import('../views/LoginPage.vue'),
+      component: () => import('../views/RegisterPage.vue'),
       meta: {
         hideNavBar: true,
       },

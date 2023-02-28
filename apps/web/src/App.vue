@@ -11,7 +11,7 @@ export default {
 </script>
 
 <template>
-  <NavBar v-if="!$route.meta.hideNavbar" />
+  <NavBar v-if="!$route.meta.hideNavBar" />
   <div class="container">
     <RouterView />
   </div>
@@ -20,6 +20,7 @@ export default {
 <style scoped>
 .container {
   width: 1024px;
+  margin: 0 auto;
 }
 @media (width <= 1366) {
   .container {
