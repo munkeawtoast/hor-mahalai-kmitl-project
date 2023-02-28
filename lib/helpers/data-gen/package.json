@@ -1,0 +1,11 @@
+{
+  "name": "data-gen",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "2gurls",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@faker-js/faker": "^7.6.0"
+  }
+}
