@@ -6,7 +6,7 @@
   "workspaces": [
     "apps/*",
     "config/*",
-    "lib/*"
+    "lib/helpers/*"
   ],
   "scripts": {
     "build": "turbo run build",
