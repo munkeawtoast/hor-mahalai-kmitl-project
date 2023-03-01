@@ -1,5 +1,5 @@
 {
-  "name": "data-gen",
+  "name": "@helper/data-gen",
   "version": "1.0.0",
   "main": "index.js",
   "author": "2gurls",
