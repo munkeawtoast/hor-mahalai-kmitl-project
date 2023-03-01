@@ -1,6 +1,6 @@
 <template>
   <div id="regis">
-    <div>
+    <div class="container">
       <form @submit.prevent="onSubmit">
         <label>Username</label><br />
         <input v-model="username" type="text" /><br />
@@ -26,6 +26,7 @@
 </template>
 <script>
 export default {
+  el: '#regis',
   data() {
     return {
       username: '',
@@ -39,4 +40,10 @@ export default {
   watch: {},
 }
 </script>
-<style></style>
+<style scoped>
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
