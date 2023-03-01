@@ -4,12 +4,8 @@
   "version": "0.0.0",
   "private": true,
   "license": "UNLICENSED",
-  "workspaces": [
-    "apps/*",
-    "config/*",
-    "lib/helpers/*"
-  ],
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
@@ -21,7 +17,6 @@
   },
   "engines": {
     "npm": ">=7.0.0",
-    "node": ">=14.0.0"
-  },
-  "packageManager": "yarn@1.22.15"
+    "node": ">=18.0.0"
+  }
 }
