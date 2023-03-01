@@ -1,22 +1,27 @@
 <script>
 import { RouterLink } from 'vue-router'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import SearchBar from './SearchBar.vue'
+import UserIcon from './UserIcon.vue'
 
 export default {
   components: {
     RouterLink,
     SearchBar,
+    FontAwesomeIcon,
+    UserIcon,
   },
 }
 </script>
 <template>
   <header class="navbar">
-    <div>
-      <img alt="Vue logo" class="logo" src="@/assets/logo.svg" />
-      <RouterLink to="/"> </RouterLink>
-    </div>
-    <div>
+    <RouterLink to="/" class="logo">
+      <FontAwesomeIcon :icon="['fa-solid', 'fa-city']" size="xl" />
+      <div class="logo--text">หอมหาลัย</div>
+    </RouterLink>
+    <div class="right">
       <SearchBar />
+      <UserIcon />
       <nav>
         <RouterLink to="/about"> </RouterLink>
         <!-- <RouterLink to="/dorms"> </RouterLink> -->
@@ -26,9 +31,6 @@ export default {
   </header>
 </template>
 <style>
-header > div {
-  
-}
 header.navbar {
   display: flex;
   justify-content: space-between;
@@ -36,12 +38,26 @@ header.navbar {
   border-bottom: 1px solid red;
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
-  font-size: 1.5rem;
   align-items: center;
   padding: 0 40px;
 }
-img.logo {
-  width: 1em;
-  height: 1em;
+.logo {
+  display: flex;
+  align-items: center;
+  color: var(--color-primary);
+  font-size: 1.5rem;
+}
+
+.logo--text {
+  padding-left: 2px;
+  font-weight: 800;
+  font-size: 35px;
+  transform: translateY(2px);
+  font-weight: 800;
+  display: inline;
+}
+
+.right {
+  display: flex;
 }
 </style>

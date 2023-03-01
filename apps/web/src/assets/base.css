@@ -47,6 +47,14 @@
   font-family: 'Kanit', sans-serif;
 }
 
+a {
+  all: unset;
+}
+
+::placeholder {
+  color: var(--color-detail)
+}
+
 body {
   min-height: 100vh;
   color: var(--color-text);
