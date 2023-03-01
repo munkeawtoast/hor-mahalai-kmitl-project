@@ -47,6 +47,7 @@ importers:
 
   apps/web:
     specifiers:
+      '@config/eslint-config-vue3': workspace:^0.0.0
       '@fortawesome/fontawesome-svg-core': ^6.3.0
       '@fortawesome/free-brands-svg-icons': ^6.3.0
       '@fortawesome/free-regular-svg-icons': ^6.3.0
@@ -73,6 +74,7 @@ importers:
       vue: 3.2.47
       vue-router: 4.1.6_vue@3.2.47
     devDependencies:
+      '@config/eslint-config-vue3': link:../../config/eslint-config-vue3
       '@rushstack/eslint-patch': 1.2.0
       '@vitejs/plugin-vue': 2.3.4_vite@2.9.15+vue@3.2.47
       '@vue/eslint-config-prettier': 7.1.0_3t7wv5x7ynqdcknwepa7rfgnw4
@@ -96,7 +98,10 @@ importers:
       eslint-plugin-react: 7.28.0
 
   config/tsconfig:
-    specifiers: {}
+    specifiers:
+      '@tsconfig/node18-strictest-esm': ^1.0.1
+    dependencies:
+      '@tsconfig/node18-strictest-esm': 1.0.1
 
   lib/helpers/data-gen:
     specifiers:
@@ -424,6 +429,10 @@ packages:
   /@tokenizer/token/0.3.0:
     resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
     dev: true
+
+  /@tsconfig/node18-strictest-esm/1.0.1:
+    resolution: {integrity: sha512-cHzmAqw7CMbyqROWeBgVhard3F2V6zxOSJnQ4E6SJWruXD5ypuP9/QKekwBdfXQ4oUTaizIICKIwb+v3v33t0w==}
+    dev: false
 
   /@types/body-parser/1.19.2:
     resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}
