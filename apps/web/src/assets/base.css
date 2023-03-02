@@ -24,7 +24,7 @@
   --color-detail: var(--gray);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --color-background: var(--dark-charcoal);
     --color-background-mute: var(---jet);
@@ -36,7 +36,7 @@
     --color-text: var(--anti-flash-white);
     --color-detail: var(--silver-sand);
   }
-}
+} */
 
 *,
 *::before,
