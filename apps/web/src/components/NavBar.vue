@@ -3,6 +3,7 @@ import { RouterLink } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import SearchBar from './SearchBar.vue'
 import UserIcon from './UserIcon.vue'
+import IconLogo from '../components/icons/IconLogo.vue'
 
 export default {
   components: {
@@ -10,14 +11,14 @@ export default {
     SearchBar,
     FontAwesomeIcon,
     UserIcon,
+    IconLogo,
   },
 }
 </script>
 <template>
   <header class="navbar">
     <RouterLink to="/" class="logo">
-      <FontAwesomeIcon :icon="['fa-solid', 'fa-city']" size="xl" />
-      <div class="logo--text">หอมหาลัย</div>
+      <IconLogo size="xl"></IconLogo>
     </RouterLink>
     <div class="right">
       <SearchBar />

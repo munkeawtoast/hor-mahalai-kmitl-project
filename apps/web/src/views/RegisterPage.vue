@@ -4,14 +4,16 @@ export default {
   el: '#regis',
   data() {
     return {
-      username: '',
+      userName: '',
       password: '',
       confirmPassword: '',
       confirmPasswordText: '',
       firstName: '',
       lastName: '',
+      dob: '',
       email: '',
-      role: '',
+      iamges: 'https://loremflickr.com/640/480/people?lock=65791',
+      role: 'user',
     }
   },
   components: {
@@ -19,21 +21,47 @@ export default {
   },
   methods: {
     submitLocal() {
-      let userInfo = {
-        username: this.username,
-        password: this.password,
-        firstname: this.firstName,
-        lastname: this.lastName,
-        email: this.email,
-        role: this.role,
+      if (
+        [
+          this.userName,
+          this.password,
+          this.confirmPassword,
+          this.firstName,
+          this.lastName,
+          this.dob,
+          this.email,
+          this.role,
+        ].every((el) => el !== '')
+      ) {
+        let userInfo = {
+          userName: this.userName,
+          password: this.password,
+          firstName: this.firstName,
+          lastName: this.lastName,
+          dob: this.dob,
+          email: this.email,
+          images: this.images,
+          role: this.role,
+        }
+        let userObject = JSON.stringify(userInfo)
+        localStorage.setItem('userObject', userObject)
+
+        this.$router.push({ path: '/' })
+      } else {
+        alert('โปรดกรอกข้อมูลให้ครบ')
       }
-      let userObject = JSON.stringify(userInfo)
-      localStorage.setItem('userObject', userObject)
     },
   },
   watch: {
     confirmPassword(newConfirmPassword, oldConfirmPassword) {
       if (newConfirmPassword != this.password) {
+        this.confirmPasswordText = 'Password ไม่ตรงกัน'
+      } else {
+        this.confirmPasswordText = ''
+      }
+    },
+    password(newPassword, oldPassword) {
+      if (newPassword != this.confirmPassword) {
         this.confirmPasswordText = 'Password ไม่ตรงกัน'
       } else {
         this.confirmPasswordText = ''
@@ -48,19 +76,26 @@ export default {
       <IconLogo></IconLogo>
       <form @submit.prevent="onSubmit">
         <label>Username: </label>
-        <input v-model="username" type="text" /><br />
+        <input v-model="userName" type="text" />
+
         <label>Password: </label>
-        <input v-model="password" type="password" />
+        <input v-model="password" type="password" /><br />
         <label>Confirm password: </label>
-        <input v-model="confirmPassword" type="password" /><br />
-        <p class="danger">{{ confirmPasswordText }}</p>
+        <input v-model="confirmPassword" type="password" />
+        <span class="danger">{{ confirmPasswordText }}</span
+        ><br />
+
         <label>First name: </label>
         <input v-model="firstName" type="text" />
         <label>Last name: </label>
         <input v-model="lastName" type="text" /><br />
+
+        <label>Date of birth: </label>
+        <input v-model="dob" type="date" /><br />
         <label>Email: </label>
-        <input v-model="email" type="text" /><br />
-        <label>Role</label><br />
+        <input v-model="email" type="text" />
+        <label>Images</label><br />
+        <label>Role</label>
         <input
           v-model="role"
           type="radio"
@@ -78,7 +113,6 @@ export default {
 </template>
 <style scoped>
 form {
-  text-align: center;
   font-size: 1.5em;
   font-weight: bold;
 }
