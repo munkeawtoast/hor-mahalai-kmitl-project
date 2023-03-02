@@ -2,16 +2,44 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 export default {
+  emits: {
+    search: null,
+    textChange: null,
+  },
+  props: {
+    placeholderText: {
+      required: false,
+      type: String,
+      default: 'ค้นหา',
+    },
+  },
   components: {
     FontAwesomeIcon,
+  },
+  methods: {
+    handleSearch() {
+      this.emit('search')
+    },
+    handleTextChange() {
+      this.emit('textChange')
+    },
   },
 }
 </script>
 <template>
   <div class="wrapper">
-    <input type="text" placeholder="ค้นหา" />
-    <FontAwesomeIcon :icon="['fa-solid', 'fa-search']" size="lg" flip="horizontal" />
-    <!-- <font-awesome-icon icon="search" size="lg"  /> -->
+    <input
+      type="text"
+      placeholder="ค้นหา"
+      @keyup.enter="handleSearch"
+      @input="handleTextChange"
+    />
+    <FontAwesomeIcon
+      :icon="['fa-solid', 'fa-search']"
+      size="lg"
+      flip="horizontal"
+      @click="handleSearch"
+    />
   </div>
 </template>
 <style scoped>
