@@ -1,6 +1,4 @@
 <script>
-import { stringify } from 'json5'
-
 export default {
   props: {
     // userName: String,
