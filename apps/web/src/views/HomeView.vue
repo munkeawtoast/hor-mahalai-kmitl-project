@@ -1,5 +1,12 @@
+<script>
+import DormSearchResult from '../components/DormSearchResult.vue'
+export default {
+  components: {
+    DormSearchResult,
+  },
+}
+</script>
 <template>
-  HOMEPAGE
+  <DormSearchResult />
 </template>
-<style scoped>
-</style>
+<style scoped></style>

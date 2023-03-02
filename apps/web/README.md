@@ -1,35 +1,5 @@
 # WEB-APP
 
-This template should help get you started developing with Vue 3 in Vite.
+[onEnter](https://vuejs.org/guide/essentials/event-handling.html#system-modifier-keys)
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-yarn
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-yarn run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-yarn run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-yarn run lint
-```
+[event emitting and validation](https://vuejs.org/guide/components/events.html)

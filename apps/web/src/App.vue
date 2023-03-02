@@ -20,7 +20,9 @@ export default {
 <style scoped>
 .container {
   width: 1024px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 @media (width <= 1366) {
   .container {
