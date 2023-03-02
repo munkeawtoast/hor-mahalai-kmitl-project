@@ -30,7 +30,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/dorms/:id',
+      path: '/dorms/:dormID(\\d)',
       name: 'dorm-details',
       // component: () => import('../views/DormDetails.vue'),
       meta: {
@@ -64,13 +64,14 @@ const router = createRouter({
       meta: {
         requireAuth: true,
       },
+      props: {
+        me: true,
+      },
     },
     {
-      path: '/users/:id',
+      path: '/users/:userID',
       name: 'user-details',
-      meta: {
-        show404: true,
-      },
+      props: true,
     },
   ],
 })
