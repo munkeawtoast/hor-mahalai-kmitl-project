@@ -41,6 +41,7 @@ header.navbar {
   backdrop-filter: blur(5px);
   align-items: center;
   padding: 0 40px;
+  width: 100vw;
 }
 .logo {
   display: flex;
