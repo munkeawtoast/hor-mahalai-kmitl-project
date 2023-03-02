@@ -30,7 +30,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/dorms/:dormID(\\d)',
+      path: '/dorms/:dormID(\\d+)',
       name: 'dorm-details',
       component: () => import('../views/DormDetails.vue'),
       props: true,
