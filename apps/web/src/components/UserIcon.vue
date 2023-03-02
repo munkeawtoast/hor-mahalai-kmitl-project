@@ -28,9 +28,7 @@ export default {
     >
       <div class="usericon--letter">ห</div>
     </button>
-    <div class="drop-down" v-show="clicked">
-      <div>a</div>
-    </div>
+    <div class="drop-down" v-show="clicked"></div>
   </div>
 </template>
 <style scoped>
@@ -60,17 +58,20 @@ export default {
 
 .drop-down {
   position: absolute;
-  background-color: red;
+  /* background-color: red;
   top: 100;
   right: 0;
-  clip-path: path('m 0 10 L 8 2 Q 10 0 10 4 L 10 10 z');
+  clip-path: path('m 0 10 L 8 2 Q 10 0 10 4 L 10 10 z'); */
+  width: 200px;
+  height: 200px;
+  background-color: blanchedalmond;
 }
-.drop-down::before {
+/* .drop-down::before {
   width: 10px;
   height: 10px;
   content: '';
   background-color: red;
   color: blue;
   outline: solid 800px black;
-}
+} */
 </style>

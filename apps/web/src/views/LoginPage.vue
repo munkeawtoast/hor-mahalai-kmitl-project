@@ -18,7 +18,17 @@ export default {
       userData.forEach((element) => {
         if (element.userName === this.ID || element.email === this.ID) {
           if (element.password == this.password) {
-            localStorage.setItem('userObject', JSON.stringify(element))
+            let loginData = {
+              id: element.id,
+              userName: element.userName,
+              firstName: element.firstName,
+              lastName: element.lastName,
+              email: element.email,
+              dob: element.dob,
+              role: element.role,
+              userImage: element.userImage,
+            }
+            localStorage.setItem('userObject', JSON.stringify(loginData))
             this.$router.push({ path: '/' })
           } else {
             this.errorText = 'wrong username or password'
@@ -78,6 +88,12 @@ button {
 .errorText {
   font-weight: normal;
   font-size: 1rem;
+  color: red;
+}
+a:visited {
+  color: blue;
+}
+a:hover {
   color: red;
 }
 </style>

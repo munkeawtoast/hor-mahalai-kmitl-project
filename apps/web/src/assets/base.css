@@ -47,14 +47,14 @@
   font-family: 'Kanit', sans-serif;
 }
 
-a {
+/* a {
 }
 a:visited {
   color: blue;
 }
 a:hover {
   color: red;
-}
+} */
 
 ::placeholder {
   color: var(--color-detail);

@@ -34,13 +34,13 @@ export default {
         ].every((el) => el !== '')
       ) {
         let userInfo = {
+          id: 5,
           userName: this.userName,
-          password: this.password,
           firstName: this.firstName,
           lastName: this.lastName,
           dob: this.dob,
           email: this.email,
-          images: this.images,
+          userImages: this.images,
           role: this.role,
         }
         let userObject = JSON.stringify(userInfo)
