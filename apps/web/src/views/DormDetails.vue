@@ -1,6 +1,18 @@
 <script>
-export default {}
+import DormDetails from '../components/DormDetails.vue'
+export default {
+  props: {
+    dormID: {
+      type: String,
+      required: true,
+    },
+  },
+  components: {
+    DormDetails,
+  },
+}
 </script>
 <template>
-  <div></div>
+  {{ dormID }}
+  <DormDetails :dormData="{}" />
 </template>

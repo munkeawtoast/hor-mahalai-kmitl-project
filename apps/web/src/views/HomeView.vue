@@ -14,7 +14,6 @@ export default {
 }
 </script>
 <template>
-  
   <DormSearchResult :dorms="dormData" :queryText="queryText" />
 </template>
 <style scoped></style>

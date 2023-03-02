@@ -22,7 +22,6 @@ export default {
   align-items: center;
   color: var(--color-primary);
   font-size: 1.5rem;
-  text-decoration: none;
 }
 
 .logo--text {
@@ -32,5 +31,12 @@ export default {
   transform: translateY(2px);
   font-weight: 800;
   display: inline;
+  text-decoration: none;
+}
+
+.logo--text,
+.logo--text:visited,
+.logo--text:hover {
+  text-decoration: none;
 }
 </style>
