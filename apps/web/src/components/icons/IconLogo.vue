@@ -12,7 +12,7 @@ export default {
     <div class="logo--text">หอมหาลัย</div>
   </div>
 </template>
-<style>
+<style scoped>
 .logo {
   display: flex;
   align-items: center;
