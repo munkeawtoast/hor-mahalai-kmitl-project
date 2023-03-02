@@ -1,27 +1,53 @@
 <script>
 import IconLogo from '../components/icons/IconLogo.vue'
+import userData from '@helper/data-gen/users.json'
 export default {
   components: {
     IconLogo,
+  },
+  data() {
+    return {
+      userData,
+      ID: '',
+      password: '',
+      errorText: '',
+    }
+  },
+  methods: {
+    checkUser() {
+      userData.forEach((element) => {
+        if (element.userName === this.ID || element.email === this.ID) {
+          if (element.password == this.password) {
+            localStorage.setItem('userObject', JSON.stringify(element))
+            this.$router.push({ path: '/' })
+          } else {
+            this.errorText = 'wrong username or password'
+          }
+        } else {
+          this.errorText = 'wrong username or password'
+        }
+      })
+    },
   },
 }
 </script>
 <template>
   <div class="container">
     <IconLogo></IconLogo>
-    <div>
-      <form>
-        <label>Username or Email</label><br />
-        <input for="text" /><br />
-        <label>Password</label><br />
-        <input for="text" /><br />
-        <button>Login</button>
-      </form>
-      <p>
-        Don't have an account yet?
-        <RouterLink to="/register">register!</RouterLink>
+    <form @submit.prevent="onSubmit">
+      <label>Username or Email</label><br />
+      <input v-model="ID" type="text" /><br />
+      <label>Password</label><br />
+      <input v-model="password" type="password" /><br />
+      <button @click="checkUser">Login</button>
+      <p class="errorText">
+        {{ errorText }}
       </p>
-    </div>
+    </form>
+    <p>
+      Don't have an account yet?
+      <RouterLink to="/register">register!</RouterLink>
+    </p>
   </div>
 </template>
 <style scoped>
@@ -30,17 +56,12 @@ form {
   font-size: 1.5em;
   font-weight: bold;
 }
-label {
-  margin: 0;
-  padding: 0;
-}
-input {
-}
 button {
   background-color: unset;
   margin: 0.5em 0 0.5em 0;
   padding: 0.5em 6em;
   border-radius: 10px;
+  cursor: pointer;
 }
 /* a{
   all:
@@ -53,5 +74,10 @@ button {
 
   transform: translateY(-10vh);
   height: 100vh;
+}
+.errorText {
+  font-weight: normal;
+  font-size: 1rem;
+  color: red;
 }
 </style>

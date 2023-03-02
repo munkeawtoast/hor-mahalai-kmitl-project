@@ -3,150 +3,55 @@
     "id": 0,
     "firstName": "Joanne",
     "lastName": "Robel",
+    "userName": "Joanne.Robel",
     "email": "user0@mail.com",
     "password": 1234,
-    "dob": "1996-07-31T06:26:13.466Z",
-    "role": "student",
-    "userImage": "https://loremflickr.com/640/480/people?lock=11662"
+    "dob": "1989-04-07T09:00:59.792Z",
+    "role": "dorm-owner",
+    "userImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/81.jpg"
   },
   {
     "id": 1,
-    "firstName": "Gloria",
-    "lastName": "Bergnaum",
+    "firstName": "Jalyn",
+    "lastName": "Price",
+    "userName": "Jalyn_Price",
     "email": "user1@mail.com",
     "password": 1234,
-    "dob": "1995-07-05T05:57:42.248Z",
-    "role": "moderator",
-    "userImage": "https://loremflickr.com/640/480/people?lock=65791"
+    "dob": "1993-11-27T06:02:22.116Z",
+    "role": "student",
+    "userImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/818.jpg"
   },
   {
     "id": 2,
-    "firstName": "Moises",
-    "lastName": "Hirthe",
+    "firstName": "Greg",
+    "lastName": "Wolf",
+    "userName": "Greg.Wolf2",
     "email": "user2@mail.com",
     "password": 1234,
-    "dob": "1989-06-28T03:07:01.843Z",
-    "role": "dorm-owner",
-    "userImage": "https://loremflickr.com/640/480/people?lock=39945"
+    "dob": "1996-04-10T02:53:40.126Z",
+    "role": "student",
+    "userImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/574.jpg"
   },
   {
     "id": 3,
-    "firstName": "Westley",
-    "lastName": "Zieme",
+    "firstName": "Kelvin",
+    "lastName": "Zulauf",
+    "userName": "Kelvin_Zulauf",
     "email": "user3@mail.com",
     "password": 1234,
-    "dob": "1993-09-28T04:59:32.602Z",
-    "role": "student",
-    "userImage": "https://loremflickr.com/640/480/people?lock=50593"
+    "dob": "1996-10-30T12:16:03.816Z",
+    "role": "dorm-owner",
+    "userImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1023.jpg"
   },
   {
     "id": 4,
-    "firstName": "Bernita",
-    "lastName": "Koelpin",
+    "firstName": "Ted",
+    "lastName": "Boehm",
+    "userName": "Ted_Boehm",
     "email": "user4@mail.com",
     "password": 1234,
-    "dob": "1997-04-20T13:18:24.797Z",
-    "role": "moderator",
-    "userImage": "https://loremflickr.com/640/480/people?lock=39082"
-  },
-  {
-    "id": 5,
-    "firstName": "Marjorie",
-    "lastName": "Leuschke",
-    "email": "user5@mail.com",
-    "password": 1234,
-    "dob": "1997-07-10T19:19:49.061Z",
-    "role": "moderator",
-    "userImage": "https://loremflickr.com/640/480/people?lock=91594"
-  },
-  {
-    "id": 6,
-    "firstName": "Arthur",
-    "lastName": "Koss",
-    "email": "user6@mail.com",
-    "password": 1234,
-    "dob": "2002-05-22T21:32:52.384Z",
+    "dob": "1993-01-25T02:45:48.625Z",
     "role": "student",
-    "userImage": "https://loremflickr.com/640/480/people?lock=30273"
-  },
-  {
-    "id": 7,
-    "firstName": "Jennifer",
-    "lastName": "Conn",
-    "email": "user7@mail.com",
-    "password": 1234,
-    "dob": "2002-03-29T09:40:33.148Z",
-    "role": "dorm-owner",
-    "userImage": "https://loremflickr.com/640/480/people?lock=66441"
-  },
-  {
-    "id": 8,
-    "firstName": "Emma",
-    "lastName": "O'Keefe",
-    "email": "user8@mail.com",
-    "password": 1234,
-    "dob": "1993-03-31T06:17:47.358Z",
-    "role": "student",
-    "userImage": "https://loremflickr.com/640/480/people?lock=64211"
-  },
-  {
-    "id": 9,
-    "firstName": "Darren",
-    "lastName": "Anderson",
-    "email": "user9@mail.com",
-    "password": 1234,
-    "dob": "1996-04-20T21:50:48.712Z",
-    "role": "moderator",
-    "userImage": "https://loremflickr.com/640/480/people?lock=46259"
-  },
-  {
-    "id": 10,
-    "firstName": "Candice",
-    "lastName": "Sporer",
-    "email": "user10@mail.com",
-    "password": 1234,
-    "dob": "2001-06-30T08:12:21.370Z",
-    "role": "student",
-    "userImage": "https://loremflickr.com/640/480/people?lock=81293"
-  },
-  {
-    "id": 11,
-    "firstName": "Jaida",
-    "lastName": "White",
-    "email": "user11@mail.com",
-    "password": 1234,
-    "dob": "1995-02-27T17:16:58.105Z",
-    "role": "moderator",
-    "userImage": "https://loremflickr.com/640/480/people?lock=48685"
-  },
-  {
-    "id": 12,
-    "firstName": "Lillian",
-    "lastName": "Bernhard",
-    "email": "user12@mail.com",
-    "password": 1234,
-    "dob": "1996-02-27T09:10:19.723Z",
-    "role": "student",
-    "userImage": "https://loremflickr.com/640/480/people?lock=19281"
-  },
-  {
-    "id": 13,
-    "firstName": "Russ",
-    "lastName": "Fisher",
-    "email": "user13@mail.com",
-    "password": 1234,
-    "dob": "1998-12-02T00:39:32.684Z",
-    "role": "student",
-    "userImage": "https://loremflickr.com/640/480/people?lock=26253"
-  },
-  {
-    "id": 14,
-    "firstName": "Efrain",
-    "lastName": "Von",
-    "email": "user14@mail.com",
-    "password": 1234,
-    "dob": "1995-09-24T15:05:34.533Z",
-    "role": "student",
-    "userImage": "https://loremflickr.com/640/480/people?lock=92432"
+    "userImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/612.jpg"
   }
 ]
