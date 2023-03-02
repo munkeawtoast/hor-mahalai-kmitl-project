@@ -11,7 +11,7 @@ export default {
 </script>
 
 <template>
-  <NavBar v-if="!$route.meta.hideNavBar" />
+  <NavBar />
   <div class="container">
     <RouterView />
   </div>
