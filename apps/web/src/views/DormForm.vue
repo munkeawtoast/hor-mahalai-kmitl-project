@@ -1,48 +1,82 @@
+<script>
+export default {
+  methods: {
+    backFunction() {
+      this.$router.push({ path: '/' })
+    },
+  },
+}
+</script>
 <template>
   <div>
     <div class="container">
       <p class="backButton" @click="backFunction">&#60; Go back</p>
-      <IconLogo></IconLogo>
       <form @submit.prevent="onSubmit">
-        <label>Username: </label>
-        <input v-model="userName" type="text" />
+        <label>Dorm name: </label>
+        <input v-model="dormName" type="text" />
 
-        <label>Password: </label>
-        <input v-model="password" type="password" /><br />
-        <label>Confirm password: </label>
-        <input v-model="confirmPassword" type="password" />
-        <span class="danger">{{ confirmPasswordText }}</span
-        ><br />
+        <label>dorm Location: </label>
+        <input v-model="dormLocation" type="password" /><br />
+        <label>Lattitude: </label>
+        <input v-model="lattitude" type="password" />
+        <label>Longitude: </label>
+        <input v-model="longitude" type="password" /><br />
 
-        <label>First name: </label>
-        <input v-model="firstName" type="text" />
-        <label>Last name: </label>
-        <input v-model="lastName" type="text" /><br />
-
-        <label>Date of birth: </label>
-        <input v-model="dob" type="date" /><br />
-        <label>Email: </label>
-        <input v-model="email" type="text" />
-        <label>Images</label><br />
-        <label>Role</label>
+        <label>Description of the dorm: </label>
+        <textarea v-model="description" rows="5" cols="50"></textarea><br />
+        <label>ค่าน้ำ: </label>
+        <input v-model="waterRate" type="number" />
+        <label>ค่าไฟ: </label>
+        <input v-model="electricityRate" type="number" /><br />
+        <label>สิ่งอำนวยความสะดวก</label><br />
         <input
-          v-model="role"
+          v-model="bikePark"
           type="radio"
-          name="userType"
-          value="user"
-          checked
+          name="bikePark"
+          value="bikePark"
         />
-        <label>User</label>
-        <input v-model="role" type="radio" name="userType" value="dormOwner" />
-        <label>Dorm owner</label><br />
-        <button @click="submitLocal">Register</button>
+        <label>ที่จอดรถจักรยาน</label>
+        <input
+          v-model="waterRefill"
+          type="radio"
+          name="waterRefill"
+          value="waterRefill"
+        />
+        <label>ตู้กดน้ำ</label>
+        <input
+          v-model="securityCamera"
+          type="radio"
+          name="securityCamera"
+          value="securityCamera"
+        />
+        <label>กล้องวงจรปิด</label>
+        <input v-model="washer" type="radio" name="washer" value="washer" />
+        <label>เครื่องซักผ้า</label><br />
+        <input
+          v-model="airConditioner"
+          type="radio"
+          name="airConditioner"
+          value="airConditioner"
+        />
+        <label>แอร์</label>
+        <input v-model="bed" type="radio" name="bed" value="bed" />
+        <label>เตียง</label>
+        <input
+          v-model="waterHeater"
+          type="radio"
+          name="waterHeater"
+          value="waterHeater"
+        />
+        <label>เครื่องทำน้ำอุ่น</label>
+        <input v-model="fan" type="radio" name="fan" value="fan" />
+        <label>พัดลม</label>
+
+        <br />
+        <button @click="submitLocal">Submit</button>
       </form>
     </div>
   </div>
 </template>
-<script>
-export default {}
-</script>
 <style scoped>
 form {
   font-size: 1.5em;

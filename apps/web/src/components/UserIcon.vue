@@ -2,11 +2,7 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 export default {
   data() {
-    const userData = JSON.parse(localStorage.getItem('userObject')) ?? {
-      userImage: '',
-      userName: 'Please Login',
-      role: '',
-    }
+    const userData = JSON.parse(localStorage.getItem('userObject'))
     return {
       userImage: userData?.userImage,
       userName: userData?.userName,
@@ -29,6 +25,7 @@ export default {
     },
     logoutFunction() {
       localStorage.removeItem('userObject')
+      this.$router.go()
     },
     profileFunction() {
       this.$router.push('/users/me')
