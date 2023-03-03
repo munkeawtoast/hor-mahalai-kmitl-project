@@ -23,7 +23,7 @@ const router = createRouter({
     {
       path: '/dorms/new',
       name: 'dorm-create',
-      // component: () => import('../views/DormForm.vue')
+      component: () => import('../views/DormForm.vue'),
       meta: {
         requireDormOwnerRole: true,
         title: 'เพิ่มหอของคุณ',

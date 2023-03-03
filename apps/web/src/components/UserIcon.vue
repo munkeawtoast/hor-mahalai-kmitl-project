@@ -2,10 +2,15 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 export default {
   data() {
-    const userData = JSON.parse(localStorage.getItem('userObject'))
+    const userData = JSON.parse(localStorage.getItem('userObject')) ?? {
+      userImage: '',
+      userName: 'Please Login',
+      role: '',
+    }
     return {
-      userImage: userData.userImage,
-      userName: userData.userName,
+      userImage: userData?.userImage,
+      userName: userData?.userName,
+      role: userData?.role,
       clicked: false,
     }
   },
@@ -27,6 +32,9 @@ export default {
     },
     profileFunction() {
       this.$router.push('/users/me')
+    },
+    addDormFunction() {
+      this.$router.push('/dorms/new')
     },
   },
   components: {
@@ -51,8 +59,13 @@ export default {
       <div class="dropdown-profile">
         <img :src="userImage" @click="profileFunction" class="profile-images" />
         <span @click="profileFunction">{{ userName }}</span>
+        <span @click="profileFunction">{{ role }}</span>
       </div>
-      <div class="dropdown-location" @click="profileFunction">
+      <div
+        v-show="userData != []"
+        class="dropdown-location"
+        @click="profileFunction"
+      >
         <FontAwesomeIcon :icon="['fa-solid', 'fa-location-dot']">
         </FontAwesomeIcon>
         <span> รายชื่อที่พินไว้</span><br />
@@ -64,6 +77,9 @@ export default {
         <button @click="loginFunction">Login</button>
         <button @click="registerFunction">Register</button>
         <button @click="logoutFunction">Logout</button>
+        <button @click="addDormFunction" v-show="role === 'dorm-owner'">
+          Add dorm
+        </button>
       </div>
     </div>
   </div>
