@@ -51,6 +51,7 @@ export default {
   display: flex;
   align-items: center;
   padding: 0.5em 1em;
+  width: fit-content;
 }
 input[type='text'] {
   all: unset;

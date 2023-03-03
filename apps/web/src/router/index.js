@@ -8,17 +8,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
-      meta: {
-        title: 'หน้าหลัก',
-      },
     },
     {
       path: '/dorms',
       name: 'dorms-listing',
       // component: () => import('../views/DormListing.vue'),
-      meta: {
-        title: 'รายการหอ',
-      },
     },
     {
       path: '/dorms/new',
@@ -26,7 +20,6 @@ const router = createRouter({
       component: () => import('../views/DormForm.vue'),
       meta: {
         requireDormOwnerRole: true,
-        title: 'เพิ่มหอของคุณ',
       },
     },
     {
@@ -73,11 +66,6 @@ const router = createRouter({
       props: true,
     },
   ],
-})
-
-router.beforeEach((to, from) => {
-  if (to.requireDormOwnerRole) {
-  }
 })
 
 export default router
