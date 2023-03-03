@@ -16,7 +16,9 @@ export default {
   <NavBar />
   <div class="container">
     <SideBar />
-    <RouterView />
+    <div class="inner">
+      <RouterView />
+    </div>
   </div>
 </template>
 
@@ -24,5 +26,10 @@ export default {
 .container {
   width: 100vw;
   position: relative;
+  display: flex;
+}
+.inner {
+  margin: 0;
+  width: 100%;
 }
 </style>
