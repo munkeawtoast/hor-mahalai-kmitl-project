@@ -43,6 +43,9 @@ header.navbar {
   padding: 0 40px;
   width: 100vw;
 }
+a {
+  text-decoration: none;
+}
 .logo {
   display: flex;
   align-items: center;
@@ -62,6 +65,4 @@ header.navbar {
 .right {
   display: flex;
 }
-
-
 </style>

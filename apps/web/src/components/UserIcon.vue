@@ -1,7 +1,11 @@
 <script>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 export default {
   data() {
+    const userData = JSON.parse(localStorage.getItem('userObject'))
     return {
+      userImage: userData.userImage,
+      userName: userData.userName,
       clicked: false,
     }
   },
@@ -12,6 +16,21 @@ export default {
         this.clicked = !this.clicked
       }
     },
+    loginFunction() {
+      this.$router.push('/login')
+    },
+    registerFunction() {
+      this.$router.push('/register')
+    },
+    logoutFunction() {
+      localStorage.removeItem('userObject')
+    },
+    profileFunction() {
+      this.$router.push('/users/me')
+    },
+  },
+  components: {
+    FontAwesomeIcon,
   },
 }
 </script>
@@ -28,7 +47,25 @@ export default {
     >
       <div class="usericon--letter">ห</div>
     </button>
-    <div class="drop-down" v-show="clicked"></div>
+    <div class="drop-down" v-show="clicked">
+      <div class="dropdown-profile">
+        <img :src="userImage" @click="profileFunction" class="profile-images" />
+        <span @click="profileFunction">{{ userName }}</span>
+      </div>
+      <div class="dropdown-location" @click="profileFunction">
+        <FontAwesomeIcon :icon="['fa-solid', 'fa-location-dot']">
+        </FontAwesomeIcon>
+        <span> รายชื่อที่พินไว้</span><br />
+        <FontAwesomeIcon :icon="['fa-solid', 'fa-location-dot']">
+        </FontAwesomeIcon>
+        <span> รายชื่อที่พินไว้</span>
+      </div>
+      <div class="dropdown-button">
+        <button @click="loginFunction">Login</button>
+        <button @click="registerFunction">Register</button>
+        <button @click="logoutFunction">Logout</button>
+      </div>
+    </div>
   </div>
 </template>
 <style scoped>
@@ -62,9 +99,34 @@ export default {
   top: 100;
   right: 0;
   clip-path: path('m 0 10 L 8 2 Q 10 0 10 4 L 10 10 z'); */
-  width: 200px;
+  width: 300px;
   height: 200px;
+  padding: 12px;
+  transform: translateX(-260px) translateY(5px);
+  border-radius: 22px;
   background-color: blanchedalmond;
+  border-color: black;
+}
+.profile-images {
+  border-radius: 12px;
+  width: 64px;
+  height: 64px;
+}
+.dropdown-profile {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+  border-bottom: 1px solid black;
+  cursor: pointer;
+}
+.dropdown-location {
+  border-bottom: 1px solid black;
+}
+.dropdown-button {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
 }
 /* .drop-down::before {
   width: 10px;

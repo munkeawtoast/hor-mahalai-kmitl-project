@@ -51,6 +51,9 @@ export default {
         alert('โปรดกรอกข้อมูลให้ครบ')
       }
     },
+    backFunction() {
+      this.$router.push({ path: '/' })
+    },
   },
   watch: {
     confirmPassword(newConfirmPassword, oldConfirmPassword) {
@@ -73,6 +76,7 @@ export default {
 <template>
   <div id="regis">
     <div class="container">
+      <p class="backButton" @click="backFunction">&#60; Go back</p>
       <IconLogo></IconLogo>
       <form @submit.prevent="onSubmit">
         <label>Username: </label>
@@ -133,6 +137,16 @@ button {
 
   transform: translateY(-10vh);
   height: 100vh;
+}
+.backButton {
+  position: absolute;
+  font-size: 2em;
+  top: 100px;
+  left: -650px;
+  cursor: pointer;
+}
+.backButton:hover {
+  color: red;
 }
 
 .danger {
