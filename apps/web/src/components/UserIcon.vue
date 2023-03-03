@@ -62,7 +62,7 @@ export default {
         <span @click="profileFunction">{{ role }}</span>
       </div>
       <div
-        v-show="userData != []"
+        v-show="userName != 'Please Login'"
         class="dropdown-location"
         @click="profileFunction"
       >
@@ -76,7 +76,9 @@ export default {
       <div class="dropdown-button">
         <button @click="loginFunction">Login</button>
         <button @click="registerFunction">Register</button>
-        <button @click="logoutFunction">Logout</button>
+        <button @click="logoutFunction" v-show="userName != 'Please Login'">
+          Logout
+        </button>
         <button @click="addDormFunction" v-show="role === 'dorm-owner'">
           Add dorm
         </button>
