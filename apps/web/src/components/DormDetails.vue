@@ -56,12 +56,12 @@ export default {
   </div>
   <div class="questions--outer">
     <div class="questions--text">คำถาม</div>
-    <div class="question--container" v-for="ques in " >
+    <div class="question--container" v-for="ques in 5" >
       <div class="question--question">
         <div class="question--left"></div>
         <div class="question--row">
           <img class="question--profile_image" src="" alt="user" />
-          <div class="question--user_name">{{ generateUsers(dormData.id * 4, dormData.id * 4 +3) }}</div>
+          <div class="question--user_name">AAA</div>
         </div>
         <div class="question--title">Lorem</div>
         <div class="question--description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus aut culpa est quasi, possimus voluptatem facilis ut voluptas numquam doloremque autem fuga voluptates voluptatum in explicabo labore consequuntur porro sunt!</div>
