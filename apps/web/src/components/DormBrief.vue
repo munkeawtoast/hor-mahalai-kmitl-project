@@ -35,11 +35,11 @@ export default {
         </div>
         <div class="dorm--secondary dorm--star"></div>
       </div>
-      <div class="dorm--row">
-        <RouterLink :to="`/dorms/${dormData.id}`">
+      <RouterLink :to="`/dorms/${dormData.id}`">
+        <div class="dorm--row">
           <div class="dorm--name">หอ {{ dormData.name }}</div>
-        </RouterLink>
-      </div>
+        </div>
+      </RouterLink>
       <div class="dorm--row">
         ราตา {{ dormData.price.from }} - {{ dormData.price.to }}
       </div>

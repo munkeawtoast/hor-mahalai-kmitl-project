@@ -1,5 +1,7 @@
 <script>
 import DormDetails from '../components/DormDetails.vue'
+import { generateDorms } from '@helper/data-gen'
+
 export default {
   props: {
     dormID: {
@@ -7,12 +9,16 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      dormData: generateDorms(this.dormID, this.dormID + 1)[0],
+    }
+  },
   components: {
     DormDetails,
   },
 }
 </script>
 <template>
-  {{ dormID }}
-  <DormDetails :dormData="{}" />
+  <DormDetails :dormData="dormData" />
 </template>

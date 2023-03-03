@@ -5,7 +5,7 @@
     "lastName": "Robel",
     "userName": "Joanne.Robel",
     "email": "user0@mail.com",
-    "password": 1234,
+    "password": "1234",
     "dob": "1989-04-07T09:00:59.792Z",
     "role": "dorm-owner",
     "userImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/81.jpg"
@@ -16,7 +16,7 @@
     "lastName": "Price",
     "userName": "Jalyn_Price",
     "email": "user1@mail.com",
-    "password": 1234,
+    "password": "1234",
     "dob": "1993-11-27T06:02:22.116Z",
     "role": "student",
     "userImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/818.jpg"
@@ -27,7 +27,7 @@
     "lastName": "Wolf",
     "userName": "Greg.Wolf2",
     "email": "user2@mail.com",
-    "password": 1234,
+    "password": "1234",
     "dob": "1996-04-10T02:53:40.126Z",
     "role": "moderator",
     "userImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/574.jpg"
@@ -38,7 +38,7 @@
     "lastName": "Zulauf",
     "userName": "Kelvin_Zulauf",
     "email": "user3@mail.com",
-    "password": 1234,
+    "password": "1234",
     "dob": "1996-10-30T12:16:03.816Z",
     "role": "dorm-owner",
     "userImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1023.jpg"
@@ -49,7 +49,7 @@
     "lastName": "Boehm",
     "userName": "Ted_Boehm",
     "email": "user4@mail.com",
-    "password": 1234,
+    "password": "1234",
     "dob": "1993-01-25T02:45:48.625Z",
     "role": "student",
     "userImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/612.jpg"

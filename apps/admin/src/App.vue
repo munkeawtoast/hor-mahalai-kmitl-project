@@ -1,11 +1,13 @@
 <script>
 import { RouterView } from 'vue-router'
 import NavBar from './components/NavBar.vue'
+import SideBar from './components/SideBar.vue'
 
 export default {
   components: {
     RouterView,
     NavBar,
+    SideBar,
   },
 }
 </script>
@@ -13,20 +15,14 @@ export default {
 <template>
   <NavBar />
   <div class="container">
+    <SideBar />
     <RouterView />
   </div>
 </template>
 
 <style scoped>
 .container {
-  width: 1024px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-@media (width <= 1366) {
-  .container {
-    width: 100%;
-  }
+  width: 100vw;
+  position: relative;
 }
 </style>
