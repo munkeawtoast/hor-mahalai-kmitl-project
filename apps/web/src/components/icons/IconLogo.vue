@@ -35,7 +35,9 @@ export default {
 }
 
 .logo--text,
-.logo--text:visited,
+.logo--text:visited {
+  text-decoration: none;
+}
 .logo--text:hover {
   text-decoration: none;
 }

@@ -24,9 +24,7 @@ export default {
 </script>
 <template>
   <div class="dorm--container">
-    <RouterLink
-      :to="`/dorms/${dormData.id}`"
-    >
+    <RouterLink :to="`/dorms/${dormData.id}`">
       <img :src="dormData.images[0]" class="dorm--image" alt="" />
     </RouterLink>
     <div class="dorm">
@@ -38,7 +36,9 @@ export default {
         <div class="dorm--secondary dorm--star"></div>
       </div>
       <div class="dorm--row">
-        <div class="dorm--name">หอ {{ dormData.name }}</div>
+        <RouterLink :to="`/dorms/${dormData.id}`">
+          <div class="dorm--name">หอ {{ dormData.name }}</div>
+        </RouterLink>
       </div>
       <div class="dorm--row">
         ราตา {{ dormData.price.from }} - {{ dormData.price.to }}

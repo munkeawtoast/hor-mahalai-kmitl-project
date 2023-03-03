@@ -38,11 +38,15 @@ export default {
         }
       })
     },
+    backFunction() {
+      this.$router.push({ path: '/' })
+    },
   },
 }
 </script>
 <template>
   <div class="container">
+    <p class="backButton" @click="backFunction">&#60; Go back</p>
     <IconLogo></IconLogo>
     <form @submit.prevent="onSubmit">
       <label>Username or Email</label><br />
@@ -88,6 +92,16 @@ button {
 .errorText {
   font-weight: normal;
   font-size: 1rem;
+  color: red;
+}
+.backButton {
+  position: absolute;
+  font-size: 2em;
+  top: 100px;
+  left: -400px;
+  cursor: pointer;
+}
+.backButton:hover {
   color: red;
 }
 a:visited {
