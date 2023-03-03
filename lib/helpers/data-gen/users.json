@@ -29,7 +29,7 @@
     "email": "user2@mail.com",
     "password": 1234,
     "dob": "1996-04-10T02:53:40.126Z",
-    "role": "student",
+    "role": "moderator",
     "userImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/574.jpg"
   },
   {
