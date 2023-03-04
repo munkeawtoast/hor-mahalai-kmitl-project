@@ -100,6 +100,8 @@ importers:
       eslint: ^8.5.0
       eslint-plugin-vue: ^8.2.0
       prettier: ^2.5.1
+      primeicons: ^6.0.1
+      primevue: ^3
       vite: ^2.8.4
       vue: ^3.2.31
       vue-router: ^4
@@ -110,6 +112,8 @@ importers:
       '@fortawesome/free-solid-svg-icons': 6.3.0
       '@fortawesome/vue-fontawesome': 3.0.3_g53m6cvcbg5vm4kvi53csl4bcu
       '@helper/data-gen': link:../../lib/helpers/data-gen
+      primeicons: 6.0.1
+      primevue: 3.23.0_lksi2hrxe57qe2yasjpvmju34y
       vue: 3.2.47
       vue-router: 4.1.6_vue@3.2.47
     devDependencies:
@@ -3227,6 +3231,20 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true
+
+  /primeicons/6.0.1:
+    resolution: {integrity: sha512-KDeO94CbWI4pKsPnYpA1FPjo79EsY9I+M8ywoPBSf9XMXoe/0crjbUK7jcQEDHuc0ZMRIZsxH3TYLv4TUtHmAA==}
+    dev: false
+
+  /primevue/3.23.0_lksi2hrxe57qe2yasjpvmju34y:
+    resolution: {integrity: sha512-WyJwvVRJbuCPAId3qDwQVPXgOli4gc9yxdZZyY/3Ml0/asHHH3LR7+MMvjIHXg/AN+XX5SBVPPJkObxP8cJuaw==}
+    peerDependencies:
+      primeicons: ^5.0.0 || ^6.0.0
+      vue: ^3.0.0
+    dependencies:
+      primeicons: 6.0.1
+      vue: 3.2.47
+    dev: false
 
   /prop-types/15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
