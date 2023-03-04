@@ -1,15 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
-@import url('primevue/resources/primevue.min.css');
-@import url('primeicons/primeicons.css');
-@import url('primevue/resources/themes/lara-light-teal/theme.css');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
-:root {
-  font-size: 16px;
-}
 
 *,
 *::before,
@@ -25,7 +17,7 @@ body {
   background: var(--color-background);
   transition: color 0.5s, background-color 0.5s;
   line-height: 1.6;
-  font-size: 15px;
+  font-size: 16px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

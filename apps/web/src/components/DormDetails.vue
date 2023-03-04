@@ -24,21 +24,12 @@ export default {
     DormImageCarousel,
     FontAwesomeIcon,
     Image,
-    Galleria
+    Galleria,
   },
 }
 </script>
 
 <template>
-
-  <Galleria :circular="true" :value="dormData.images" :show-item-navigators="true">
-    <template #item="image">
-      <Image :src="image.item" style="width: 100%"/>
-    </template>
-    <!-- <template #thumbnail="image">
-      <img :src="image.item" />
-    </template> -->
-  </Galleria>
   <!-- <img v-for="(img, index) in dormData.images" :src="img"  /> -->
   <!-- <div class="img_viewer">
     <DormImageCarousel :images="dormData.images" style="margin-top: 40px;" />
@@ -70,7 +61,7 @@ export default {
   </div>
   <div class="questions--outer">
     <div class="questions--text">คำถาม</div>
-    <div class="question--container" v-for="ques in 5" >
+    <div class="question--container" v-for="ques in 5">
       <div class="question--question">
         <div class="question--left"></div>
         <div class="question--row">
@@ -78,7 +69,12 @@ export default {
           <div class="question--user_name">AAA</div>
         </div>
         <div class="question--title">Lorem</div>
-        <div class="question--description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus aut culpa est quasi, possimus voluptatem facilis ut voluptas numquam doloremque autem fuga voluptates voluptatum in explicabo labore consequuntur porro sunt!</div>
+        <div class="question--description">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus aut
+          culpa est quasi, possimus voluptatem facilis ut voluptas numquam
+          doloremque autem fuga voluptates voluptatum in explicabo labore
+          consequuntur porro sunt!
+        </div>
       </div>
     </div>
   </div>
