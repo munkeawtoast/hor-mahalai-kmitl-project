@@ -2,6 +2,8 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import DormImageCarousel from './DormImageCarousel.vue'
 import { generateUsers } from '@helper/data-gen'
+import Image from 'primevue/image'
+import Galleria from 'primevue/galleria'
 
 export default {
   props: {
@@ -21,14 +23,26 @@ export default {
   components: {
     DormImageCarousel,
     FontAwesomeIcon,
+    Image,
+    Galleria
   },
 }
 </script>
 
 <template>
-  <div class="img_viewer">
+
+  <Galleria :circular="true" :value="dormData.images" :show-item-navigators="true">
+    <template #item="image">
+      <Image :src="image.item" style="width: 100%"/>
+    </template>
+    <!-- <template #thumbnail="image">
+      <img :src="image.item" />
+    </template> -->
+  </Galleria>
+  <!-- <img v-for="(img, index) in dormData.images" :src="img"  /> -->
+  <!-- <div class="img_viewer">
     <DormImageCarousel :images="dormData.images" style="margin-top: 40px;" />
-  </div>
+  </div> -->
   <div class="dorm--container">
     <div class="dorm--name">{{ dormData.name }}</div>
     <div class="detail--container">
