@@ -7,6 +7,13 @@ export default {
       type: Object,
       required: true,
     },
+    search: {
+      type: Object,
+      required: false,
+      default: () => {
+        return {}
+      },
+    },
   },
   data() {
     return {
@@ -14,6 +21,7 @@ export default {
         ...this.dormData.dormAmenities,
         ...this.dormData.roomAmenities,
       }),
+      rating: 8,
     }
   },
   components: {
@@ -23,79 +31,23 @@ export default {
 }
 </script>
 <template>
-  <div class="dorm--container">
-    <RouterLink :to="`/dorms/${dormData.id}`">
-      <img :src="dormData.images[0]" class="dorm--image" alt="" />
-    </RouterLink>
-    <div class="dorm">
-      <div class="dorm--row">
-        <div class="dorm--secondary">
-          <FontAwesomeIcon :icon="['fa-solid', 'fa-map-location-dot']" />
-          <span>ใกล้ม. กระบัง</span>
-        </div>
-        <div class="dorm--secondary dorm--star"></div>
+  <div
+    class="flex items-stretch overflow-hidden rounded-2xl bg-white shadow-md"
+  >
+    <img
+      :src="dormData.images[0]"
+      class="aspect-[4/3] w-72 object-cover"
+      :alt="`รูปหอพัก${dormData.name}`"
+    />
+    <div class="p-4">
+      <div class="">
+        <div>ห่าง {{ search }}</div>
+        <router-link :to="`/dorms/${dormData.id}`">
+          <div class="text-3xl font-bold">หอพัก {{ dormData.name }}</div>
+        </router-link>
+        <div class="rating"></div>
       </div>
-      <RouterLink :to="`/dorms/${dormData.id}`">
-        <div class="dorm--row">
-          <div class="dorm--name">หอ {{ dormData.name }}</div>
-        </div>
-      </RouterLink>
-      <div class="dorm--row">
-        ราตา {{ dormData.price.from }} - {{ dormData.price.to }}
-      </div>
-      <div class="dorm--row">
-        <div class="dorm--description">
-          {{ dormData.description }}
-        </div>
-      </div>
-      <div class="dorm--row">
-        <div class="dorm--secondary">
-          มี
-          <span
-            class="dorm--amenity"
-            v-for="amenity in amenities.filter(([, has]) => has)"
-          >
-            {{ amenity[0] }}
-          </span>
-        </div>
-      </div>
+      <div class="text-md"></div>
     </div>
   </div>
 </template>
-
-<style scoped>
-.dorm--container {
-  display: flex;
-  outline: 1px red solid;
-  border-radius: 16px;
-  overflow: hidden;
-  width: 800px;
-}
-
-.dorm--description {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 50ch;
-}
-
-.dorm--name {
-  font-size: 1.25em;
-}
-
-.dorm--image {
-  height: 200px;
-  aspect-ratio: 4/3;
-}
-
-.dorm--amenity {
-  padding-right: 1ch;
-}
-
-.dorm--secondary {
-}
-
-.dorm {
-  padding: 10px;
-}
-</style>

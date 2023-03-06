@@ -1,6 +1,6 @@
 <script>
-import Card from 'primevue/card'
-import InputText from 'primevue/inputtext'
+// import Card from 'primevue/card'
+// import InputText from 'primevue/inputtext'
 export default {
   components: {
     Card,

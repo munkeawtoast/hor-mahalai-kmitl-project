@@ -2,8 +2,6 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import DormImageCarousel from './DormImageCarousel.vue'
 import { generateUsers } from '@helper/data-gen'
-import Image from 'primevue/image'
-import Galleria from 'primevue/galleria'
 
 export default {
   props: {
@@ -18,70 +16,27 @@ export default {
         ...this.dormData.dormAmenities,
         ...this.dormData.roomAmenities,
       }),
+      rooms: [{ ...this.dormData }, { ...this.dormData }, { ...this.dormData }],
     }
   },
   components: {
     DormImageCarousel,
     FontAwesomeIcon,
-    Image,
-    Galleria,
   },
 }
 </script>
 
 <template>
-  <!-- <img v-for="(img, index) in dormData.images" :src="img"  /> -->
-  <!-- <div class="img_viewer">
-    <DormImageCarousel :images="dormData.images" style="margin-top: 40px;" />
-  </div> -->
-  <div class="dorm--container">
-    <div class="dorm--name">{{ dormData.name }}</div>
-    <div class="detail--container">
-      <div class="detail--description">{{ dormData.description }}</div>
-      <div class="detail--right">
-        <div
-          class="amenities--outer"
-          v-for="(amens, key) in {
-            dorm: dormData.dormAmenities,
-            room: dormData.roomAmenities,
-          }"
-        >
-          <div class="amenities--header">
-            ใน{{ key === 'dorm' ? 'หอ' : 'ห้อง' }}มี
-          </div>
-          <div class="amenities--container">
-            <div class="amenity--item" v-for="(value, key) in amens">
-              <!-- <FontAwesomeIcon icon="" /> -->
-              {{ key }}: {{ value }}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="questions--outer">
-    <div class="questions--text">คำถาม</div>
-    <div class="question--container" v-for="ques in 5">
-      <div class="question--question">
-        <div class="question--left"></div>
-        <div class="question--row">
-          <img class="question--profile_image" src="" alt="user" />
-          <div class="question--user_name">AAA</div>
-        </div>
-        <div class="question--title">Lorem</div>
-        <div class="question--description">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus aut
-          culpa est quasi, possimus voluptatem facilis ut voluptas numquam
-          doloremque autem fuga voluptates voluptatum in explicabo labore
-          consequuntur porro sunt!
-        </div>
+  <DormImageCarousel :images="dormData.images" class="my-4" />
+  <div class="my-4 w-full rounded-xl bg-white p-4">
+    <div class="flex w-full justify-between align-bottom">
+      <h1 class="text-2xl font-bold text-black">Title</h1>
+      <div class="gap-1 align-middle text-xl text-primary-soft">
+        <FontAwesomeIcon icon="fa-solid fa-star" class="mr-2" />
+        <span class="text-primary">20</span>
+        <span class="font-light text-lesser-gray">/</span>
+        <span>10</span>
       </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-.dorm--name {
-  font-size: 2em;
-}
-</style>

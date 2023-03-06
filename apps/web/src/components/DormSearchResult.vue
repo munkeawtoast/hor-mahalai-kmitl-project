@@ -1,5 +1,5 @@
 <script>
-import DormBrief from './DormBrief.vue'
+import DormBrief from 'components/DormBrief.vue'
 export default {
   props: {
     queryText: {
@@ -19,10 +19,10 @@ export default {
   watch: {
     queryText(newText) {
       if (newText === '') {
-        this.resultInSearch = dorms
+        this.resultInSearch = this.dorms
       } else {
         this.resultInSearch = this.dorms.filter((dorm) => {
-          return dorm.name.contains(query)
+          return dorm.name.contains(this.queryText)
         })
       }
     },
@@ -35,7 +35,11 @@ export default {
 
 <template>
   <div class="dorms--top"></div>
-  <DormBrief v-for="dorm in resultInSearch" :dormData="dorm" />
+  <DormBrief
+    v-for="dorm in resultInSearch"
+    :dorm-data="dorm"
+    :key="dorm.name"
+  />
 </template>
 
 <style scoped></style>

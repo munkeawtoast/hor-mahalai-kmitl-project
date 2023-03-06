@@ -5,40 +5,17 @@ export default {
     FontAwesomeIcon,
   },
   props: {
-    size: String,
+    size: {
+      type: String,
+      default: '2xl',
+    },
     teztSize: String,
   },
 }
 </script>
 <template>
-  <div class="logo">
-    <FontAwesomeIcon :icon="['fa-solid', 'fa-city']" :size="size" />
-    <div class="logo--text">หอมหาลัย</div>
+  <div class="inline-block align-baseline text-2xl text-primary">
+    <FontAwesomeIcon icon="fa-solid fa-city" :size="size" />
+    <span class="align-middle text-4xl font-bold">หอมหาลัย</span>
   </div>
 </template>
-<style scoped>
-.logo {
-  display: flex;
-  align-items: center;
-  color: var(--color-primary);
-  font-size: 1.5rem;
-}
-
-.logo--text {
-  padding-left: 2px;
-  font-weight: 800;
-  font-size: 35px;
-  transform: translateY(2px);
-  font-weight: 800;
-  display: inline;
-  text-decoration: none;
-}
-
-.logo--text,
-.logo--text:visited {
-  text-decoration: none;
-}
-.logo--text:hover {
-  text-decoration: none;
-}
-</style>
