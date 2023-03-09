@@ -6,7 +6,7 @@ import { Quasar } from 'quasar'
 import '@quasar/extras/fontawesome-v6/fontawesome-v6.css'
 import '@quasar/extras/material-icons/material-icons.css'
 import 'quasar/dist/quasar.css'
-import '../public/base.css'
+import './assets/base.css'
 
 
 const app = createApp(App)

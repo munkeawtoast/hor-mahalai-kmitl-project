@@ -1,4 +1,33 @@
-<script></script>
+<script>
+const items = [
+  {
+    title: 'จัดการหอพัก',
+    caption: 'จัดการหอพัก และห้องพักในแต่ละหอ',
+    icon: 'apartment',
+    to: '/dorms',
+  },
+  {
+    title: 'จัดการผู้ใช้',
+    caption: 'จัดการผู้ใช้ทั้งหมดในระบบ',
+    icon: 'people',
+    to: '/users',
+  },
+  {
+    title: 'ดูรายงานปัญหา',
+    caption: 'ดูรายงานปัญหาที่ผู้ใช้แจ้งมา',
+    icon: 'error',
+    to: '/reports',
+  },
+]
+
+export default {
+  data() {
+    return {
+      items,
+    }
+  },
+}
+</script>
 <template>
   <div
     class="hor-hero full-width text-center justify-center q-pa-xl text-white"
@@ -8,42 +37,22 @@
       <h2 class="text-bold">หน้าแอดมินหอมหาลัย</h2>
     </div>
   </div>
-  <div class="full-width row justify-around text-center q-pa-xl gap-y-20 wrap">
-    <router-link to="/dorms" class=" col-auto-1 col-12 col-md-3 q-my-md ">
-      <q-card class="q-pa-lg">
-        <q-card-section>
-          <q-icon name="apartment" size="4rem" />
-        </q-card-section>
-        <q-card-section>
-          <div class="text-h6">จัดการหอพัก</div>
-          <div class="text-caption text-grey">
-            จัดการหอพัก และห้องพักในแต่ละหอ
-          </div>
-        </q-card-section>
-      </q-card>
-    </router-link>
-    <router-link to="/users" class="q-my-md col-auto-1 col-12 col-md-3">
-      <q-card class="q-pa-lg">
-        <q-card-section>
-          <q-icon name="people" size="4rem" />
-        </q-card-section>
-        <q-card-section>
-          <div class="text-h6">จัดการผู้ใช้</div>
-          <div class="text-caption text-grey">จัดการผู้ใช้ทั้งหมดในระบบ</div>
-        </q-card-section>
-      </q-card>
-    </router-link>
-    <router-link to="/reports" class="q-my-md col-auto-1 col-12 col-md-3">
-      <q-card class="q-pa-lg">
-        <q-card-section>
-          <q-icon name="error" size="4rem" />
-        </q-card-section>
-        <q-card-section>
-          <div class="text-h6">ดูรายงานปัญหา</div>
-          <div class="text-caption text-grey">ดูรายงานปัญหาที่ผู้ใช้แจ้งมา</div>
-        </q-card-section>
-      </q-card>
-    </router-link>
+  <div class="full-width row justify-around text-center q-pa-xl gap-y-20 wrap items-stretch">
+    <template v-for="(el, index) in items" :key="index">
+      <router-link :to="el.to" class="col-auto-1 col-12 col-md-3 q-my-md">
+        <q-card class="q-pa-lg self-stretch">
+          <q-card-section>
+            <q-icon :name="el.icon" size="4rem" />
+          </q-card-section>
+          <q-card-section>
+            <div class="text-h6">{{ el.title }}</div>
+            <div class="text-caption text-grey">
+              {{ el.caption }}
+            </div>
+          </q-card-section>
+        </q-card>
+      </router-link>
+    </template>
   </div>
 </template>
 <style scoped>
@@ -72,5 +81,7 @@ a {
   cursor: pointer;
 }
 
-
+.q-my-md {
+  margin: 1rem 0;
+}
 </style>
