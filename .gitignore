@@ -8,6 +8,9 @@ node_modules
 # testing
 coverage
 
+# out
+dist/
+
 # next.js
 .next/
 out/

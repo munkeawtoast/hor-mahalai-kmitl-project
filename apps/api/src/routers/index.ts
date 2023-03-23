@@ -3,6 +3,6 @@ import homeRouter from './home'
 
 const router = Router()
 
-router.use()
+router.use(homeRouter)
 
 export default router
