@@ -1,8 +1,8 @@
 import { Router } from 'express'
 
-const homeRouter = Router()
+const homeRoute = Router()
 
-homeRouter
+homeRoute
   .route('/')
   .get((req, res) => {
     res.status(200).send('Hello World!')
@@ -11,4 +11,4 @@ homeRouter
     res.status(405).send('Method not allowed')
   })
 
-export default homeRouter
+export default homeRoute
