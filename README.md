@@ -10,3 +10,6 @@ https://docs.gitlab.com/ee/user/packages/workflows/working_with_monorepos.html
 ## Docker
 
 https://github.com/vercel/turbo/tree/main/examples/with-docker
+
+# API
+follow https://docs.modrinth.com/api-spec
