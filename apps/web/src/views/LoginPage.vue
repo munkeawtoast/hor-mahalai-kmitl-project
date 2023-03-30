@@ -31,10 +31,10 @@ export default {
             localStorage.setItem('userObject', JSON.stringify(loginData))
             this.$router.push({ path: '/' })
           } else {
-            this.errorText = 'wrong username or password'
+            this.errorText = 'wrong username or password!!'
           }
         } else {
-          this.errorText = 'wrong username or password'
+          this.errorText = 'wrong username or password!!'
         }
       })
     },
@@ -45,69 +45,39 @@ export default {
 }
 </script>
 <template>
-  <div class="container">
-    <p class="backButton" @click="backFunction">&#60; Go back</p>
-    <IconLogo></IconLogo>
-    <form @submit.prevent="onSubmit">
-      <label>Username or Email</label><br />
-      <input v-model="ID" type="text" /><br />
-      <label>Password</label><br />
-      <input v-model="password" type="password" /><br />
-      <button @click="checkUser">Login</button>
-      <p class="errorText">
+  <div class="flex h-screen flex-col items-center justify-center">
+    <p
+      class="absolute top-4 left-4 cursor-pointer hover:text-danger"
+      @click="backFunction"
+    >
+      &#60; Go back
+    </p>
+    <form
+      class="flex flex-col items-center gap-4 rounded-xl bg-white p-48"
+      @submit.prevent="onSubmit"
+    >
+      <IconLogo></IconLogo>
+      <label>Username or Email</label>
+      <input class="indent-1" v-model="ID" type="text" />
+      <label>Password</label>
+      <input
+        class="bg-lesser-gray indent-1"
+        v-model="password"
+        type="password"
+      />
+      <button class="w-48 rounded-md bg-lesser-gray p-2" @click="checkUser">
+        Login
+      </button>
+      <p class="text-danger">
         {{ errorText }}
       </p>
+      <p>
+        Don't have an account yet?
+        <RouterLink class="hover:text-danger" to="/register"
+          >register here!</RouterLink
+        >
+      </p>
     </form>
-    <p>
-      Don't have an account yet?
-      <RouterLink to="/register">register!</RouterLink>
-    </p>
   </div>
 </template>
-<style scoped>
-form {
-  text-align: center;
-  font-size: 1.5em;
-  font-weight: bold;
-}
-button {
-  background-color: unset;
-  margin: 0.5em 0 0.5em 0;
-  padding: 0.5em 6em;
-  border-radius: 10px;
-  cursor: pointer;
-}
-/* a{
-  all:
-} */
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  transform: translateY(-10vh);
-  height: 100vh;
-}
-.errorText {
-  font-weight: normal;
-  font-size: 1rem;
-  color: red;
-}
-.backButton {
-  position: absolute;
-  font-size: 2em;
-  top: 100px;
-  left: -400px;
-  cursor: pointer;
-}
-.backButton:hover {
-  color: red;
-}
-a:visited {
-  color: blue;
-}
-a:hover {
-  color: red;
-}
-</style>
+<style scoped></style>

@@ -66,11 +66,11 @@ const router = createRouter({
       name: 'user-details',
       props: true,
     },
-    {
-      path: '/test',
-      name: 'test',
-      component: () => import('../views/TestPage.vue'),
-    },
+    // {
+    //   path: '/test',
+    //   name: 'test',
+    //   component: () => import('../views/TestPage.vue'),
+    // },
     {
       path: '/:pathMatch(.*)*',
       name: '404',
