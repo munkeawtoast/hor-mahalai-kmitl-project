@@ -11,6 +11,7 @@
     "format": "prettier --write src"
   },
   "dependencies": {
+    "@config/tailwind-config": "workspace:^1.0.0",
     "@fawmi/vue-google-maps": "^0.9.79",
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
     "@fortawesome/free-brands-svg-icons": "^6.3.0",
