@@ -1,7 +1,7 @@
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 export default {
-  props: ['modelValue'],
+  props: ['modelValue', 'faIcon', 'inputPlaceholder', 'inputType'],
   emits: ['update:modelValue'],
   components: {
     FontAwesomeIcon,
@@ -9,9 +9,11 @@ export default {
 }
 </script>
 <template>
-  <div class="border border-gray bg-white focus-within:border-danger">
-    <span class="border-r border-gray">
-      <FontAwesomeIcon icon="fa-solid fa-user"></FontAwesomeIcon>
+  <div
+    class="flex flex-1 border border-gray bg-white focus-within:border-danger"
+  >
+    <span class="p-2">
+      <FontAwesomeIcon :icon="faIcon" fixed-width></FontAwesomeIcon>
     </span>
     <input
       :value="modelValue"
@@ -20,9 +22,9 @@ export default {
           $emit('update:modelValue', $event.target.value)
         }
       "
-      type="text"
-      placeholder="Username"
-      class="indent-1 focus:border-danger"
+      :type="inputType"
+      :placeholder="inputPlaceholder"
+      class="flex-1 border-l border-gray indent-1 outline-none focus:border-danger"
     />
   </div>
 </template>

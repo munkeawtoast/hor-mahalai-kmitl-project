@@ -26,35 +26,35 @@ export default {
   methods: {
     submitLocal() {
       console.log(this.userName)
-      // if (
-      //   [
-      //     this.userName,
-      //     this.password,
-      //     this.confirmPassword,
-      //     this.firstName,
-      //     this.lastName,
-      //     this.dob,
-      //     this.email,
-      //     this.role,
-      //   ].every((el) => el !== '')
-      // ) {
-      //   let userInfo = {
-      //     id: 5,
-      //     userName: this.userName,
-      //     firstName: this.firstName,
-      //     lastName: this.lastName,
-      //     dob: this.dob,
-      //     email: this.email,
-      //     userImages: this.images,
-      //     role: this.role,
-      //   }
-      //   let userObject = JSON.stringify(userInfo)
-      //   localStorage.setItem('userObject', userObject)
+      if (
+        [
+          this.userName,
+          this.password,
+          this.confirmPassword,
+          this.firstName,
+          this.lastName,
+          this.dob,
+          this.email,
+          this.role,
+        ].every((el) => el !== '')
+      ) {
+        let userInfo = {
+          id: 5,
+          userName: this.userName,
+          firstName: this.firstName,
+          lastName: this.lastName,
+          dob: this.dob,
+          email: this.email,
+          userImages: this.images,
+          role: this.role,
+        }
+        let userObject = JSON.stringify(userInfo)
+        localStorage.setItem('userObject', userObject)
 
-      //   this.$router.push({ path: '/' })
-      // } else {
-      //   alert('โปรดกรอกข้อมูลให้ครบ')
-      // }
+        this.$router.push({ path: '/' })
+      } else {
+        alert('โปรดกรอกข้อมูลให้ครบ')
+      }
     },
     backFunction() {
       this.$router.push({ path: '/' })
@@ -88,93 +88,63 @@ export default {
     </p>
     <IconLogo></IconLogo>
     <form class="flex flex-col gap-4 p-8 text-lg" @submit.prevent="onSubmit">
-      <p>Register</p>
-      <!-- <div class="border border-gray bg-white">
-        <span class="border-r border-gray">
-          <FontAwesomeIcon icon="fa-solid fa-user"></FontAwesomeIcon>
-        </span>
-        <input
-          type="text"
-          v-model="userName"
-          placeholder="Username"
-          class="indent-1"
-        />
-      </div> -->
-      <TextInput v-model="userName"></TextInput>
-      <!-- <div>
-        <label>Password: </label>
-        <input v-model="password" type="password" />
-        <label>Confirm password: </label>
-        <input v-model="confirmPassword" type="password" />
-        <span class="danger">{{ confirmPasswordText }}</span>
+      <p class="text-center">Register</p>
+      <TextInput
+        faIcon="fa-solid fa-user"
+        inputPlaceholder="Username"
+        inputType="text"
+        v-model="userName"
+      ></TextInput>
+      <TextInput
+        faIcon="fa-solid fa-lock"
+        inputPlaceholder="Password"
+        inputType="password"
+        v-model="password"
+      ></TextInput>
+      <TextInput
+        faIcon="fa-solid fa-lock"
+        inputPlaceholder="Confirm password"
+        inputType="password"
+        v-model="confirmPassword"
+      >
+      </TextInput>
+      <div class="flex flex-row gap-8">
+        <TextInput
+          faIcon="fa-solid fa-address-card "
+          inputPlaceholder="First Name"
+          inputType="text"
+          v-model="firstName"
+        >
+        </TextInput>
+        <TextInput
+          faIcon="fa-solid fa-address-card"
+          inputPlaceholder="Last Name"
+          inputType="text"
+          v-model="lastName"
+        >
+        </TextInput>
       </div>
-      <div>
-        <label>First name: </label>
-        <input v-model="firstName" type="text" />
-        <label>Last name: </label>
-        <input v-model="lastName" type="text" />
+      <div class="flex flex-row gap-8">
+        <TextInput
+          faIcon="fa-solid fa-calendar-days"
+          inputPlaceholder="Date of birth"
+          inputType="date"
+          v-model="dob"
+        >
+        </TextInput>
+        <TextInput
+          faIcon="fa-solid fa-envelope"
+          inputPlaceholder="Email"
+          inputType="email"
+          v-model="email"
+        >
+        </TextInput>
       </div>
-      <div>
-        <label>Date of birth: </label>
-        <input v-model="dob" type="date" />
-        <label>Email: </label>
-        <input v-model="email" type="text" />
-      </div>
-      <div>
-        <label>Images</label>
-        <label>Role</label>
-        <input
-          v-model="role"
-          type="radio"
-          name="userType"
-          value="user"
-          checked
-        />
-        <label>User</label>
-        <input v-model="role" type="radio" name="userType" value="dormOwner" />
-        <label>Dorm owner</label><br />
-      </div> -->
+      <span class="danger">{{ confirmPasswordText }}</span>
       <button class="w-48 rounded-md bg-lesser-gray p-2" @click="submitLocal">
         Register
       </button>
     </form>
   </div>
 </template>
-<style scoped>
-/* form {
-  font-size: 1.5em;
-  font-weight: bold;
-}
-button {
-  background-color: unset;
-  margin: 0.5em 0 0.5em 0;
-  padding: 0.5em 6em;
-  border-radius: 10px;
-}
-/* a{
-  all:
-} */
-/* .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  transform: translateY(-10vh);
-  height: 100vh;
-}
-.backButton {
-  position: absolute;
-  font-size: 2em;
-  top: 100px;
-  left: -650px;
-  cursor: pointer;
-}
-.backButton:hover {
-  color: red;
-}
-
-.danger {
-  color: red;
-} */
-</style>
+<style scoped></style>
