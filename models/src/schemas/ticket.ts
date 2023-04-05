@@ -1,51 +1,44 @@
 import { z } from 'zod'
-import { DormRequestSchema } from './dorm'
-import { DescriptionSchema, TitleSchema } from './format'
-import { UserIdSchema } from './user'
+import { DormRequest } from './dorm'
+import { Description, Title } from './format'
+import { UserId } from './user'
 
-const GenericTicketTypeSchema = z.enum(['web', 'other'])
-
-const TicketSchema = z.object({
-  author: UserIdSchema,
-  title: TitleSchema,
-  type: GenericTicketTypeSchema,
-  description: DescriptionSchema,
+const GenericTicketType = z.enum(['web', 'other'])
+const BaseTicket = z.object({
+  author: UserId,
+  title: Title,
+  type: GenericTicketType,
+  description: Description,
 })
 
-export const GeneralTicketRequestSchema = TicketSchema.strict()
-
-export const GeneralTicketResponseSchema = TicketSchema.extend({
-  id: z.number().int().positive().max(999999),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-})
-
-export const DormTicketRequestSchema = TicketSchema.extend({
-  dorm: DormRequestSchema,
+export const GeneralTicketRequest = BaseTicket.strict()
+export const UserTicketRequest = BaseTicket.extend({
+  reportTargetId: UserId,
+}).strict()
+export const TicketRequest = BaseTicket.strict()
+export const DormTicketRequest = BaseTicket.extend({
+  dorm: DormRequest,
   type: z.literal('dorm-add'),
 }).strict()
 
-export const DormTicketResponseSchema = TicketSchema.extend({
+export const GeneralTicketResponse = BaseTicket.extend({
   id: z.number().int().positive().max(999999),
   createdAt: z.date(),
   updatedAt: z.date(),
-  dorm: DormRequestSchema,
 })
-
-export const UserTicketRequestSchema = TicketSchema.extend({
-  reportTargetId: UserIdSchema,
-}).strict()
-
-export const UserTicketResponseSchema = TicketSchema.extend({
+export const UserTicketResponse = BaseTicket.extend({
   reportedUserId: z.number().int().positive().max(999999),
   createdAt: z.date(),
   updatedAt: z.date(),
 })
-
-export const TicketRequestSchema = TicketSchema.strict()
-
-export const TicketResponseSchema = TicketSchema.extend({
+export const TicketResponse = BaseTicket.extend({
   id: z.number().int().positive().max(999999),
   createdAt: z.date(),
   updatedAt: z.date(),
+})
+export const DormTicketResponse = BaseTicket.extend({
+  id: z.number().int().positive().max(999999),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  dorm: DormRequest,
 })

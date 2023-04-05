@@ -1,16 +1,23 @@
 import { z } from 'zod'
-import { EmailSchema, FirstNameSchema, LastNameSchema, PasswordSchema, UserNameSchema, UserTypeSchema } from './user'
+import {
+  Email,
+  FirstName,
+  LastName,
+  Password,
+  UserName,
+  UserType,
+} from './user'
 
-export const RegisterRequestSchema = z.object({
-  userType: UserTypeSchema,
-  email: EmailSchema,
-  password: PasswordSchema,
-  firstName: FirstNameSchema,
-  lastName: LastNameSchema,
-  username: UserNameSchema,
+export const RegisterRequest = z.object({
+  userType: UserType,
+  email: Email,
+  password: Password,
+  firstName: FirstName,
+  lastName: LastName,
+  username: UserName,
 })
 
-export const LoginRequestSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8).max(20),
+export const LoginRequest = z.object({
+  email: Email,
+  password: Password,
 })

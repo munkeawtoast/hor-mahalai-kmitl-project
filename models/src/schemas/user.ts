@@ -1,20 +1,27 @@
 import { z } from 'zod'
+import { DormId } from './dorm'
 
-export const UserTypeSchema = z.enum(['student', 'dorm_owner'])
-export const UserIdSchema = z
-  .string()
-  .regex(/^(st|do|md)_\d{5}$/)
-  .describe('UserID, e.g. st_12345 or do_12345 or md_12345')
-export const FirstNameSchema = z.string().min(2).max(30)
-export const LastNameSchema = z.string().min(2).max(30)
-export const UserNameSchema = z.string().min(2).max(20)
-export const EmailSchema = z.string().email()
-export const PasswordSchema = z.string().min(8).max(20)
+export const UserType = z.enum(['student', 'dorm_owner'])
+export const UserId = z.number().min(-1).max(999999)
+export const FirstName = z.string().min(2).max(50)
+export const LastName = z.string().min(2).max(50)
+export const UserName = z.string().min(2).max(20)
+export const Email = z.string().email().min(3).max(50)
+export const Password = z.string().min(8).max(20)
 
-const UserSchema = z.object({
-  email: EmailSchema,
-  firstName: FirstNameSchema,
-  lastName: LastNameSchema,
-  profilePicture: z.string().url(),
-  userType: z.enum(['student', 'dorm_owner']),
+const User = z.object({
+  id: UserId,
+  email: Email,
+  username: UserName,
+  firstName: FirstName,
+  lastName: LastName,
+  profilePicture: z.string().url().optional(),
+  userType: UserType,
+  dorms: DormId.array().optional(),
 })
+
+const UserRequest = z.object({
+  id: UserId,
+})
+
+export const UserResponse = User

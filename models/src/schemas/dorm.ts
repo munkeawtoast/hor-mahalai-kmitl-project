@@ -1,11 +1,50 @@
 import { z } from 'zod'
-import { DescriptionSchema, NameSchema } from './format'
-import { UserIdSchema } from './user'
+import { Description, Name } from './format'
+import { UserId } from './user'
 
-export const DormIdSchema = z.number().int().positive().max(99999)
-export const PriceSchema = z.number().positive().step(1)
+export const DormId = z.number().int().positive().max(99999)
+export const Price = z.number().positive().step(1)
+export const dormAccommodations = [
+  'water-refill',
+  'laundry',
+  'cctv',
+  'car-parking',
+  'motorcycle-parking',
+  'gym',
+  'nearby-shop',
+]
+export const roomAccomodations = [
+  'ac',
+  'bath',
+  'bed',
+  'desk',
+  'fan',
+  'fridge',
+  'kitchen',
+  'microwave',
+  'tv',
+  'wardrobe',
+  'water-heater',
+  'wifi',
+]
 
-const DormFacilitiesSchema = z.object({
+const BooleanAccomodation = z.object({
+  name: z.string(),
+  type: z.literal('boolean'),
+  value: z.boolean(),
+})
+const CountAccomodation = z.object({
+  name: z.string(),
+  type: z.literal('number'),
+  value: z.number(),
+})
+
+export const Accomodation = z.discriminatedUnion('type', [
+  BooleanAccomodation,
+  CountAccomodation,
+])
+
+const DormAccomodations = z.object({
   waterRefill: z.boolean(),
   laundry: z.boolean(),
   cctv: z.boolean(),
@@ -15,53 +54,38 @@ const DormFacilitiesSchema = z.object({
   nearbyShop: z.boolean(),
 })
 
-const RoomFacilitiesSchema = z.object({
-  ac: z.boolean(),
-  bath: z.boolean(),
-  bed: z.number().positive().int().max(5),
-  desk: z.number().positive().int().max(5),
-  fan: z.boolean(),
-  fridge: z.boolean(),
-  kitchen: z.boolean(),
-  microwave: z.boolean(),
-  tv: z.boolean(),
-  wardrobe: z.boolean(),
-  waterHeater: z.boolean(),
-  wifi: z.boolean(),
-})
+const RoomAccommodations = z.
 
 // Room ยังไม่รู้ว่าควรแยก request กับ response มั้ย
-const RoomSchema = z.object({
-  name: NameSchema,
-  price: PriceSchema,
-  facilities: RoomFacilitiesSchema,
+const Room = z.object({
+  name: Name,
+  price: Price,
+  accommodations: RoomAccommodations,
 })
 
-
-
-const DormSchema = z.object({
-  name: NameSchema,
+const Dorm = z.object({
+  name: Name,
   address: z.string().min(3).max(100),
   lat: z.number().min(-85).max(85),
   lng: z.number().min(-180).max(180),
-  rooms: RoomSchema.array(),
-  facilities: DormFacilitiesSchema,
+  rooms: Room.array(),
+  accommodations: DormAccomodations,
 })
 
-export const DormRequestSchema = DormSchema.strict()
-export const DormResponseSchema = DormSchema.extend({
-  id: DormIdSchema,
+export const DormRequest = Dorm
+export const DormResponse = Dorm.extend({
+  id: DormId,
   createdAt: z.date(),
   updatedAt: z.date(),
 })
 
-const DormCommentSchema = z.object({
-  content: DescriptionSchema,
-  userId: UserIdSchema,
+const DormComment = z.object({
+  content: Description,
+  userId: UserId,
 })
 
-export const DormCommentRequestSchema = DormCommentSchema.strict()
-export const DormCommentResponseSchema = DormCommentSchema.extend({
+export const DormCommentRequest = DormComment.strict()
+export const DormCommentResponse = DormComment.extend({
   id: z.number().int().positive().max(999999),
   createdAt: z.date(),
   updatedAt: z.date(),
