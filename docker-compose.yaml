@@ -2,12 +2,44 @@ version: '3'
 services:
   postgres:
     image: postgres:alpine3.17
-    container_name: postgres
+    container_name: hor-postgres
     restart: always
     env_file:
       - ./apps/api/.env
     ports:
       - "5432:5432"
-#    expose: [5432]
+    expose:
+      - 5432
     volumes:
       - ./.temp/postgresql/data:/var/lib/postgresql/data
+  api:
+    image: hor-mahalai/api
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
+    container_name: hor-api
+    ports:
+      - 4000:4000
+    restart: always
+    env_file:
+      - apps/api/.env
+    depends_on:
+      - postgres
+  web:
+    image: hor-mahalai/web
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile
+    container_name: web
+    ports:
+      - 5050:3000
+    restart: always
+  webadmin:
+    image: hor-mahalai/webadmin
+    build:
+      context: .
+      dockerfile: ./apps/admin/Dockerfile
+    container_name: webadmin
+    ports:
+      - 5050:3500
+    restart: always
