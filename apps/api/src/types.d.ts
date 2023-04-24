@@ -10,3 +10,10 @@ export declare type Env = {
   GOOGLE_MAPS_API_KEY: string
   NODE_ENV: 'development' | 'production'
 }
+
+export declare type RequestWithAuth = Request & {
+  user?: {
+    id: string
+    role: 'user' | 'admin'
+  }
+}

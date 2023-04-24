@@ -2,8 +2,8 @@
   "extends": "@config/tsconfig/api.json",
   "compilerOptions": {
     "baseUrl": "./src",
-    "outDir": "./dist"
-    
+    "outDir": "./dist",
+    "isolatedModules": true,
   },
 
   "ts-node": {
