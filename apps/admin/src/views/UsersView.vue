@@ -17,50 +17,100 @@ export default {
 }
 </script>
 <template>
-  <div class="group--container">
-    <div class="group--title">ผู้ใช้</div>
-    <table>
-      <thead>
-        <tr>
-          <th>ไอดี</th>
-          <th>ชื่อผู้ใช้</th>
-          <th>ชื่อจริง</th>
-          <th>E-mail</th>
-          <th>วัันเกิด</th>
-          <th>Role</th>
-          <th>Ban</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="user in users">
-          <td>{{ user.id }}</td>
-          <td>{{ user.userName }}</td>
-          <td>{{ `${user.firstName} ${user.lastName}` }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.dob }}</td>
-          <td>{{ user.role }}</td>
-          <td>
-            <button class="user--delete" @click="() => banUser(user)">
-              ลบผู้ใช้
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="flex flex-col">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <table class="min-w-full text-left text-sm font-light">
+            <thead class="border-b font-medium dark:border-neutral-500">
+              <tr>
+                <th scope="col" class="px-6 py-4">#</th>
+                <th scope="col" class="px-6 py-4">First</th>
+                <th scope="col" class="px-6 py-4">Last</th>
+                <th scope="col" class="px-6 py-4">Handle</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b dark:border-neutral-500">
+                <td class="whitespace-nowrap px-6 py-4 font-medium">1</td>
+                <td class="whitespace-nowrap px-6 py-4">Mark</td>
+                <td class="whitespace-nowrap px-6 py-4">Otto</td>
+                <td class="whitespace-nowrap px-6 py-4">@mdo</td>
+              </tr>
+              <tr class="border-b dark:border-neutral-500">
+                <td class="whitespace-nowrap px-6 py-4 font-medium">2</td>
+                <td class="whitespace-nowrap px-6 py-4">Jacob</td>
+                <td class="whitespace-nowrap px-6 py-4">Thornton</td>
+                <td class="whitespace-nowrap px-6 py-4">@fat</td>
+              </tr>
+              <tr class="border-b dark:border-neutral-500">
+                <td class="whitespace-nowrap px-6 py-4 font-medium">3</td>
+                <td class="whitespace-nowrap px-6 py-4">Larry</td>
+                <td class="whitespace-nowrap px-6 py-4">Wild</td>
+                <td class="whitespace-nowrap px-6 py-4">@twitter</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col overflow-x-auto">
+    <div class="sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-left text-sm font-light">
+            <thead class="border-b font-medium dark:border-neutral-500">
+              <tr>
+                <th scope="col" class="px-6 py-4">#</th>
+                <th scope="col" class="px-6 py-4">Heading</th>
+                <th scope="col" class="px-6 py-4">Heading</th>
+                <th scope="col" class="px-6 py-4">Heading</th>
+                <th scope="col" class="px-6 py-4">Heading</th>
+                <th scope="col" class="px-6 py-4">Heading</th>
+                <th scope="col" class="px-6 py-4">Heading</th>
+                <th scope="col" class="px-6 py-4">Heading</th>
+                <th scope="col" class="px-6 py-4">Heading</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b dark:border-neutral-500">
+                <td class="whitespace-nowrap px-6 py-4 font-medium">1</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+              </tr>
+              <tr class="border-b dark:border-neutral-500">
+                <td class="whitespace-nowrap px-6 py-4 font-medium">2</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+              </tr>
+              <tr class="border-b">
+                <td class="whitespace-nowrap px-6 py-4 font-medium">3</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                <td class="whitespace-nowrap px-6 py-4">Cell</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
-
-<style>
-.user--delete {
-  all: unset;
-  background-color: red;
-  border-radius: 3px;
-  color: white;
-}
-
-.group--container {
-  display: flex;
-  margin: 30px 40px;
-  width: 100%;
-}
-</style>
