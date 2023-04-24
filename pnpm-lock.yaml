@@ -80,6 +80,9 @@ importers:
 
   apps/api:
     dependencies:
+      '@config/tsconfig':
+        specifier: workspace:^
+        version: link:../../config/tsconfig
       dotenv:
         specifier: ^16.0.3
         version: 16.0.3
@@ -99,9 +102,6 @@ importers:
         specifier: ^4.9.5
         version: 4.9.5
     devDependencies:
-      '@types/dotenv':
-        specifier: ^8.2.0
-        version: 8.2.0
       '@types/express':
         specifier: ^4.17.17
         version: 4.17.17
@@ -463,13 +463,6 @@ packages:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
     dependencies:
       '@types/node': 18.14.2
-    dev: true
-
-  /@types/dotenv@8.2.0:
-    resolution: {integrity: sha512-ylSC9GhfRH7m1EUXBXofhgx4lUWmFeQDINW5oLuS+gxWdfUeW4zJdeVTYVkexEW+e2VUvlZR2kGnGGipAWR7kw==}
-    deprecated: This is a stub types definition. dotenv provides its own type definitions, so you do not need this installed.
-    dependencies:
-      dotenv: 16.0.3
     dev: true
 
   /@types/express-serve-static-core@4.17.33:
@@ -1111,6 +1104,7 @@ packages:
   /dotenv@16.0.3:
     resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
     engines: {node: '>=12'}
+    dev: false
 
   /ecdsa-sig-formatter@1.0.11:
     resolution: {integrity: sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==}
