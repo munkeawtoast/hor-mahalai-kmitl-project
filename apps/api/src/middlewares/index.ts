@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express'
-import { RequestWithAuth } from 'types'
+import { RequestWithAuth } from 'env'
 
 export async function loggerProvider(
   req: Request,

@@ -3,9 +3,8 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "outDir": "./dist",
-    "isolatedModules": true,
+    "esModuleInterop": true
   },
-
   "ts-node": {
     "esm": true
   }

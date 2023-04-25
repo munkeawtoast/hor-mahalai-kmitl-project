@@ -11,6 +11,7 @@ export declare type Env = {
   NODE_ENV: 'development' | 'production'
 }
 
+
 export declare type RequestWithAuth = Request & {
   user?: {
     id: string
