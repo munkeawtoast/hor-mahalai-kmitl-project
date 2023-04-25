@@ -1,0 +1,22 @@
+@hostname = http://localhost
+@port = {{$dotenv %API_PORT}}
+@host = {{hostname}}:{{port}}
+@studentauth = 'Bearer '
+@dormownerauth = 'Bearer '
+@adminauth = 'Bearer '
+
+###
+GET {{host}}
+###
+GET {{host}}/1
+###
+POST {{host}}/test
+###
+DELETE {{host}}/test
+Content-Type: application/json
+
+{
+    "test": "VALaa"
+}
+
+

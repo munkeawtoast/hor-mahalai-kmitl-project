@@ -14,7 +14,9 @@ const app = express()
 const PORT = env.API_PORT || 4000
 
 app.use(loggerProvider)
-app.use(json, urlencoded({ extended: true }))
+app.use(json())
+app.use(urlencoded({ extended: true }))
+
 app.use('/', router)
 
 app.listen(PORT, () => {
