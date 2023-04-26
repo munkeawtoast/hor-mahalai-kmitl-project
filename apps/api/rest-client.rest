@@ -1,0 +1,15 @@
+@hostname = http://localhost
+@port = {{$dotenv %API_PORT}}
+@host = {{hostname}}:{{port}}
+@studentRoute = {{host}}/student
+@ownerRoute = {{host}}/owner
+@adminRoute = {{host}}/admin
+@testRoute = {{host}}/helloworld
+@studentauth = 'Bearer '
+@dormownerauth = 'Bearer '
+@adminauth = 'Bearer '
+
+###
+GET {{testRoute}}
+###
+POST {{testRoute}}/expect-image-upload

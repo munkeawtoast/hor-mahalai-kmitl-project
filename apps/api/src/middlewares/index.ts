@@ -1,5 +1,7 @@
 import type { NextFunction, Request, Response } from 'express'
-import { RequestWithAuth } from 'env'
+import { RequestWithAuth } from 'global-types'
+import multer from 'multer'
+import { RequestHandler } from 'express'
 
 export async function loggerProvider(
   req: Request,
@@ -11,11 +13,7 @@ export async function loggerProvider(
   next()
 }
 
-export async function authProvider(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) {
+export function authProvider(req: Request, res: Response, next: NextFunction) {
   // const token = req.headers.authorization?.split(' ')[1]
   // if (token) {
   //   try {
