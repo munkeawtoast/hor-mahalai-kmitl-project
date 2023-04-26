@@ -1,4 +1,3 @@
-import axios from 'axios'
 import bcrypt from 'bcrypt'
 
 export function hashPassword(password: string) {

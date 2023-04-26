@@ -31,9 +31,15 @@ importers:
       '@fortawesome/vue-fontawesome':
         specifier: ^3.0.3
         version: 3.0.3(@fortawesome/fontawesome-svg-core@6.3.0)(vue@3.2.47)
+      '@headlessui/vue':
+        specifier: ^1.7.12
+        version: 1.7.12(vue@3.2.47)
       '@helper/data-gen':
         specifier: workspace:^1.0.0
         version: link:../../lib/helpers/data-gen
+      '@tabler/icons-vue':
+        specifier: ^2.17.0
+        version: 2.17.0(vue@3.2.47)
       axios:
         specifier: ^1.3.6
         version: 1.3.6
@@ -171,6 +177,9 @@ importers:
       '@helper/data-gen':
         specifier: workspace:^1.0.0
         version: link:../../lib/helpers/data-gen
+      '@tabler/icons-vue':
+        specifier: ^2.17.0
+        version: 2.17.0(vue@3.2.47)
       autoprefixer:
         specifier: ^10.4.13
         version: 10.4.13(postcss@8.4.21)
@@ -245,6 +254,10 @@ importers:
         version: 8.7.1(eslint@8.35.0)
 
   config/tailwind-config:
+    dependencies:
+      flowbite:
+        specifier: ^1.6.5
+        version: 1.6.5
     devDependencies:
       autoprefixer:
         specifier: ^10.4.13
@@ -450,6 +463,10 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
 
+  /@popperjs/core@2.11.7:
+    resolution: {integrity: sha512-Cr4OjIkipTtcXKjAsm8agyleBuDHvxzeBoa1v543lbv1YaIwQjESsVcmjiWiPEbC1FIeHOG/Op9kdCmAmiS3Kw==}
+    dev: false
+
   /@rushstack/eslint-patch@1.2.0:
     resolution: {integrity: sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==}
     dev: true
@@ -564,6 +581,19 @@ packages:
       '@swc/core-win32-arm64-msvc': 1.3.53
       '@swc/core-win32-ia32-msvc': 1.3.53
       '@swc/core-win32-x64-msvc': 1.3.53
+    dev: false
+
+  /@tabler/icons-vue@2.17.0(vue@3.2.47):
+    resolution: {integrity: sha512-b3wSJV9OCH9XOwfT9mSn3BQ2YWIMoX35R+xFK5HuRkqJ3psCQeUMTg35prXcZQCMztdxZNbz788V21bq0LFe9g==}
+    peerDependencies:
+      vue: '>=3.0.1'
+    dependencies:
+      '@tabler/icons': 2.17.0
+      vue: 3.2.47
+    dev: false
+
+  /@tabler/icons@2.17.0:
+    resolution: {integrity: sha512-UeJaylOGNRhQKyDlgZfrQ3UPSGlfVQuXcmCsTYeXioKKepibW6VZ3H36Lo1jvBTBkQD2e9m+k2NxwkztOTXwrA==}
     dev: false
 
   /@tsconfig/node18-strictest-esm@1.0.1:
@@ -1860,6 +1890,13 @@ packages:
   /flatted@3.2.7:
     resolution: {integrity: sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==}
 
+  /flowbite@1.6.5:
+    resolution: {integrity: sha512-eI4h3pIRI9d7grlYq14r0A01KUtw7189sPLLx/O2i7JyPEWpbleScfYuEc48XTeNjk1xxm/JHgZkD9kjyOWAlA==}
+    dependencies:
+      '@popperjs/core': 2.11.7
+      mini-svg-data-uri: 1.4.4
+    dev: false
+
   /follow-redirects@1.15.2:
     resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
     engines: {node: '>=4.0'}
@@ -2235,6 +2272,11 @@ packages:
   /mime@1.6.0:
     resolution: {integrity: sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==}
     engines: {node: '>=4'}
+    hasBin: true
+    dev: false
+
+  /mini-svg-data-uri@1.4.4:
+    resolution: {integrity: sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==}
     hasBin: true
     dev: false
 

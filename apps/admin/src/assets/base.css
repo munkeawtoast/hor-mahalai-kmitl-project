@@ -3,30 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --white: #fff;
-  --anti-flash-white: #f1f1f1;
-  --silver-sand: #c6c6c6;
-  --dark-sky-blue: #8ec6ca;
-  --metallic-sea-weed: #198a92;
-  --dark-charcoal: #333333;
-  --jet: #363636;
-  --gray: #818181;
-}
-
-/* semantic color variables for this project */
-:root {
-  --color-background: var(--white);
-  --color-background-mute: var(--anti-flash-white);
-
-  --color-primary: var(--metallic-sea-weed);
-  --color-primary-soft: var(--dark-sky-blue);
-
-  --color-heading: var(--jet);
-  --color-text: var(--jet);
-  --color-detail: var(--gray);
-}
-
 /* @media (prefers-color-scheme: dark) {
   :root {
     --color-background: var(--dark-charcoal);

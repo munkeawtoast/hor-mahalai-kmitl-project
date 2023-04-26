@@ -1,7 +1,11 @@
 import type { NextFunction, Request, Response } from 'express'
-import { RequestWithAuth } from 'global-types'
-import multer from 'multer'
-import { RequestHandler } from 'express'
+import { Env, RequestWithAuth } from 'global-types'
+import jwt, { expressjwt } from 'express-jwt'
+import { config } from 'dotenv'
+
+config()
+
+const env = process.env as Env
 
 export async function loggerProvider(
   req: Request,
@@ -13,39 +17,7 @@ export async function loggerProvider(
   next()
 }
 
-export function authProvider(req: Request, res: Response, next: NextFunction) {
-  // const token = req.headers.authorization?.split(' ')[1]
-  // if (token) {
-  //   try {
-  //     const payload = jwt.verify(token, process.env.JWT_SECRET)
-  //     req.user = payload as any
-  //   } catch (err) {
-  //     console.error(err)
-  //   }
-  // }
-  // next()
-}
-
-export function requireAuth(
-  req: RequestWithAuth,
-  res: Response,
-  next: NextFunction,
-) {
-  if (req.user) {
-    next()
-  } else {
-    res.status(401).json({ message: 'Unauthorized' })
-  }
-}
-
-export function requireAdmin(
-  req: RequestWithAuth,
-  res: Response,
-  next: NextFunction,
-) {
-  if (req.user?.role === 'admin') {
-    next()
-  } else {
-    res.status(401).json({ message: 'Unauthorized' })
-  }
-}
+export const requireAuth = expressjwt({
+  secret: env.JWT_SECRET,
+  algorithms: ['HS256'],
+})

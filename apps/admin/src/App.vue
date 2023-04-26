@@ -21,15 +21,3 @@ export default {
     </div>
   </div>
 </template>
-
-<style scoped>
-.container {
-  width: 100vw;
-  position: relative;
-  display: flex;
-}
-.inner {
-  margin: 0;
-  width: 100%;
-}
-</style>

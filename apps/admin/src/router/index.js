@@ -8,9 +8,6 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
-      meta: {
-        authCheck: true,
-      },
     },
     {
       path: '/dorms',
@@ -35,11 +32,18 @@ const router = createRouter({
       name: 'tickets',
       component: () => import('../views/TicketsView.vue'),
     },
+    {
+      path: '/auth/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue'),
+    },
   ],
 })
 
-router.beforeEach(async (to, from) => {
-  if (to.meta.authCheck) {
+router.beforeEach(async (to, _from) => {
+  const token = localStorage.getItem('token') // JWT token
+  if (to.name !== 'login' && !token) {
+    return { name: 'login' }
   }
 })
 

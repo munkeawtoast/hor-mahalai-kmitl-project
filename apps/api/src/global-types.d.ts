@@ -1,7 +1,6 @@
 import { Stream } from 'form-data'
 import { Request, Response, NextFunction } from 'express'
 export declare type Env = {
-  [key: string]: string
   POSTGRES_HOST: string
   POSTGRES_PORT: string
   POSTGRES_USER: string
