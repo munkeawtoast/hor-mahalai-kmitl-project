@@ -142,5 +142,13 @@ model Image {
 // /////////////////
 // หอจะมีรูปมั้ย ห้องจะมีรูปมั้ย
 // หอต้องให้แอดมินคอมเฟิร์มด้วย
-// confirm: approvedTime? approvedBy?
+// idea: dorm เพิ่ม
+//        |
+//        V
+// approvedTime? approvedBy?
+// แปลว่า ticket ต้องมี column แยกอีกไหม?
+// idea: ticket เพิ่ม
+//        |
+//        V
+// dormId
 // /////////////////
