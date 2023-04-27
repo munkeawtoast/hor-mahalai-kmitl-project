@@ -1,0 +1,146 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
+generator docs {
+  provider = "node node_modules/prisma-docs-generator"
+}
+
+enum Role {
+  USER
+  DORM_OWNER
+  ADMIN
+}
+
+model User {
+  userId    Int       @id @default(autoincrement())
+  username  String    @unique
+  password  String    @unique
+  firstName String
+  lastName  String
+  email     String
+  createdAt DateTime  @default(now())
+  bannedAt  DateTime?
+  roleID    Role
+  imageID   Int?
+  Image     Image?    @relation("UserImage", fields: [imageID], references: [imageID])
+  Dorm      Dorm?     @relation("DormOwner")
+  Rating    Rating[]  @relation("UserRating")
+  Comment   Comment[] @relation("UserComment")
+  Ticket    Ticket[]  @relation("UserTicket")
+}
+
+model Ticket {
+  ticketID         Int            @id @default(autoincrement())
+  title            String
+  description      String
+  TicketCategory   TicketCategory @relation("TicketCategory", fields: [ticketCategoryID], references: [ticketCategoryID])
+  ticketCategoryID Int
+  User             User           @relation("UserTicket", fields: [userID], references: [userId])
+  userID           Int
+}
+
+model TicketCategory {
+  ticketCategoryID   Int      @id @default(autoincrement())
+  ticketCategoryName String
+  Ticket             Ticket[] @relation("TicketCategory")
+}
+
+model Dorm {
+  dormID          Int             @id @default(autoincrement())
+  User            User            @relation("DormOwner", fields: [userID], references: [userId])
+  userID          Int             @unique
+  name            String
+  address         String
+  latitude        String
+  longitude       String
+  description     String
+  createdAt       DateTime        @default(now())
+  waterRate       String
+  electricityrate String
+  Landmarks       Landmark        @relation("DormLandmark", fields: [landmarkID], references: [landmarkID])
+  landmarkID      Int
+  Ratings         Rating[]        @relation("DormRating")
+  Comments        Comment[]       @relation("DormComments")
+  Accommodations  Accommodation[] @relation("DormAccommodation")
+  Rooms           Room[]          @relation("DormRooms")
+}
+
+model Room {
+  roomsID        Int             @id @default(autoincrement())
+  InDorm         Dorm            @relation("DormRooms", fields: [dormID], references: [dormID])
+  dormID         Int
+  price          Float
+  name           String
+  Accommodations Accommodation[] @relation("RoomAccommodation")
+}
+
+model Landmark {
+  landmarkID            Int        @id @default(autoincrement())
+  ParentUniversity      Landmark?  @relation("UniversityLandmarks", fields: [parentUniversityID], references: [landmarkID])
+  parentUniversityID    Int?
+  LandmarksInUniversity Landmark[] @relation("UniversityLandmarks")
+  name                  String
+  DormInLandmark        Dorm[]     @relation("DormLandmark")
+}
+
+model Accommodation {
+  accommodationID     Int               @id @default(autoincrement())
+  TargetDorm          Dorm?             @relation("DormAccommodation", fields: [dormID], references: [dormID])
+  dormID              Int?
+  TargetRoom          Room?             @relation("RoomAccommodation", fields: [roomsID], references: [roomsID])
+  roomsID             Int?
+  AccommodationType   AccommodationType @relation("AccommodationType", fields: [accommodationTypeID], references: [accommodationTypeID])
+  accommodationTypeID Int
+}
+
+model AccommodationType {
+  accommodationTypeID Int             @id @default(autoincrement())
+  accommodationName   String
+  Accommodations      Accommodation[] @relation("AccommodationType")
+}
+
+model Rating {
+  ratingID   Int  @id @default(autoincrement())
+  TargetDorm Dorm @relation("DormRating", fields: [dormID], references: [dormID])
+  dormID     Int
+  FromUser   User @relation("UserRating", fields: [userID], references: [userId])
+  userID     Int
+  score      Int
+}
+
+model Comment {
+  commentID        Int       @id @default(autoincrement())
+  User             User      @relation("UserComment", fields: [userID], references: [userId])
+  userID           Int
+  description      String
+  TargetDorm       Dorm      @relation("DormComments", fields: [dormID], references: [dormID])
+  dormID           Int
+  ParentComment    Comment?  @relation("CommentedComment", fields: [parentCommentID], references: [commentID])
+  parentCommentID  Int?
+  ChildrenComments Comment[] @relation("CommentedComment")
+}
+
+model Image {
+  imageID     Int    @id @default(autoincrement())
+  url         String @unique
+  UserProfile User[] @relation("UserImage")
+}
+
+// /////////////////
+// หอจะมีรูปมั้ย ห้องจะมีรูปมั้ย
+// หอต้องให้แอดมินคอมเฟิร์มด้วย
+// confirm: approvedTime? approvedBy?
+// /////////////////
