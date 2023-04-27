@@ -45,6 +45,7 @@ export default {
       e.preventDefault()
       // this.checkUser()
     },
+    
   },
 }
 </script>

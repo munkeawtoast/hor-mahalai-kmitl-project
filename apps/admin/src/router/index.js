@@ -41,10 +41,10 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, _from) => {
-  const token = localStorage.getItem('token') // JWT token
-  if (to.name !== 'login' && !token) {
-    return { name: 'login' }
-  }
+  // const token = localStorage.getItem('token') // JWT token
+  // if (to.name !== 'login' && !token) {
+  //   return { name: 'login' }
+  // }
 })
 
 export default router

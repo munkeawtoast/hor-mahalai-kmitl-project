@@ -3,11 +3,11 @@ import bareAxios from 'axios'
 let FOREVER_TOKEN
 FOREVER_TOKEN = 'forever_token'
 
-const axiosInstance = bareAxios.create({
+const axios = bareAxios.create({
   baseURL: 'http://localhost:3500/admin',
 })
 
-axiosInstance.interceptors.request.use(
+axios.interceptors.request.use(
   (config) => {
     if (FOREVER_TOKEN) {
       config.headers.Authorization = `Bearer ${FOREVER_TOKEN}`
@@ -24,4 +24,4 @@ axiosInstance.interceptors.request.use(
   },
 )
 
-export default axiosInstance
+export { axios }

@@ -20,6 +20,7 @@ module.exports = {
       gray: '#818181',
       'lesser-gray': '#c6c6c6',
       danger: '#e74c3c',
+      'softer-danger': '#f7c7c2',
       'soft-danger': '#f5b7b1',
     },
     fontFamily: {

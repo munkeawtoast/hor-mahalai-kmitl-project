@@ -1,6 +1,8 @@
 <script>
+import { defineComponent } from 'vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-export default {
+
+export default defineComponent({
   components: {
     FontAwesomeIcon,
   },
@@ -10,7 +12,7 @@ export default {
       default: '2xl',
     },
   },
-}
+})
 </script>
 <template>
   <div class="inline-block align-baseline text-2xl text-primary">
