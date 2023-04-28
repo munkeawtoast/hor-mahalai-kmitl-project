@@ -39,7 +39,7 @@ export default {
       })
     },
     backFunction() {
-      this.$router.push({ path: '/' })
+      this.$router.back()
     },
   },
 }

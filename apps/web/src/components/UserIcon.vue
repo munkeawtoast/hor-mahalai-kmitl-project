@@ -21,14 +21,14 @@ export default {
       }
     },
     loginFunction() {
-      this.$router.push('/login')
+      this.$router.push({ name: 'login' })
     },
     registerFunction() {
-      this.$router.push('/register')
+      this.$router.push({ name: 'register' })
     },
     logoutFunction() {
       localStorage.removeItem('userObject')
-      this.$router.go()
+      this.$router.push({ name: 'home' })
     },
     profileFunction() {
       this.$router.push('/users/me')
@@ -117,7 +117,7 @@ export default {
             <!-- Text -->
             <div class="flex flex-col justify-end text-left">
               <span
-                class="block translate-y-2 text-xs text-gray"
+                class="text-gray block translate-y-2 text-xs"
                 @click="profileFunction"
               >
                 {{ role }}
@@ -231,7 +231,7 @@ export default {
         </div>
         <div class="flex flex-col justify-end text-left">
           <span
-            class="block translate-y-2 text-xs text-gray"
+            class="text-gray block translate-y-2 text-xs"
             @click="profileFunction"
           >
             {{ role }}

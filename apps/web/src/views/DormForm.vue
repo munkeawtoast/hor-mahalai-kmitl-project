@@ -4,6 +4,9 @@ export default {
     backFunction() {
       this.$router.push({ path: '/' })
     },
+    onSubmit() {
+      
+    }
   },
 }
 </script>

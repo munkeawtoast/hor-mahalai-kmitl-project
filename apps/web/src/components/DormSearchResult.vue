@@ -1,5 +1,5 @@
 <script>
-import DormBrief from 'components/DormBrief.vue'
+import DormBrief from '~components/DormBrief.vue'
 export default {
   props: {
     queryText: {

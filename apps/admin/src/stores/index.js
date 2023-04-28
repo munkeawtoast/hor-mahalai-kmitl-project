@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { axios } from '../utils'
+import { axios } from '~utils/index.js'
 import { useLocalStorage } from '@vueuse/core'
 
 export const useUserStore = defineStore({
@@ -44,6 +44,7 @@ export const useUserStore = defineStore({
       })
     },
     async logout() {
-      state.$reset()
+      this.$patch
+    },
   }),
 })

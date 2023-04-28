@@ -1,5 +1,5 @@
 <script>
-import IconLogo from '../components/icons/IconLogo.vue'
+import IconLogo from '~components/icons/IconLogo.vue'
 import { IconAlertTriangleFilled } from '@tabler/icons-vue'
 import userData from '@helper/data-gen/users.json'
 export default {

@@ -35,24 +35,26 @@ const router = createRouter({
       // component: () => import('../views/AboutPage.vue'),
     },
     {
-      path: '/login',
-      name: 'login',
-      component: () => import('../views/LoginPage.vue'),
+      path: '/auth',
       meta: {
         hideNavBar: true,
       },
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: () => import('../views/RegisterPage.vue'),
-      meta: {
-        hideNavBar: true,
-      },
+      children: [
+        {
+          path: 'login',
+          name: 'login',
+          component: () => import('../views/LoginPage.vue'),
+        },
+        {
+          path: 'register',
+          name: 'register',
+          component: () => import('../views/RegisterPage.vue'),
+        },
+      ],
     },
     {
       path: '/users/me',
-      name: 'user-details-self',
+      name: 'user-self',
       component: () => import('../views/Profile.vue'),
       meta: {
         requireAuth: true,
