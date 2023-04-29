@@ -1,120 +1,106 @@
 <script>
+import DormCreateRoomTab from '~components/DormCreateRoomTab.vue'
+import { IconBed, IconSquarePlus } from '@tabler/icons-vue'
+
 export default {
+  data: () => ({
+    defaultDorm: {
+      name: '',
+      images: [],
+      description: '',
+      location: '',
+      
+    },
+    defaultRoom: {
+      name: '',
+      price: 0,
+      description: '',
+      water: '',
+      waterMode: 'number',
+      electricity: 0,
+      images: [],
+      accomodations: {
+        bed: false,
+        ac: false,
+        fan: false,
+        microwave: false,
+        waterheater: false,
+        cookingarea: false,
+        wardrobe: false,
+
+      },
+    },
+    currentRoom: 0,
+    rooms: [
+      {
+        name: 'test',
+        price: 0,
+        water: '5',
+        waterMode: 'number',
+        electricity: '5',
+        accomodations: {
+          bed: true,
+          ac: true,
+          fan: true,
+          microwave: true,
+          waterheater: true,
+          cookingarea: true,
+          wardrobe: true,
+        },
+      },
+      {
+        name: 'testttat',
+      },
+    ],
+  }),
   methods: {
     backFunction() {
       this.$router.push({ path: '/' })
     },
-    onSubmit() {
-      
-    }
+    onSubmit() {},
+  },
+  components: {
+    DormCreateRoomTab,
+    IconBed,
+    IconSquarePlus,
   },
 }
 </script>
 <template>
-  <div>
-    <div class="container">
-      <p class="backButton" @click="backFunction">&#60; Go back</p>
-      <form @submit.prevent="onSubmit">
-        <label>Dorm name: </label>
-        <input v-model="dormName" type="text" />
+  <div class="d">
+    <span>เพิ่มหอใหม่</span>
 
-        <label>dorm Location: </label>
-        <input v-model="dormLocation" type="password" /><br />
-        <label>Lattitude: </label>
-        <input v-model="lattitude" type="password" />
-        <label>Longitude: </label>
-        <input v-model="longitude" type="password" /><br />
-
-        <label>Description of the dorm: </label>
-        <textarea v-model="description" rows="5" cols="50"></textarea><br />
-        <label>ค่าน้ำ: </label>
-        <input v-model="waterRate" type="number" />
-        <label>ค่าไฟ: </label>
-        <input v-model="electricityRate" type="number" /><br />
-        <label>สิ่งอำนวยความสะดวก</label><br />
-        <input
-          v-model="bikePark"
-          type="radio"
-          name="bikePark"
-          value="bikePark"
-        />
-        <label>ที่จอดรถจักรยาน</label>
-        <input
-          v-model="waterRefill"
-          type="radio"
-          name="waterRefill"
-          value="waterRefill"
-        />
-        <label>ตู้กดน้ำ</label>
-        <input
-          v-model="securityCamera"
-          type="radio"
-          name="securityCamera"
-          value="securityCamera"
-        />
-        <label>กล้องวงจรปิด</label>
-        <input v-model="washer" type="radio" name="washer" value="washer" />
-        <label>เครื่องซักผ้า</label><br />
-        <input
-          v-model="airConditioner"
-          type="radio"
-          name="airConditioner"
-          value="airConditioner"
-        />
-        <label>แอร์</label>
-        <input v-model="bed" type="radio" name="bed" value="bed" />
-        <label>เตียง</label>
-        <input
-          v-model="waterHeater"
-          type="radio"
-          name="waterHeater"
-          value="waterHeater"
-        />
-        <label>เครื่องทำน้ำอุ่น</label>
-        <input v-model="fan" type="radio" name="fan" value="fan" />
-        <label>พัดลม</label>
-
-        <br />
-        <button @click="submitLocal">Submit</button>
-      </form>
+    <div>
+      <ul
+        class="flex flex-wrap border-b border-gray-200 text-center text-sm font-medium text-gray-500 dark:border-gray-700 dark:text-gray-400"
+      >
+        <li class="mr-2" v-for="(room, index) in rooms" :key="index">
+          <button
+            @click="this.currentRoom = index"
+            :aria-current="currentRoom === index ? 'room' : undefined"
+            :class="currentRoom === index ? ['active'] : []"
+            class="flex space-x-1 rounded-t-lg bg-gray-100 p-4 text-blue-600 dark:bg-gray-800 dark:text-blue-500"
+          >
+            <IconBed width="20" height="20" />
+            <span>
+              {{ room.name }}
+            </span>
+          </button>
+        </li>
+        <li class="mr-2">
+          <button
+            class="flex space-x-1 rounded-t-lg bg-gray-100 p-4 text-blue-600 dark:bg-gray-800 dark:text-blue-500"
+          >
+            <IconSquarePlus width="20" height="20" />
+            <span> เพิ่มหอใหม่ </span>
+          </button>
+        </li>
+      </ul>
     </div>
+    <template v-for="(room, index) in rooms" :key="index">
+      <div class="flex overflow-hidden">
+        <DormCreateRoomTab :room="room" />
+      </div>
+    </template>
   </div>
 </template>
-<style scoped>
-form {
-  font-size: 1.5em;
-  font-weight: bold;
-}
-button {
-  background-color: unset;
-  margin: 0.5em 0 0.5em 0;
-  padding: 0.5em 6em;
-  border-radius: 10px;
-}
-/* a{
-  all:
-} */
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  transform: translateY(-10vh);
-  height: 100vh;
-}
-.backButton {
-  position: absolute;
-  font-size: 2em;
-  top: 100px;
-  left: -650px;
-  cursor: pointer;
-}
-.backButton:hover {
-  color: red;
-}
-
-.danger {
-  color: red;
-}
-</style>
