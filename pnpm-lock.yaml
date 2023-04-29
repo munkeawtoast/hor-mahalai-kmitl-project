@@ -216,6 +216,9 @@ importers:
       '@tiptap/vue-3':
         specifier: ^2.0.3
         version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)(vue@3.2.47)
+      '@vee-validate/zod':
+        specifier: ^4.8.6
+        version: 4.8.6(vue@3.2.47)
       '@vueuse/core':
         specifier: ^10.1.0
         version: 10.1.0(vue@3.2.47)
@@ -237,12 +240,18 @@ importers:
       tailwindcss:
         specifier: ^3.2.7
         version: 3.2.7(postcss@8.4.21)
+      vee-validate:
+        specifier: ^4.8.6
+        version: 4.8.6(vue@3.2.47)
       vue:
         specifier: ^3.2.31
         version: 3.2.47
       vue-router:
         specifier: ^4
         version: 4.1.6(vue@3.2.47)
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
     devDependencies:
       '@config/eslint-config-vue3':
         specifier: workspace:^0.0.0
@@ -319,6 +328,19 @@ importers:
       '@faker-js/faker':
         specifier: ^7.6.0
         version: 7.6.0
+
+  shared/validator:
+    dependencies:
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
+    devDependencies:
+      '@config/eslint-config-vue3':
+        specifier: workspace:^
+        version: link:../../config/eslint-config-vue3
+      eslint:
+        specifier: ^8.39.0
+        version: 8.39.0
 
 packages:
 
@@ -617,12 +639,10 @@ packages:
     dependencies:
       eslint: 8.39.0
       eslint-visitor-keys: 3.4.0
-    dev: false
 
   /@eslint-community/regexpp@4.5.0:
     resolution: {integrity: sha512-vITaYzIcNmjn5tF5uxcZ/ft7/RXGrMUIS9HalWckEOF6ESiwXKoMzAQf2UW0aVd6rnOeExTJVd5hmWXucBKGXQ==}
     engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
-    dev: false
 
   /@eslint/eslintrc@2.0.0:
     resolution: {integrity: sha512-fluIaaV+GyV24CCu/ggiHdV+j4RNh85yQnAYS/G2mZODZgGmmlrgCydjUcV3YvxCm9x8nMAfThsqTni4KiXT4A==}
@@ -655,7 +675,6 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
-    dev: false
 
   /@eslint/js@8.35.0:
     resolution: {integrity: sha512-JXdzbRiWclLVoD8sNUjR443VVlYqiYmDVT6rGUEIEHU5YJW0gaVZwV2xgM7D4arkvASqD0IlLUVjHiFuxaftRw==}
@@ -664,7 +683,6 @@ packages:
   /@eslint/js@8.39.0:
     resolution: {integrity: sha512-kf9RB0Fg7NZfap83B3QOqOGg9QmD9yBudqQXzzOtn3i4y7ZUXe5ONeW34Gwi+TxhH4mvj72R1Zc300KUMa9Bng==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-    dev: false
 
   /@faker-js/faker@7.6.0:
     resolution: {integrity: sha512-XK6BTq1NDMo9Xqw/YkYyGjSsg44fbNwYRx7QK2CuoQgyy+f1rrTDHoExVM5PsyXCtfl2vs2vVJ0MN0yN6LppRw==}
@@ -1851,6 +1869,16 @@ packages:
     dependencies:
       '@typescript-eslint/types': 5.59.1
       eslint-visitor-keys: 3.4.0
+    dev: false
+
+  /@vee-validate/zod@4.8.6(vue@3.2.47):
+    resolution: {integrity: sha512-BG9UI0XleYXVphD462unkwwWsKiNqPwzoWaZh3YMU7VeZhcIbOQt3+derqhDdoIn5+C+Yj6o6n3NUtsKOrjOlQ==}
+    dependencies:
+      type-fest: 3.9.0
+      vee-validate: 4.8.6(vue@3.2.47)
+      zod: 3.21.4
+    transitivePeerDependencies:
+      - vue
     dev: false
 
   /@vitejs/plugin-vue@2.3.4(vite@2.9.15)(vue@3.2.47):
@@ -3126,7 +3154,6 @@ packages:
     dependencies:
       esrecurse: 4.3.0
       estraverse: 5.3.0
-    dev: false
 
   /eslint-utils@3.0.0(eslint@8.35.0):
     resolution: {integrity: sha512-uuQC43IGctw68pJA1RgbQS8/NP7rch6Cwd4j3ZBtgo4/8Flj4eGE7ZYSZRN3iq5pVUv6GPdW5Z1RFleo84uLDA==}
@@ -3148,7 +3175,6 @@ packages:
   /eslint-visitor-keys@3.4.0:
     resolution: {integrity: sha512-HPpKPUBQcAsZOsHAFwTtIKcYlCje62XB7SEAcxjtmW6TD1WVpkS6i6/hOVtTZIl4zGj/mBqpFVGvaDneik+VoQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-    dev: false
 
   /eslint@8.35.0:
     resolution: {integrity: sha512-BxAf1fVL7w+JLRQhWl2pzGeSiGqbWumV4WNvc9Rhp6tiCtm4oHnyPBSEtMGZwrQgudFQ+otqzWoPB7x+hxoWsw==}
@@ -3245,7 +3271,6 @@ packages:
       text-table: 0.2.0
     transitivePeerDependencies:
       - supports-color
-    dev: false
 
   /espree@9.4.1:
     resolution: {integrity: sha512-XwctdmTO6SIvCzd9810yyNzIrOrqNYV9Koizx4C/mRhf9uq0o4yHoCEU/670pOxOL/MSraektvSAji79kX90Vg==}
@@ -3262,7 +3287,6 @@ packages:
       acorn: 8.8.2
       acorn-jsx: 5.3.2(acorn@8.8.2)
       eslint-visitor-keys: 3.4.0
-    dev: false
 
   /esquery@1.4.2:
     resolution: {integrity: sha512-JVSoLdTlTDkmjFmab7H/9SL9qGSyjElT3myyKp7krqjVFQCDLmj1QFaCLRFBszBKI0XVZaiiXvuPIX3ZwHe1Ng==}
@@ -5859,6 +5883,11 @@ packages:
     engines: {node: '>=12.20'}
     dev: false
 
+  /type-fest@3.9.0:
+    resolution: {integrity: sha512-hR8JP2e8UiH7SME5JZjsobBlEiatFoxpzCP+R3ZeCo7kAaG1jXQE5X/buLzogM6GJu8le9Y4OcfNuIQX0rZskA==}
+    engines: {node: '>=14.16'}
+    dev: false
+
   /type-is@1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
     engines: {node: '>= 0.6'}
@@ -5964,6 +5993,15 @@ packages:
   /vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
+    dev: false
+
+  /vee-validate@4.8.6(vue@3.2.47):
+    resolution: {integrity: sha512-d8SS1mfFn3qv/QRwy9BQ/0ZmoxQT37zG7zERUSK5NvmI7gx7IbQxOIXtyYVEPaDJNI4QWopBe48q91pAQqwetA==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      '@vue/devtools-api': 6.5.0
+      vue: 3.2.47
     dev: false
 
   /vite@2.9.15:
@@ -6169,4 +6207,8 @@ packages:
       archiver-utils: 2.1.0
       compress-commons: 4.1.1
       readable-stream: 3.6.2
+    dev: false
+
+  /zod@3.21.4:
+    resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
     dev: false

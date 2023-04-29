@@ -1,6 +1,7 @@
 <script>
 import DormCreateRoomTab from '~components/DormCreateRoomTab.vue'
 import { IconBed, IconSquarePlus } from '@tabler/icons-vue'
+import {} from '@'
 
 export default {
   data: () => ({
@@ -11,26 +12,7 @@ export default {
       location: '',
       
     },
-    defaultRoom: {
-      name: '',
-      price: 0,
-      description: '',
-      water: '',
-      waterMode: 'number',
-      electricity: 0,
-      images: [],
-      accomodations: {
-        bed: false,
-        ac: false,
-        fan: false,
-        microwave: false,
-        waterheater: false,
-        cookingarea: false,
-        wardrobe: false,
-
-      },
-    },
-    currentRoom: 0,
+        currentRoom: 0,
     rooms: [
       {
         name: 'test',
