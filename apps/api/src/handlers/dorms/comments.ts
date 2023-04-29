@@ -1,8 +1,6 @@
 import { RequestHandler } from 'express'
 
-const getComment: RequestHandler<{ dormId: string }> = (req, res) => {
-  
-}
+const getComment: RequestHandler<{ dormId: string }> = (req, res) => {}
 
 const postComment: RequestHandler<{ dormId: string }> = (req, res) => {
   const { description } = req.body.data
