@@ -11,7 +11,7 @@
     "start": "pnpm run build && NODE_ENV=production node out/main.js"
   },
   "author": "2gurls",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "devDependencies": {
     "@config/tsconfig": "workspace:^",
     "@types/bcrypt": "^5.0.0",

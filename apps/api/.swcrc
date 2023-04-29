@@ -9,7 +9,7 @@
   },
   "jsc": {
     "parser": {
-      "syntax": "typescript",
+      "syntax": "typescript"
     },
     "target": "es2022",
     "loose": false,
