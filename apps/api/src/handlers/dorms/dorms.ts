@@ -2,30 +2,40 @@ import { RequestHandler } from 'express'
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
-export const getDorms: RequestHandler = (req, res) => {}
+export const getDorms: RequestHandler = async (req, res) => {
+  const dorm = await prisma.dorm.findMany({
+    orderBy: [{ name: 'asc' }],
+  })
+  res.json(dorm)
+}
 
 export const getDormsByName: RequestHandler<{ name: string }> = async (
   req,
   res,
 ) => {
   const dormName = req.params.name
-  const Dorm = await prisma.dorm.findMany({
+  const dorm = await prisma.dorm.findMany({
     where: {
       name: dormName,
     },
+    orderBy: [{ name: 'asc' }],
   })
-  res.json(Dorm)
+
+  res.json(dorm)
 }
 
 export const getDormsByLankMark: RequestHandler<{ landmark: string }> = async (
   req,
   res,
 ) => {
-  const dormName = req.params.landmark
+  const landMark = req.params.landmark
   const Dorm = await prisma.dorm.findMany({
     where: {
-      name: dormName,
+      Landmarks: {
+        name: landMark,
+      },
     },
+    orderBy: [{ name: 'asc' }],
   })
   res.json(Dorm)
 }
