@@ -1,0 +1,158 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  userId Int [pk, increment]
+  username String [unique, not null]
+  password String [unique, not null]
+  firstName String [not null]
+  lastName String [not null]
+  email String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  bannedAt DateTime
+  roleID Role [not null]
+  imageID Int
+  Image Image
+  Dorm Dorm
+  Rating Rating [not null]
+  Comment Comment [not null]
+  Ticket Ticket [not null]
+}
+
+Table Ticket {
+  ticketID Int [pk, increment]
+  title String [not null]
+  description String [not null]
+  TicketCategory TicketCategory [not null]
+  ticketCategoryID Int [not null]
+  User User [not null]
+  userID Int [not null]
+}
+
+Table TicketCategory {
+  ticketCategoryID Int [pk, increment]
+  ticketCategoryName String [not null]
+  Ticket Ticket [not null]
+}
+
+Table Dorm {
+  dormID Int [pk, increment]
+  User User [not null]
+  userID Int [unique, not null]
+  name String [not null]
+  address String [not null]
+  latitude String [not null]
+  longitude String [not null]
+  description String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  waterRate String [not null]
+  electricityrate String [not null]
+  Landmarks Landmark [not null]
+  landmarkID Int [not null]
+  Ratings Rating [not null]
+  Comments Comment [not null]
+  Accommodations Accommodation [not null]
+  Rooms Room [not null]
+  DormImages Image [not null]
+}
+
+Table Room {
+  roomsID Int [pk, increment]
+  InDorm Dorm [not null]
+  dormID Int [not null]
+  price Float [not null]
+  name String [not null]
+  Accommodations Accommodation [not null]
+  RoomImages Image [not null]
+}
+
+Table Landmark {
+  landmarkID Int [pk, increment]
+  ParentUniversity Landmark
+  parentUniversityID Int
+  LandmarksInUniversity Landmark [not null]
+  name String [not null]
+  DormInLandmark Dorm [not null]
+}
+
+Table Accommodation {
+  accommodationID Int [pk, increment]
+  TargetDorm Dorm
+  dormID Int
+  TargetRoom Room
+  roomsID Int
+  AccommodationType AccommodationType [not null]
+  accommodationTypeID Int [not null]
+}
+
+Table AccommodationType {
+  accommodationTypeID Int [pk, increment]
+  accommodationName String [not null]
+  Accommodations Accommodation [not null]
+}
+
+Table Rating {
+  ratingID Int [pk, increment]
+  TargetDorm Dorm [not null]
+  dormID Int [not null]
+  FromUser User [not null]
+  userID Int [not null]
+  score Int [not null]
+}
+
+Table Comment {
+  commentID Int [pk, increment]
+  User User [not null]
+  userID Int [not null]
+  description String [not null]
+  TargetDorm Dorm [not null]
+  dormID Int [not null]
+  ParentComment Comment
+  parentCommentID Int
+  ChildrenComments Comment [not null]
+}
+
+Table Image {
+  imageID Int [pk, increment]
+  url String [unique, not null]
+  UserProfile User [not null]
+  Dorm Dorm [not null]
+  Room Room [not null]
+}
+
+Enum Role {
+  USER
+  DORM_OWNER
+  ADMIN
+}
+
+Ref: User.imageID > Image.imageID
+
+Ref: Ticket.ticketCategoryID > TicketCategory.ticketCategoryID
+
+Ref: Ticket.userID > User.userId
+
+Ref: Dorm.userID - User.userId
+
+Ref: Dorm.landmarkID > Landmark.landmarkID
+
+Ref: Room.dormID > Dorm.dormID
+
+Ref: Landmark.parentUniversityID - Landmark.landmarkID
+
+Ref: Accommodation.dormID > Dorm.dormID
+
+Ref: Accommodation.roomsID > Room.roomsID
+
+Ref: Accommodation.accommodationTypeID > AccommodationType.accommodationTypeID
+
+Ref: Rating.dormID > Dorm.dormID
+
+Ref: Rating.userID > User.userId
+
+Ref: Comment.userID > User.userId
+
+Ref: Comment.dormID > Dorm.dormID
+
+Ref: Comment.parentCommentID - Comment.commentID
