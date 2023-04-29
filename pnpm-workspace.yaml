@@ -2,4 +2,4 @@ packages:
   - 'apps/*'
   - 'config/*'
   - 'lib/helpers/*'
-  - 'lib/helpers/*'
+  - 'shared/*'
