@@ -1,7 +1,6 @@
 <script>
-import DormCreateRoomTab from '~components/DormCreateRoomTab.vue'
+import DormCreateRoomTab from '../components/DormCreateRoomTab.vue'
 import { IconBed, IconSquarePlus } from '@tabler/icons-vue'
-import {} from '@'
 
 export default {
   data: () => ({
@@ -74,7 +73,7 @@ export default {
             class="flex space-x-1 rounded-t-lg bg-gray-100 p-4 text-blue-600 dark:bg-gray-800 dark:text-blue-500"
           >
             <IconSquarePlus width="20" height="20" />
-            <span> เพิ่มหอใหม่ </span>
+            <span> เพิ่มหอใหม่</span>
           </button>
         </li>
       </ul>

@@ -1,3 +1,6 @@
+<script>
+export default {}
+</script>
 <template>
   <main class="relative h-screen overflow-hidden bg-white">
     <div
@@ -9,7 +12,7 @@
         <div
           class="mb-16 flex w-full flex-col items-center justify-center space-x-12 md:mb-8 md:flex-row"
         >
-          <h1 class="text-gray-800 text-center text-6xl font-thin">
+          <h1 class="text-center text-6xl font-thin text-gray-800">
             มาตรงนี้ได้ยังไงเนี่ย?
           </h1>
         </div>

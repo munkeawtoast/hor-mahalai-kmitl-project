@@ -29,4 +29,4 @@ RUN pnpm turbo run build --filter=webadmin...
 FROM installer AS runner
 
 WORKDIR /app/apps/admin
-CMD ["pnpm", "run", "preview"]
+CMD ["pnpm", "run", "start"]

@@ -1,13 +1,14 @@
 <script>
 import { RouterView } from 'vue-router'
 import NavBar from './components/NavBar.vue'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   components: {
     RouterView,
     NavBar,
   },
-}
+})
 </script>
 
 <template>

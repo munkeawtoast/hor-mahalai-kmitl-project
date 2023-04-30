@@ -85,7 +85,7 @@ export default {
       </button>
     </div>
 
-    <div class="left-1/2 absolute bottom-0 mb-1 flex gap-1 -translate-x-1/2">
+    <div class="absolute left-1/2 bottom-0 mb-1 flex -translate-x-1/2 gap-1">
       <button
         v-for="(_, index) in images"
         :key="index"

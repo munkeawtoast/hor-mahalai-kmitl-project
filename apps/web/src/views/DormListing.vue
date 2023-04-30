@@ -1,7 +1,9 @@
 <script>
 export default {
   data() {
-    dormListing: []
+    return {
+      dormListing: []
+    }
   },
 }
 </script>

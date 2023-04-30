@@ -1,6 +1,6 @@
 <script>
-import IconLogo from '~components/icons/IconLogo.vue'
-import UserIcon from '~components/UserIcon.vue'
+import IconLogo from './icons/IconLogo.vue'
+import UserIcon from './UserIcon.vue'
 import { RouterLink } from 'vue-router'
 
 export default {

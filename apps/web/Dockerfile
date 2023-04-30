@@ -29,4 +29,4 @@ RUN pnpm turbo run build --filter=web...
 FROM installer AS runner
 
 WORKDIR /app/apps/web
-CMD ["pnpm", "run", "preview"]
+CMD ["pnpm", "run", "start"]
