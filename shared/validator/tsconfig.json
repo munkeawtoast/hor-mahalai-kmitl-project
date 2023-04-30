@@ -1,8 +1,0 @@
-{
-  "extends": "@config/tsconfig/api.json",
-  "compilerOptions": {
-    "declaration": true,
-    "outDir": "./out",
-    "esModuleInterop": true
-  }
-}

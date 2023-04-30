@@ -58,7 +58,12 @@ export const zPostDorm = z.object({
   rooms: Room.array()
     .nonempty('ต้องมีประเภทห้องอย่างน้อยหนึ่งห้อง')
     .max(100, 'ห้องเยอะเกินไป'),
-  accomodations: z.string().array(),
+  accomodations: z
+    .object({
+      name: z.string(),
+      value: z.boolean(),
+    })
+    .array(),
 })
 
 export const zPatchDorm = zPostDorm
