@@ -2,9 +2,11 @@
   "name": "@shared/validator",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/index.js",
+  "main": "./out/index.js",
+  "types": "./out/index.d.ts",
   "type": "module",
   "scripts": {
+    "postinstall": "pnpm run build",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,6 +18,7 @@
     "eslint": "^8.39.0"
   },
   "dependencies": {
+    "@config/eslint-config-express": "workspace:^",
     "@config/tsconfig": "workspace:^",
     "zod": "^3.21.4"
   }
