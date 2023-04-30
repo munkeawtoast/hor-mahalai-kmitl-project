@@ -2,8 +2,14 @@
   "extends": "@config/tsconfig/api.json",
   "compilerOptions": {
     "baseUrl": "./src",
-    "outDir": "./dist",
-    "esModuleInterop": true
+    "outDir": "./out",
+    "esModuleInterop": true,
+    "paths": {
+      "~handlers/*": ["./handlers/*"],
+      "~router/*": ["./router/*"],
+      "~utils/*": ["./handlers/*"],
+      "~middlewares/*": ["./middlewares/*"]
+    }
   },
   "ts-node": {
     "esm": true

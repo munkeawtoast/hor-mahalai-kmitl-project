@@ -29,4 +29,4 @@ RUN pnpm turbo run build --filter=api...
 FROM installer AS runner
 
 WORKDIR /app/apps/api
-CMD ['pnpm', 'run', 'preview']
+CMD ["pnpm", "run", "start"]

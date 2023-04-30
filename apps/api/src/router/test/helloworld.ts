@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response, Router } from 'express'
-import { imageUploadBuilder } from '../middlewares/imgbb.js'
+import { imageUploadBuilder } from '../../middlewares/imgbb.js'
 import { RequestWithUpload } from 'global-types.js'
 
 const helloworldRouter = Router()

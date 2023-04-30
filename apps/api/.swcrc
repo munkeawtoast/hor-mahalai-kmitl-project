@@ -14,9 +14,12 @@
     "target": "es2022",
     "loose": false,
     "externalHelpers": false,
+    "baseUrl": "./src",
     "paths": {
-      "~utils": ["./src/utils"],
-      "~utils/*": ["./src/utils/*"]
+      "~handlers/*": ["./handlers/*"],
+      "~router/*": ["./router/*"],
+      "~utils/*": ["./handlers/*"],
+      "~middlewares/*": ["./middlewares/*"]
     }
   },
   "minify": false
