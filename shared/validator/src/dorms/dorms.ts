@@ -28,7 +28,7 @@ export const dormAccommodations = [
 
 const Room = z.object({
   name: z
-    .string({ required: 'กรุณากรอกชื่อห้อง' })
+    .string({ required_error: 'กรุณากรอกชื่อห้อง' })
     .min(3, 'ชื่อห้องสั้นเกินไป')
     .max(30, 'ชื่อประเภทห้องต้องสั่นกว่า 30 ตัวอักษร'),
   accomodations: z
