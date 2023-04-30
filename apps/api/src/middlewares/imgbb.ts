@@ -42,6 +42,31 @@ async function uploadToImgBB(file: MulterFile) {
   })
 }
 
+function imageRequiredGuard(
+  req: RequestWithMulter,
+  res: Response,
+  next: NextFunction,
+) {
+  let filesArr: MulterFile[]
+  const { files } = req
+  if (files) {
+    filesArr = [...files]
+  } else {
+    filesArr = [req.file]
+  }
+  if (filesArr.length === 0) {
+    next(new Error('Please upload a file'))
+    // res.status(400).json({
+    //   error: {
+    //     message: 'please upload a file',
+    //   },
+    // })
+    return
+  } else {
+    next()
+  }
+}
+
 function imageUploader(
   req: Request & RequestWithMulter & RequestWithUpload,
   _res: Response,
@@ -54,14 +79,20 @@ function imageUploader(
   } else {
     filesArr = [req.file]
   }
-  Promise.all(filesArr.map((file) => uploadToImgBB(file))).then((responses) => {
-    req.links = responses.map((res) => res.data.data.url)
+  if (filesArr.length === 0) {
     next()
-  })
+  } else {
+    Promise.all(filesArr.map((file) => uploadToImgBB(file))).then(
+      (responses) => {
+        req.links = responses.map((res: ImgBBResponse) => res.data.data.url)
+        next()
+      },
+    )
+  }
 }
 
 export function imageUploadBuilder(
-  config: UploadSingle | UploadArray,
+  config: (UploadSingle | UploadArray) & { required?: boolean },
 ): RequestHandler[] {
   const memoryStorage = multer.memoryStorage()
   const upload = multer({
@@ -78,15 +109,22 @@ export function imageUploadBuilder(
     },
   })
 
+  const middlewares = []
+
   if (config.type === 'single') {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return [upload.single(config.fieldName), imageUploader]
+    middlewares.push(upload.single(config.fieldName))
   } else if (config.type === 'array') {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return [upload.array(config.fieldName, config.maxCount), imageUploader]
+    middlewares.push(upload.array(config.fieldName, config.maxCount))
   } else {
     throw new Error('Invalid config')
   }
+
+  if (config.required) {
+    middlewares.push(imageRequiredGuard)
+  }
+  middlewares.push(imageUploader)
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  return middlewares
 }

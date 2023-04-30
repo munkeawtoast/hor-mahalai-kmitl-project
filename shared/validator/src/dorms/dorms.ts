@@ -37,6 +37,9 @@ const Room = z.object({
       value: z.boolean(),
     })
     .array(),
+  width: z.number().positive('ความกว้างต้องมากกว่า 0'),
+  height: z.number().positive('ความยาวต้องมากกว่า 0'),
+  price: z.number().positive('ราคาต้องไม่ต่ำกว่า 0'),
 })
 
 export const zPostDorm = z.object({
@@ -52,9 +55,18 @@ export const zPostDorm = z.object({
     .max(120, 'ที่อยู่ต้องสั่นกว่า 120 ตัวอักษร'),
   latitude: z.number().min(-85).max(85),
   longitude: z.number().min(-180).max(180),
+  description: z
+    .string({ required_error: 'กรุณากรอกคำอธิบายหอ' })
+    .max(1000, 'คำอธิบายยาวเกินไป'),
+  waterrate: z
+    .string({ required_error: 'กรุณากรอกค่าน้ำ' })
+    .max(100, 'ข้อความยาวเกินไป'),
+  electricityrate: z
+    .string({ required_error: 'กรุณากรอกค่าไฟ' })
+    .max(100, 'ข้อความยาวเกินไป'),
   landmark: z
     .number({ required_error: 'ต้องมีจุดมาร์ค' })
-    .int('ไอดีจุดต้องเป็็น integer'),
+    .int('ไอดีจุดต้องเป็น integer'),
   rooms: Room.array()
     .nonempty('ต้องมีประเภทห้องอย่างน้อยหนึ่งห้อง')
     .max(100, 'ห้องเยอะเกินไป'),
@@ -65,6 +77,8 @@ export const zPostDorm = z.object({
     })
     .array(),
 })
+
+export const zPostRoom = Room
 
 export const zPatchDorm = zPostDorm
   .omit({

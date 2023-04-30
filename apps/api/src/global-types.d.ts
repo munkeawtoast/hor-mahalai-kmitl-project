@@ -46,5 +46,5 @@ export type RequestWithMulter = Request & {
 }
 
 export type RequestWithUpload = Request & {
-  links: string[]
+  links?: string[]
 }

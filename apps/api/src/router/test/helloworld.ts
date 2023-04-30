@@ -15,12 +15,12 @@ helloworldRouter.get(
 
 helloworldRouter.post(
   '/expect-image-upload',
-  ...imageUploadBuilder({
+  imageUploadBuilder({
     type: 'single',
-    fieldName: 'image'
+    fieldName: 'image',
+    required: true,
   }),
-  function (req: any, res, next) {
-
+  function (req: any, res: Response, next: NextFunction) {
     console.log(req.links)
     console.log(req.files)
     console.log(req.file)

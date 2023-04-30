@@ -20,6 +20,7 @@
   "dependencies": {
     "@config/eslint-config-express": "workspace:^",
     "@config/tsconfig": "workspace:^",
+    "typescript": "^4.9.5",
     "zod": "^3.21.4"
   }
 }

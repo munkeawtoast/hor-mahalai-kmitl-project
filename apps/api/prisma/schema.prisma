@@ -11,7 +11,9 @@ datasource db {
 }
 
 generator dbml {
-  provider = "prisma-dbml-generator"
+  provider              = "prisma-dbml-generator"
+  projectDatabaseType   = "PostgreSQL"
+  includeRelationFields = false
 }
 
 generator docs {
@@ -33,7 +35,7 @@ model User {
   email     String
   createdAt DateTime  @default(now())
   bannedAt  DateTime?
-  roleID    Role
+  Role      Role
   imageID   Int?
   Image     Image?    @relation("UserImage", fields: [imageID], references: [imageID])
   Dorm      Dorm?     @relation("DormOwner")
@@ -43,19 +45,21 @@ model User {
 }
 
 model Ticket {
-  ticketID         Int            @id @default(autoincrement())
-  title            String
-  description      String
-  TicketCategory   TicketCategory @relation("TicketCategory", fields: [ticketCategoryID], references: [ticketCategoryID])
-  ticketCategoryID Int
-  User             User           @relation("UserTicket", fields: [userID], references: [userId])
-  userID           Int
+  ticketID       Int            @id @default(autoincrement())
+  title          String
+  description    String
+  TicketCategory TicketCategory
+  User           User           @relation("UserTicket", fields: [userID], references: [userId])
+  userID         Int
+  Dorm           Dorm?          @relation("DormTicket", fields: [dormID], references: [dormID])
+  dormID         Int
 }
 
-model TicketCategory {
-  ticketCategoryID   Int      @id @default(autoincrement())
-  ticketCategoryName String
-  Ticket             Ticket[] @relation("TicketCategory")
+enum TicketCategory {
+  WEB
+  USER
+  DORM
+  OTHER
 }
 
 model Dorm {
@@ -64,29 +68,34 @@ model Dorm {
   userID          Int             @unique
   name            String
   address         String
-  latitude        String
-  longitude       String
+  latitude        Float
+  longitude       Float
   description     String
   createdAt       DateTime        @default(now())
   waterRate       String
-  electricityrate String
+  electricityRate String
+  approvedAt      DateTime?
+  approvedBy      String?
   Landmarks       Landmark        @relation("DormLandmark", fields: [landmarkID], references: [landmarkID])
   landmarkID      Int
   Ratings         Rating[]        @relation("DormRating")
   Comments        Comment[]       @relation("DormComments")
   Accommodations  Accommodation[] @relation("DormAccommodation")
   Rooms           Room[]          @relation("DormRooms")
-  DormImages      Image[]
+  DormImages      Image[]         @relation("DormImages")
+  Ticket          Ticket[]        @relation("DormTicket")
 }
 
 model Room {
   roomsID        Int             @id @default(autoincrement())
   InDorm         Dorm            @relation("DormRooms", fields: [dormID], references: [dormID])
   dormID         Int
+  width          Float
+  length         Float
   price          Float
   name           String
   Accommodations Accommodation[] @relation("RoomAccommodation")
-  RoomImages     Image[]
+  RoomImages     Image[]         @relation("RoomImages")
 }
 
 model Landmark {
@@ -139,8 +148,10 @@ model Image {
   imageID     Int    @id @default(autoincrement())
   url         String @unique
   UserProfile User[] @relation("UserImage")
-  Dorm        Dorm[]
-  Room        Room[]
+  InDorm      Dorm?  @relation("DormImages", fields: [dormID], references: [dormID])
+  dormID      Int
+  InRoom      Room?  @relation("RoomImages", fields: [roomsID], references: [roomsID])
+  roomsID     Int
 }
 
 // /////////////////
