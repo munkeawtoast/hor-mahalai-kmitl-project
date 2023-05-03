@@ -26,64 +26,66 @@ export const dormAccommodations = [
   'ร้านสะดวกซื้อใกล้',
 ]
 
-const Room = z.object({
-  name: z
-    .string({ required_error: 'กรุณากรอกชื่อห้อง' })
-    .min(3, 'ชื่อห้องสั้นเกินไป')
-    .max(30, 'ชื่อประเภทห้องต้องสั่นกว่า 30 ตัวอักษร'),
-  accomodations: z
-    .object({
-      name: z.string(),
-      value: z.boolean(),
-    })
-    .array(),
-  width: z.number().positive('ความกว้างต้องมากกว่า 0'),
-  height: z.number().positive('ความยาวต้องมากกว่า 0'),
-  price: z.number().positive('ราคาต้องไม่ต่ำกว่า 0'),
-})
+const room = () =>
+  z.object({
+    name: z
+      .string({ required_error: 'กรุณากรอกชื่อห้อง' })
+      .min(3, 'ชื่อห้องสั้นเกินไป')
+      .max(30, 'ชื่อประเภทห้องต้องสั่นกว่า 30 ตัวอักษร'),
+    accomodations: z
+      .object({
+        name: z.string(),
+        value: z.boolean(),
+      })
+      .array(),
+    width: z.number().positive('ความกว้างต้องมากกว่า 0'),
+    height: z.number().positive('ความยาวต้องมากกว่า 0'),
+    price: z.number().positive('ราคาต้องไม่ต่ำกว่า 0'),
+  })
 
-export const zPostDorm = z.object({
-  name: z
-    .string({ required_error: 'กรุณากรอกชื่อหอ' })
-    .min(5, {
-      message: 'ชื่อสั้นเกินไป',
-    })
-    .max(30, { message: 'ชื่อต้องสั้นกว่า 30 ตัวอักษร' }),
-  address: z
-    .string({ required_error: 'กรุณากรอกที่อยู่' })
-    .min(5, 'ที่อยู่สั่นเกินไป')
-    .max(120, 'ที่อยู่ต้องสั่นกว่า 120 ตัวอักษร'),
-  latitude: z.number().min(-85).max(85),
-  longitude: z.number().min(-180).max(180),
-  description: z
-    .string({ required_error: 'กรุณากรอกคำอธิบายหอ' })
-    .max(1000, 'คำอธิบายยาวเกินไป'),
-  waterrate: z
-    .string({ required_error: 'กรุณากรอกค่าน้ำ' })
-    .max(100, 'ข้อความยาวเกินไป'),
-  electricityrate: z
-    .string({ required_error: 'กรุณากรอกค่าไฟ' })
-    .max(100, 'ข้อความยาวเกินไป'),
-  landmark: z
-    .number({ required_error: 'ต้องมีจุดมาร์ค' })
-    .int('ไอดีจุดต้องเป็น integer'),
-  rooms: Room.array()
-    .nonempty('ต้องมีประเภทห้องอย่างน้อยหนึ่งห้อง')
-    .max(100, 'ห้องเยอะเกินไป'),
-  accomodations: z
-    .object({
-      name: z.string(),
-      value: z.boolean(),
-    })
-    .array(),
-})
+export const zPostDorm = () =>
+  z.object({
+    name: z
+      .string({ required_error: 'กรุณากรอกชื่อหอ' })
+      .min(5, {
+        message: 'ชื่อสั้นเกินไป',
+      })
+      .max(30, { message: 'ชื่อต้องสั้นกว่า 30 ตัวอักษร' }),
+    address: z
+      .string({ required_error: 'กรุณากรอกที่อยู่' })
+      .min(5, 'ที่อยู่สั่นเกินไป')
+      .max(120, 'ที่อยู่ต้องสั่นกว่า 120 ตัวอักษร'),
+    latitude: z.number().min(-85).max(85),
+    longitude: z.number().min(-180).max(180),
+    description: z
+      .string({ required_error: 'กรุณากรอกคำอธิบายหอ' })
+      .max(1000, 'คำอธิบายยาวเกินไป'),
+    waterrate: z
+      .string({ required_error: 'กรุณากรอกค่าน้ำ' })
+      .max(100, 'ข้อความยาวเกินไป'),
+    electricityrate: z
+      .string({ required_error: 'กรุณากรอกค่าไฟ' })
+      .max(100, 'ข้อความยาวเกินไป'),
+    landmark: z
+      .number({ required_error: 'ต้องมีจุดมาร์ค' })
+      .int('ไอดีจุดต้องเป็น integer'),
+    rooms: room()
+      .array()
+      .nonempty('ต้องมีประเภทห้องอย่างน้อยหนึ่งห้อง')
+      .max(100, 'ห้องเยอะเกินไป'),
+    accomodations: z
+      .object({
+        name: z.string(),
+        value: z.boolean(),
+      })
+      .array(),
+  })
 
-export const zPostRoom = Room
+export const zPostRoom = room()
 
-export const zPatchDorm = zPostDorm
-  .omit({
+export const zPatchDorm = () =>
+  zPostDorm().omit({
     rooms: true,
   })
-  .partial()
 
-export const zPatchRoom = Room.partial()
+export const zPatchRoom = () => room().partial()

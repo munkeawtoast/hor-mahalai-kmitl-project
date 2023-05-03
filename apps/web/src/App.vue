@@ -13,21 +13,7 @@ export default defineComponent({
 
 <template>
   <NavBar v-if="!$route.meta.hideNavBar" />
-  <div class="container">
+  <div class="container mx-auto p-4">
     <RouterView />
   </div>
 </template>
-
-<style scoped>
-.container {
-  width: 1024px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-@media (width <= 1366) {
-  .container {
-    width: 100%;
-  }
-}
-</style>

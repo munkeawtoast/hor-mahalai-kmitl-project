@@ -14,7 +14,7 @@ export default {
 }
 </script>
 <template>
-  <div class="flex w-full flex-col items-stretch gap-4">
+  <div class="space-y-4">
     <DormSearchResult :dorms="dormData" :query-text="queryText" />
   </div>
 </template>
