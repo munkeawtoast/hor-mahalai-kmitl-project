@@ -39,7 +39,7 @@ const room = () =>
       })
       .array(),
     width: z.number().positive('ความกว้างต้องมากกว่า 0'),
-    height: z.number().positive('ความยาวต้องมากกว่า 0'),
+    length: z.number().positive('ความยาวต้องมากกว่า 0'),
     price: z.number().positive('ราคาต้องไม่ต่ำกว่า 0'),
   })
 
@@ -84,8 +84,13 @@ export const zPostDorm = () =>
 export const zPostRoom = room()
 
 export const zPatchDorm = () =>
-  zPostDorm().omit({
-    rooms: true,
-  })
+  zPostDorm()
+    .omit({
+      rooms: true,
+    })
+    .extend({
+      dormid: z.number(),
+      rooms: room().extend({ id: z.number().int().nullable() }).array(),
+    })
 
 export const zPatchRoom = () => room().partial()

@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express'
 import { PrismaClient } from '@prisma/client'
 
-import { zPostDorm } from '@shared/validator'
+import { zPostDorm, zPatchDorm } from '@shared/validator'
 
 const prisma = new PrismaClient()
 
@@ -101,7 +101,7 @@ export const getOneDorm: RequestHandler<{ dormid: number }> = async (
 }
 
 export const postDorm: RequestHandler = async (req, res) => {
-  const parseResult = zPostDorm.safeParse(req.body)
+  const parseResult = zPostDorm().safeParse(req.body)
   if (!parseResult.success) {
     res.status(400).send(parseResult.error)
     return
@@ -109,24 +109,71 @@ export const postDorm: RequestHandler = async (req, res) => {
   const dormData = parseResult.data
   const addDorm = await prisma.dorm.create({
     data: {
-      userID: 1,
+      userID: 1, //later
       name: dormData.name,
       address: dormData.address,
       latitude: dormData.latitude,
       longitude: dormData.longitude,
       description: dormData.description,
       waterRate: dormData.waterrate,
-      electricityrate: dormData.electricityrate,
-      landmarkID: 1,
+      electricityRate: dormData.electricityrate,
+      landmarkID: 1, //TODO later
+      Rooms: {
+        createw,
+      },
     },
   })
 
-  // res.json(addDorm)
+  res.json(addDorm)
 }
 
 export const deleteDorm: RequestHandler<{ dormId: string }> = (req, res) => {}
 
-export const patchDorm: RequestHandler<{ dormId: string }> = (req, res) => {}
+export const putDorm: RequestHandler = async (req, res) => {
+  const parseResult = zPatchDorm().safeParse(req.body)
+  if (!parseResult.success) {
+    res.status(400).send(parseResult.error)
+    return
+  }
+  const dormID = parseResult.data.dormid
+  const dormData = parseResult.data
+  const addDorm = await prisma.dorm.update({
+    where: {
+      dormID: dormID,
+    },
+    data: {
+      userID: 1, //later
+      name: dormData.name,
+      address: dormData.address,
+      latitude: dormData.latitude,
+      longitude: dormData.longitude,
+      description: dormData.description,
+      waterRate: dormData.waterrate,
+      electricityRate: dormData.electricityrate,
+      landmarkID: 1, //TODO later
+
+      // Rooms: {
+      //   upsert: dormData.rooms.map((room) => ({
+      //     where: {
+      //       roomID: room.id ? room.id : undefined,
+      //     },
+      //     create: {
+      //       length: room.length,
+      //       name: room.name,
+      //       price: room.price,
+      //       width: room.width,
+      //     },
+      //     update: {
+      //       length: room.length,
+      //       name: room.name,
+      //       price: room.price,
+      //       width: room.width,
+      //     },
+      //   })),
+      // },
+    },
+  })
+}
 
 export const patchApproveDorm: RequestHandler<{ dormId: string }> = (
   req,

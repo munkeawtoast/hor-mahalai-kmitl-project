@@ -5,7 +5,7 @@
 Table User {
   userId Int [pk, increment]
   username String [unique, not null]
-  password String [unique, not null]
+  password String [not null]
   firstName String [not null]
   lastName String [not null]
   email String [not null]
@@ -34,14 +34,14 @@ Table Dorm {
   description String [not null]
   createdAt DateTime [default: `now()`, not null]
   waterRate String [not null]
-  electricityrate String [not null]
+  electricityRate String [not null]
   approvedAt DateTime
   approvedBy String
   landmarkID Int [not null]
 }
 
 Table Room {
-  roomsID Int [pk, increment]
+  roomID Int [pk, increment]
   dormID Int [not null]
   width Float [not null]
   length Float [not null]
@@ -58,7 +58,7 @@ Table Landmark {
 Table Accommodation {
   accommodationID Int [pk, increment]
   dormID Int
-  roomsID Int
+  roomID Int
   accommodationTypeID Int [not null]
 }
 
@@ -86,7 +86,7 @@ Table Image {
   imageID Int [pk, increment]
   url String [unique, not null]
   dormID Int [not null]
-  roomsID Int [not null]
+  roomID Int [not null]
 }
 
 Enum Role {
@@ -104,34 +104,34 @@ Enum TicketCategory {
 
 Ref: User.imageID > Image.imageID
 
-Ref: Ticket.userID > User.userId
+Ref: Ticket.userID > User.userId [delete: Cascade]
 
-Ref: Ticket.dormID > Dorm.dormID
+Ref: Ticket.dormID > Dorm.dormID [delete: Cascade]
 
-Ref: Dorm.userID - User.userId
+Ref: Dorm.userID - User.userId [delete: Cascade]
 
 Ref: Dorm.landmarkID > Landmark.landmarkID
 
-Ref: Room.dormID > Dorm.dormID
+Ref: Room.dormID > Dorm.dormID [delete: Cascade]
 
-Ref: Landmark.parentUniversityID - Landmark.landmarkID
+Ref: Landmark.parentUniversityID - Landmark.landmarkID [delete: Cascade]
 
 Ref: Accommodation.dormID > Dorm.dormID
 
-Ref: Accommodation.roomsID > Room.roomsID
+Ref: Accommodation.roomID > Room.roomID
 
 Ref: Accommodation.accommodationTypeID > AccommodationType.accommodationTypeID
 
-Ref: Rating.dormID > Dorm.dormID
+Ref: Rating.dormID > Dorm.dormID [delete: Cascade]
 
-Ref: Rating.userID > User.userId
+Ref: Rating.userID > User.userId [delete: Cascade]
 
-Ref: Comment.userID > User.userId
+Ref: Comment.userID > User.userId [delete: Cascade]
 
-Ref: Comment.dormID > Dorm.dormID
+Ref: Comment.dormID > Dorm.dormID [delete: Cascade]
 
-Ref: Comment.parentCommentID - Comment.commentID
+Ref: Comment.parentCommentID - Comment.commentID [delete: Cascade]
 
-Ref: Image.dormID > Dorm.dormID
+Ref: Image.dormID > Dorm.dormID [delete: Cascade]
 
-Ref: Image.roomsID > Room.roomsID
+Ref: Image.roomID > Room.roomID [delete: Cascade]

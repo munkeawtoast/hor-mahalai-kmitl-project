@@ -29,7 +29,7 @@ enum Role {
 model User {
   userId    Int       @id @default(autoincrement())
   username  String    @unique
-  password  String    @unique
+  password  String
   firstName String
   lastName  String
   email     String
@@ -49,9 +49,9 @@ model Ticket {
   title          String
   description    String
   TicketCategory TicketCategory
-  User           User           @relation("UserTicket", fields: [userID], references: [userId])
+  User           User           @relation("UserTicket", fields: [userID], references: [userId], onDelete: Cascade)
   userID         Int
-  Dorm           Dorm?          @relation("DormTicket", fields: [dormID], references: [dormID])
+  Dorm           Dorm?          @relation("DormTicket", fields: [dormID], references: [dormID], onDelete: Cascade)
   dormID         Int
 }
 
@@ -64,7 +64,7 @@ enum TicketCategory {
 
 model Dorm {
   dormID          Int             @id @default(autoincrement())
-  User            User            @relation("DormOwner", fields: [userID], references: [userId])
+  User            User            @relation("DormOwner", fields: [userID], references: [userId], onDelete: Cascade)
   userID          Int             @unique
   name            String
   address         String
@@ -87,8 +87,8 @@ model Dorm {
 }
 
 model Room {
-  roomsID        Int             @id @default(autoincrement())
-  InDorm         Dorm            @relation("DormRooms", fields: [dormID], references: [dormID])
+  roomID         Int             @id @default(autoincrement())
+  InDorm         Dorm            @relation("DormRooms", fields: [dormID], references: [dormID], onDelete: Cascade)
   dormID         Int
   width          Float
   length         Float
@@ -100,7 +100,7 @@ model Room {
 
 model Landmark {
   landmarkID            Int        @id @default(autoincrement())
-  ParentUniversity      Landmark?  @relation("UniversityLandmarks", fields: [parentUniversityID], references: [landmarkID])
+  ParentUniversity      Landmark?  @relation("UniversityLandmarks", fields: [parentUniversityID], references: [landmarkID], onDelete: Cascade)
   parentUniversityID    Int?
   LandmarksInUniversity Landmark[] @relation("UniversityLandmarks")
   name                  String
@@ -111,8 +111,8 @@ model Accommodation {
   accommodationID     Int               @id @default(autoincrement())
   TargetDorm          Dorm?             @relation("DormAccommodation", fields: [dormID], references: [dormID])
   dormID              Int?
-  TargetRoom          Room?             @relation("RoomAccommodation", fields: [roomsID], references: [roomsID])
-  roomsID             Int?
+  TargetRoom          Room?             @relation("RoomAccommodation", fields: [roomID], references: [roomID])
+  roomID              Int?
   AccommodationType   AccommodationType @relation("AccommodationType", fields: [accommodationTypeID], references: [accommodationTypeID])
   accommodationTypeID Int
 }
@@ -125,21 +125,21 @@ model AccommodationType {
 
 model Rating {
   ratingID   Int  @id @default(autoincrement())
-  TargetDorm Dorm @relation("DormRating", fields: [dormID], references: [dormID])
+  TargetDorm Dorm @relation("DormRating", fields: [dormID], references: [dormID], onDelete: Cascade)
   dormID     Int
-  FromUser   User @relation("UserRating", fields: [userID], references: [userId])
+  FromUser   User @relation("UserRating", fields: [userID], references: [userId], onDelete: Cascade)
   userID     Int
   score      Int
 }
 
 model Comment {
   commentID        Int       @id @default(autoincrement())
-  User             User      @relation("UserComment", fields: [userID], references: [userId])
+  User             User      @relation("UserComment", fields: [userID], references: [userId], onDelete: Cascade)
   userID           Int
   description      String
-  TargetDorm       Dorm      @relation("DormComments", fields: [dormID], references: [dormID])
+  TargetDorm       Dorm      @relation("DormComments", fields: [dormID], references: [dormID], onDelete: Cascade)
   dormID           Int
-  ParentComment    Comment?  @relation("CommentedComment", fields: [parentCommentID], references: [commentID])
+  ParentComment    Comment?  @relation("CommentedComment", fields: [parentCommentID], references: [commentID], onDelete: Cascade)
   parentCommentID  Int?
   ChildrenComments Comment[] @relation("CommentedComment")
 }
@@ -148,10 +148,10 @@ model Image {
   imageID     Int    @id @default(autoincrement())
   url         String @unique
   UserProfile User[] @relation("UserImage")
-  InDorm      Dorm?  @relation("DormImages", fields: [dormID], references: [dormID])
+  InDorm      Dorm?  @relation("DormImages", fields: [dormID], references: [dormID], onDelete: Cascade)
   dormID      Int
-  InRoom      Room?  @relation("RoomImages", fields: [roomsID], references: [roomsID])
-  roomsID     Int
+  InRoom      Room?  @relation("RoomImages", fields: [roomID], references: [roomID], onDelete: Cascade)
+  roomID      Int
 }
 
 // /////////////////

@@ -7,7 +7,7 @@
   "scripts": {
     "build": "swc src -d out",
     "build-dev": "pnpm run build && cross-env NODE_ENV=development node --inspect out/main.js",
-    "dev": "nodemon --ext ts --exec \"pnpm run build-dev\"",
+    "dev": "prisma migrate dev && nodemon --ext ts --exec \"pnpm run build-dev\"",
     "start": "pnpm run build && cross-env NODE_ENV=production node out/main.js"
   },
   "author": "2gurls",
