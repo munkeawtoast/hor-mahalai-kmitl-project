@@ -37,6 +37,9 @@ Table Dorm {
   electricityRate String [not null]
   approvedAt DateTime
   approvedBy String
+  contactTelnum String [not null]
+  contactFacebook String
+  contactLine String
   landmarkID Int [not null]
 }
 

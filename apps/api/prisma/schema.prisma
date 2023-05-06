@@ -63,27 +63,31 @@ enum TicketCategory {
 }
 
 model Dorm {
-  dormID          Int             @id @default(autoincrement())
-  User            User            @relation("DormOwner", fields: [userID], references: [userId], onDelete: Cascade)
-  userID          Int             @unique
+  dormID          Int       @id @default(autoincrement())
+  User            User      @relation("DormOwner", fields: [userID], references: [userId], onDelete: Cascade)
+  userID          Int       @unique
   name            String
   address         String
   latitude        Float
   longitude       Float
   description     String
-  createdAt       DateTime        @default(now())
+  createdAt       DateTime  @default(now())
   waterRate       String
   electricityRate String
   approvedAt      DateTime?
   approvedBy      String?
-  Landmarks       Landmark        @relation("DormLandmark", fields: [landmarkID], references: [landmarkID])
-  landmarkID      Int
-  Ratings         Rating[]        @relation("DormRating")
-  Comments        Comment[]       @relation("DormComments")
-  Accommodations  Accommodation[] @relation("DormAccommodation")
-  Rooms           Room[]          @relation("DormRooms")
-  DormImages      Image[]         @relation("DormImages")
-  Ticket          Ticket[]        @relation("DormTicket")
+  contactTelnum   String
+  contactFacebook String?
+  contactLine     String?
+
+  Landmarks      Landmark        @relation("DormLandmark", fields: [landmarkID], references: [landmarkID])
+  landmarkID     Int
+  Ratings        Rating[]        @relation("DormRating")
+  Comments       Comment[]       @relation("DormComments")
+  Accommodations Accommodation[] @relation("DormAccommodation")
+  Rooms          Room[]          @relation("DormRooms")
+  DormImages     Image[]         @relation("DormImages")
+  Ticket         Ticket[]        @relation("DormTicket")
 }
 
 model Room {
