@@ -5,7 +5,14 @@
   "author": "2gurls",
   "license": "ISC",
   "type": "module",
+  "files": [
+    "./users.json"
+  ],
   "dependencies": {
-    "@faker-js/faker": "^7.6.0"
+    "@config/eslint-config-vue3": "workspace:^",
+    "@faker-js/faker": "beta"
+  },
+  "devDependencies": {
+    "eslint": "^8.40.0"
   }
 }
