@@ -4,7 +4,6 @@ import {
   IconBuildingEstate,
   IconBed,
   IconSquarePlus,
-  IconX,
   IconAlertTriangleFilled,
 } from '@tabler/icons-vue'
 import {
@@ -27,12 +26,15 @@ import {
 import { IconInfoCircle } from '@tabler/icons-vue'
 import FormStep from '../components/FormStep.vue'
 import ZormInput from '../components/ZormInput.vue'
+import ZormSelect from '../components/ZormSelect.vue'
 
 const defaultRoom = {
   name: '',
   images: [],
   accomodations: [],
 }
+
+//TODO test
 
 const validator = zPostDorm()
 
@@ -82,6 +84,7 @@ export default {
     activeRoom: 0,
     modalShow: {
       submit: false,
+
       deleteRoom: false,
     },
     dorm,
@@ -116,6 +119,7 @@ export default {
     IconInfoCircle,
     DialogDescription,
     ZormInput,
+    ZormSelect,
   },
 }
 </script>
@@ -147,60 +151,51 @@ export default {
           label="ชื่อหอ"
           v-model="dorm.name"
           placeholder="หอพักไม่มีชื่อ"
-          :validator="zo.fields.name"
+          :id="zo.fields.name('id')"
+          :field="zo.fields.name('name')"
           :error="zo.errors.name"
           required
         />
-        <div>
-          <label for="first_name" class="mb-2 block font-medium">ชื่อหอ</label>
-          <input
-            type="text"
-            placeholder="หอพักไม่มีชื่อ"
-            required
-            v-model="dorm.name"
-            :name="zo.fields.name('name')"
-            :class="
-              zo.errors.name(
-                'ring-red-400  focus:border-red-400 focus:ring-red-400',
-              )
-            "
-            class="block w-full rounded-lg border border-lesser-gray bg-gray-50 p-2.5 text-sm text-black focus:border-primary focus:ring-primary"
-          />
-          <span class="flex h-6 items-center text-xs text-danger">
-            {{ zo.errors.name()?.message }}
-          </span>
-        </div>
         <div class="grid-cols-2 gap-3 sm:grid">
-          <div>
-            <label for="university-select" class="mb-2 block font-medium"
-              >เลือกมหาลัย</label
-            >
-            <select
-              required
-              v-model="dorm.university"
-              name="university-select"
-              id="university-select"
-              :class="
-                zo.errors.name(
-                  'ring-red-400  focus:border-red-400 focus:ring-red-400',
-                )
-              "
-              class="block w-full rounded-lg border border-lesser-gray bg-gray-50 p-2.5 text-sm text-black focus:border-primary focus:ring-primary"
-            >
-              <option :value="null" selected disabled>
-                กรุณาเลือกมหาวิทยาลัยใกล้เคียง
-              </option>
-              <option
-                v-for="lan in landmarkOptions"
-                :name="zo.fields.landmark('name')"
-                :value="lan.id"
-                :key="lan.id"
-              ></option>
-            </select>
-            <span class="flex h-6 items-center text-xs text-danger">
-              {{ zo.errors.name()?.message }}
-            </span>
-          </div>
+          <!-- <div> -->
+          <!--   <label for="university-select" class="block mb-2 font-medium" -->
+          <!--     >เลือกมหาลัย</label -->
+          <!--   > -->
+          <!--   <select -->
+          <!--     required -->
+          <!--     v-model="dorm.university" -->
+          <!--     name="university-select" -->
+          <!--     id="university-select" -->
+          <!--     :class=" -->
+          <!--       zo.errors.name( -->
+          <!--         'ring-red-400  focus:border-red-400 focus:ring-red-400', -->
+          <!--       ) -->
+          <!--     " -->
+          <!--     class="block p-2.5 w-full text-sm text-black bg-gray-50 rounded-lg border border-lesser-gray focus:border-primary focus:ring-primary" -->
+          <!--   > -->
+          <!--     <option :value="null" selected disabled> -->
+          <!--       กรุณาเลือกมหาวิทยาลัยใกล้เคียง -->
+          <!--     </option> -->
+          <!--     <option -->
+          <!--       v-for="lan in landmarkOptions" -->
+          <!--       :name="zo.fields.landmark('name')" -->
+          <!--       :value="lan.id" -->
+          <!--       :key="lan.id" -->
+          <!--     ></option> -->
+          <!--   </select> -->
+          <!--   <span class="flex items-center h-6 text-xs text-danger"> -->
+          <!--     {{ zo.errors.name()?.message }} -->
+          <!--   </span> -->
+          <!-- </div> -->
+          <!-- <ZormSelect -->
+          <!--   v-model="dorm.landmark" -->
+          <!--   :id="zo.fields.landmark('id')" -->
+          <!--   :field="zo.fields.landmark('name')" -->
+          <!--   :error="zo.errors.landmark" -->
+          <!--   label="กรุณาเลือกมหาลัย" -->
+          <!--   placeholder="กรุณา" -->
+          <!--   :options="landmarkOptions" -->
+          <!-- /> -->
         </div>
         <div>
           <label for="first_name" class="mb-2 block font-medium"
@@ -366,20 +361,20 @@ export default {
                 <button
                   type="button"
                   @click="modalShow.deleteRoom = true"
-                  class="mb-2 mr-2 rounded-md bg-danger px-5 py-3 text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-soft-danger"
+                  class="mr-2 mb-2 rounded-md bg-danger py-3 px-5 text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-soft-danger"
                 >
                   ลบห้อง
                 </button>
               </div>
               <!-- <input
                 type="text"
-                class="block w-full rounded-lg border border-lesser-gray bg-gray-50 p-2.5 text-sm text-black focus:border-primary focus:ring-primary"
+                class="block p-2.5 w-full text-sm text-black bg-gray-50 rounded-lg border border-lesser-gray focus:border-primary focus:ring-primary"
                 placeholder="ห้องธรรมดา"
                 required
                 :name="zo.fields.rooms(index).name()('name')"
                 :class="zo.errors.name('bg-red-500')"
               /> -->
-              <!-- <span class="flex h-6 items-center text-xs text-danger">
+              <!-- <span class="flex items-center h-6 text-xs text-danger">
                 {{ zo.errors.name()?.message }}
               </span> -->
             </div>
@@ -387,7 +382,7 @@ export default {
           <button
             @click="modalShow.submit = true"
             type="button"
-            class="mb-2 mr-2 rounded-md bg-primary px-5 py-3 text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-primary-soft"
+            class="mr-2 mb-2 rounded-md bg-primary py-3 px-5 text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-primary-soft"
           >
             สร้างหอพัก
           </button>
@@ -421,14 +416,14 @@ export default {
                     this.modalShow = {}
                   }
                 "
-                class="mr-3 inline-flex items-center rounded-md bg-danger px-5 py-3 text-center text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-red-300"
+                class="mr-3 inline-flex items-center rounded-md bg-danger py-3 px-5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-red-300"
               >
                 ลบเลย
               </button>
               <button
                 type="button"
                 @click="modalShow = {}"
-                class="rounded-md border border-gray-200 bg-white px-5 py-3 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200"
+                class="rounded-md border border-gray-200 bg-white py-3 px-5 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200"
               >
                 ยังดีกว่า
               </button>
@@ -438,11 +433,16 @@ export default {
       </Dialog>
       <Dialog
         @close="modalShow.submit = false"
+        :initial-focus="this.$refs.submitButton"
         :open="modalShow.submit === true"
         class="relative w-full max-w-md rounded-md bg-white shadow"
       >
         <DialogBackdrop
-          class="z-100 fixed inset-0 flex items-center justify-center bg-black bg-opacity-30"
+          class="fixed inset-0 z-10 bg-black bg-opacity-30"
+          aria-hidden="true"
+        />
+        <div
+          class="fixed inset-0 z-20 flex items-center justify-center bg-opacity-30"
         >
           <DialogPanel
             class="relative flex w-full max-w-md flex-col items-center rounded-md bg-white p-6 shadow"
@@ -458,29 +458,32 @@ export default {
             <DialogDescription class="mb-5">
               หอพักจะต้องผ่านการยืนยันจากผู้ดูแลก่อน
             </DialogDescription>
-            <div class="w-fit">
-              <button
+            <div class="">
+              <input
                 type="submit"
-                @submit="
-                  () => {
-                    this.modalShow.submit = false
-                  }
-                "
-                class="mr-3 inline-flex items-center rounded-md bg-primary px-5 py-3 text-center text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:focus:ring-red-800"
-              >
-                เพิ่มหอ
-              </button>
+                ref="submitButton"
+                value="เพิ่มหอ"
+                @click="$refs.realSubmitButton.click()"
+                class="mr-3 inline-flex cursor-pointer items-center rounded-md bg-primary py-3 px-5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-primary-soft dark:focus:ring-red-800"
+              />
               <button
                 type="button"
                 @click="modalShow.submit = false"
-                class="rounded-md border border-gray-200 bg-white px-5 py-3 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-600"
+                class="rounded-md border border-gray-200 bg-white py-3 px-5 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-600"
               >
                 ยังดีกว่า
               </button>
             </div>
           </DialogPanel>
-        </DialogBackdrop>
+        </div>
       </Dialog>
+      <input
+        aria-hidden="true"
+        type="submit"
+        ref="realSubmitButton"
+        value="เพิ่มหอ"
+        class="hidden"
+      />
     </form>
 
     <pre wrap="true">
