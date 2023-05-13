@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { axios } from '~utils/index.js'
+import { axios } from '../utils'
 import { useLocalStorage } from '@vueuse/core'
 
 export const useUserStore = defineStore({

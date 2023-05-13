@@ -2,11 +2,7 @@ const colors = require('tailwindcss/colors')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './index.html',
-    './src/**/*.{vue,js}',
-    // './node_modules/flowbite/**/*.js',
-  ],
+  content: ['./index.html', './src/**/*.{vue,js}'],
   theme: {
     colors: {
       current: 'currentColor',
@@ -32,5 +28,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require('flowbite/plugin')],
+  plugins: [require('@tailwindcss/typography'), require('flowbite/plugin')],
 }

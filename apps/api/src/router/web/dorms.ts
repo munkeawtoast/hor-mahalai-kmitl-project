@@ -14,7 +14,7 @@ dormRouter.get(
   }),
   getDormsByName,
 )
-dormRouter.get('/landmark/:landmark', getDormsByLandmark)
+//! getDormsByLandmark moved to landmarks
 dormRouter.get('/', getDorms)
 dormRouter.get('/:id', getOneDorm)
 dormRouter.post('/', postDorm)

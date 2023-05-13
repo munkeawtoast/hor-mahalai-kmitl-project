@@ -40,12 +40,12 @@ const router = createRouter({
       },
       children: [
         {
-          path: 'login',
+          path: '/login',
           name: 'login',
           component: () => import('../views/LoginPage.vue'),
         },
         {
-          path: 'register',
+          path: '/register',
           name: 'register',
           component: () => import('../views/RegisterPage.vue'),
         },
@@ -66,6 +66,11 @@ const router = createRouter({
       path: '/users/:userID',
       name: 'user-details',
       props: true,
+    },
+    {
+      path: '/testtt',
+      name: 'testtt',
+      component: () => import('../views/TestttPage.vue'),
     },
     // {
     //   path: '/test',

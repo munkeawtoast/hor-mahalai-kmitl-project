@@ -23,7 +23,7 @@ export const dormAccommodations = [
   'ที่จอดรถ',
   'ที่จอดมอเตอร์ไซค์',
   'ฟิตเนส',
-  'ร้านสะดวกซื้อใกล้',
+  'ร้านสะดวกซื้อใกล้หอ',
 ]
 
 const room = () =>
@@ -35,7 +35,7 @@ const room = () =>
     accomodations: z
       .object({
         name: z.string(),
-        value: z.boolean(),
+        value: z.coerce.boolean(),
       })
       .array(),
     width: z.number().positive('ความกว้างต้องมากกว่า 0'),
@@ -55,11 +55,21 @@ export const zPostDorm = () =>
       .string({ required_error: 'กรุณากรอกที่อยู่' })
       .min(5, 'ที่อยู่สั่นเกินไป')
       .max(120, 'ที่อยู่ต้องสั่นกว่า 120 ตัวอักษร'),
-    latitude: z.number().min(-85).max(85),
-    longitude: z.number().min(-180).max(180),
+    position: z.tuple(
+      [z.number().min(-85).max(85), z.number().min(-180).max(180)],
+      { required_error: 'กรุณาเลือกตำแหน่งของหอ' },
+    ),
+    contacts: z.object({
+      telnum: z
+        .string({ required_error: 'กรุณากรอกเบอร์ติดต่อ' })
+        .min(9, 'เบอร์ติดต่อสั้นเกินไป')
+        .max(10, 'เบอร์ติดต่อยาวเกินไป'),
+      facebook: z.string().url().nullable(),
+      line: z.string().nullable(),
+    }),
     description: z
       .string({ required_error: 'กรุณากรอกคำอธิบายหอ' })
-      .max(1000, 'คำอธิบายยาวเกินไป'),
+      .max(3000, 'คำอธิบายยาวเกินไป'),
     waterrate: z
       .string({ required_error: 'กรุณากรอกค่าน้ำ' })
       .max(100, 'ข้อความยาวเกินไป'),
@@ -76,7 +86,7 @@ export const zPostDorm = () =>
     accomodations: z
       .object({
         name: z.string(),
-        value: z.boolean(),
+        value: z.coerce.boolean(),
       })
       .array(),
   })

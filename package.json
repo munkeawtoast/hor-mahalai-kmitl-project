@@ -19,5 +19,18 @@
   "engines": {
     "pnpm": ">=8.3.1",
     "node": ">=18.0.0"
+  },
+  "packageManager": "pnpm@8.3.1",
+  "pnpm": {
+    "overrides": {
+      "vite": "4.3.4",
+      "@vitejs/plugin-vue": "4.2.1",
+      "@tailwindcss/typography": "0.5.9",
+      "autoprefixer": "10.4.13",
+      "postcss": "8.4.23",
+      "pinia": "^2.0.35",
+      "@vueuse/core": "9.8.1",
+      "tailwindcss": "3.3.2"
+    }
   }
 }
