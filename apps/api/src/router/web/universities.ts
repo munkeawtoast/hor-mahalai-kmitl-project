@@ -14,3 +14,5 @@ universityRouter.get('/', (req, res) => {
 universityRouter.get('/:id', (req, res) => {
   res.status(200).json(testUnis.find((a) => a.id === Number(req.params.id)))
 })
+
+export default universityRouter
