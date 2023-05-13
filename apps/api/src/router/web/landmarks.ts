@@ -1,5 +1,5 @@
-import { Router } from "express"
-import { getDormsByLandmark } from "~handlers/dorms"
+import { Router } from 'express'
+import { getDormsByLandmark } from '~handlers/dorms/index.js'
 
 const landmarkRouter = Router()
 
