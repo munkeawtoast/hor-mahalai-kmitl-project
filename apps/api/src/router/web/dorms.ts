@@ -8,10 +8,10 @@ const dormRouter = Router()
 
 dormRouter.get(
   '/:name',
-  imageUploadBuilder({
-    type: 'single',
-    fieldName: 'image',
-  }),
+  // imageUploadBuilder({
+  //   type: 'single',
+  //   fieldName: 'image',
+  // }),
   getDormsByName,
 )
 //! getDormsByLandmark moved to landmarks
