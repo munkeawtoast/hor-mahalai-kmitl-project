@@ -40,12 +40,12 @@ const router = createRouter({
       },
       children: [
         {
-          path: 'login',
+          path: '/login',
           name: 'login',
           component: () => import('../views/LoginPage.vue'),
         },
         {
-          path: 'register',
+          path: '/register',
           name: 'register',
           component: () => import('../views/RegisterPage.vue'),
         },
