@@ -1,6 +1,7 @@
 import { RequestHandler, Response } from 'express'
 import { PrismaClient } from '@prisma/client'
 import { RequestWithUpload } from 'global-types'
+import { create } from 'ts-node'
 const prisma = new PrismaClient()
 
 export const postUserRegister = async (
@@ -10,22 +11,25 @@ export const postUserRegister = async (
   const user = req.body
   const imageLinks = req.links ?? []
 
+  console.log(user)
+
   const newUser = await prisma.user.create({
     data: {
-      username: user.userName,
-      password: user.passWord, //Hash later
-      firstName: user.firstName,
-      lastName: user.lastName,
+      username: user.username,
+      password: user.password, //Hash later
+      firstName: user.firstname,
+      lastName: user.lastname,
       email: user.email,
       Role: user.role,
-      Image:
-        imageLinks.length === 1
-          ? {
-              create: {
-                url: imageLinks[0],
-              },
-            }
-          : undefined,
+      // imageID: 1,
+      // Image:
+      // imageLinks.length === 1?
+      //   {
+      //     create: {
+      //       url: 'https://cdn-prod.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg',
+      //     },
+      //   },
+      // : undefined,
     },
   })
 

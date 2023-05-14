@@ -24,7 +24,7 @@ export const zRegister = () =>
         .max(50)
         .regex(/^[ก-๙เะ-์A-Za-z\s'-]+$/),
       email: z.string().email(),
-      // role: z.enum(['USER', 'DORM_OWNER']),
+      role: z.enum(['USER', 'DORM_OWNER']),
     })
     .refine((data) => data.password === data.confirm, {
       message: "Passwords don't match",

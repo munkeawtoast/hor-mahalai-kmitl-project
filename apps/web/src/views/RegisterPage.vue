@@ -1,6 +1,6 @@
 <script>
 import IconLogo from '../components/icons/IconLogo.vue'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useZorm } from 'vue-zorm'
 import { zRegister } from '@shared/validator'
 import ZormInput from '../components/ZormInput.vue'
@@ -12,7 +12,7 @@ const zo = useZorm('userlogin', validator, {
   onValidSubmit: async (e) => {
     e.preventDefault()
     console.log(e.data)
-    await axios.post('/users/register', e.data)
+    await axios.post('/users/register/', e.data)
   },
   onFormData: async (e) => {
     console.log(e)
@@ -23,12 +23,13 @@ export default {
   data() {
     return {
       zo,
-      username: '',
-      password: '',
+      userName: '',
+      passWord: '',
       confirm: '',
-      firstname: '',
-      lastname: '',
+      firstName: '',
+      lastName: '',
       email: '',
+      role: '',
     }
   },
   components: {
@@ -57,7 +58,7 @@ export default {
       <IconLogo></IconLogo>
       <ZormInput
         label="Username"
-        v-model="username"
+        v-model="userName"
         placeholder="e.g. JohnDoe123, jd@gmail.com"
         :id="zo.fields.username('id')"
         :field="zo.fields.username('name')"
@@ -77,14 +78,14 @@ export default {
         label="Confirm password"
         v-model="confirm"
         placeholder="หอพักไม่มีชื่อ"
-        :id="zo.fields.password('id')"
-        :field="zo.fields.password('name')"
-        :error="zo.errors.password"
+        :id="zo.fields.confirm('id')"
+        :field="zo.fields.confirm('name')"
+        :error="zo.errors.confirm"
         required
       />
       <ZormInput
         label="First Name"
-        v-model="firstname"
+        v-model="firstName"
         placeholder="หอพักไม่มีชื่อ"
         :id="zo.fields.firstname('id')"
         :field="zo.fields.firstname('name')"
@@ -93,7 +94,7 @@ export default {
       />
       <ZormInput
         label="Last Name"
-        v-model="lastname"
+        v-model="lastName"
         placeholder="หอพักไม่มีชื่อ"
         :id="zo.fields.lastname('id')"
         :field="zo.fields.lastname('name')"
@@ -109,7 +110,25 @@ export default {
         :error="zo.errors.email"
         required
       />
-      <input />
+      <p>Your role</p>
+      <div class="flex items-center gap-2">
+        <label for="user">User:</label>
+        <input
+          type="radio"
+          id="fname"
+          name="role"
+          value="USER"
+          v-model="role"
+        />
+        <label for="Dormowner">Dorm owner:</label>
+        <input
+          type="radio"
+          id="lname"
+          name="role"
+          value="DORMOWNER"
+          v-model="role"
+        />
+      </div>
       <input
         class="w-48 cursor-pointer rounded-md border border-lesser-gray p-2"
         type="submit"

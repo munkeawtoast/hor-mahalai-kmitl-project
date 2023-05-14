@@ -12,7 +12,8 @@ const zo = useZorm('userlogin', validator, {
   onValidSubmit: async (e) => {
     e.preventDefault()
     console.log(e.data)
-    await axios.post('', e.data)
+    const res = await axios.post('/users/login/', e.data)
+    console.log(res.data)
   },
   onFormData: async (e) => {
     console.log(e)

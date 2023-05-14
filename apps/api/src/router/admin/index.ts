@@ -5,7 +5,7 @@ const adminRouter = Router()
 
 adminRouter.use(
   cors({
-    origin: 'http://localhost:4000',
+    // origin: 'http://localhost:4000',
   }),
 )
 export default adminRouter
