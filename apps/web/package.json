@@ -49,7 +49,6 @@
     "eslint": "^8.35.0",
     "eslint-plugin-tailwindcss": "^3.10.1",
     "eslint-plugin-vue": "^8.2.0",
-    "prettier": "^2.5.1",
-    "prettier-plugin-tailwindcss": "^0.2.4"
+    "prettier": "^2.5.1"
   }
 }
