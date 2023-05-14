@@ -119,7 +119,7 @@ export const postDorm: RequestHandler = async (req, res) => {
       electricityRate: dormData.electricityrate,
       landmarkID: 1, //TODO later
       Rooms: {
-        createw,
+        create,
       },
     },
   })

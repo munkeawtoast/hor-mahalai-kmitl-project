@@ -3,7 +3,10 @@ import { PrismaClient } from '@prisma/client'
 import { RequestWithUpload } from 'global-types'
 const prisma = new PrismaClient()
 
-export const postUser = async (req: RequestWithUpload, res: Response) => {
+export const postUserRegister = async (
+  req: RequestWithUpload,
+  res: Response,
+) => {
   const user = req.body
   const imageLinks = req.links ?? []
 

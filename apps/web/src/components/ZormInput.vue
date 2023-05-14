@@ -30,6 +30,10 @@ export default {
       type: String,
       default: '',
     },
+    type: {
+      type: String,
+      default: 'text',
+    },
   },
   emits: ['update:modelValue'],
 }
@@ -42,7 +46,7 @@ export default {
     <input
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
-      type="text"
+      :type="type"
       :placeholder="placeholder"
       :required="required"
       :name="field"
