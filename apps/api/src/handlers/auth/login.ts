@@ -2,7 +2,7 @@ import { RequestHandler } from 'express'
 import { PrismaClient } from '@prisma/client'
 import { zLogin } from '@shared/validator'
 import jwt from 'jsonwebtoken'
-import { getEnv } from 'utils'
+import { getEnv } from '../../utils/index.js'
 
 const prisma = new PrismaClient()
 
