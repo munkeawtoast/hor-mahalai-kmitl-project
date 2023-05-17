@@ -13,7 +13,7 @@ export default {
 </script>
 <template>
   <header
-    class="shadow-xs flex flex-row items-center justify-between bg-white py-2 px-12 text-primary"
+    class="shadow-xs flex flex-row items-center justify-between bg-white py-2 px-4 md:px-12 text-primary"
   >
     <RouterLink to="/" class="">
       <IconLogo size="xl" />

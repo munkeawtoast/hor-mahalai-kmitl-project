@@ -1,0 +1,14 @@
+@host= localhost:3500
+@webRoute= {{host}}/web
+@adminRoute= {{host}}/admin
+@testRoute= {{host}}/test
+
+###
+GET /
+Host: {{testRoute}}
+Content-Type: application/json
+
+{
+  "value": "test",
+  "": 1
+}

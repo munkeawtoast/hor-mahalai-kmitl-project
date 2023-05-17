@@ -15,9 +15,17 @@ const router = createRouter({
       // component: () => import('../views/DormListing.vue'),
     },
     {
+      path: '/dorms/edit/:id',
+      name: 'dorm-edit',
+      component: () => import('../views/DormEditForm.vue'),
+      meta: {
+        requireDormOwnerRole: true,
+      },
+    },
+    {
       path: '/dorms/new',
       name: 'dorm-create',
-      component: () => import('../views/DormForm.vue'),
+      component: () => import('../views/DormCreateForm.vue'),
       meta: {
         requireDormOwnerRole: true,
       },

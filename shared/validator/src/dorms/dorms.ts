@@ -26,7 +26,11 @@ export const dormAccommodations = [
   'ร้านสะดวกซื้อใกล้หอ',
 ]
 
-const room = () =>
+type ValidatorConfig = {
+  coerce?: true
+}
+
+const room = (config: ValidatorConfig = {}) =>
   z.object({
     name: z
       .string({ required_error: 'กรุณากรอกชื่อห้อง' })
@@ -35,15 +39,19 @@ const room = () =>
     accomodations: z
       .object({
         name: z.string(),
-        value: z.coerce.boolean(),
+        value: z.boolean(),
       })
       .array(),
-    width: z.number().positive('ความกว้างต้องมากกว่า 0'),
-    length: z.number().positive('ความยาวต้องมากกว่า 0'),
-    price: z.number().positive('ราคาต้องไม่ต่ำกว่า 0'),
+    width: z
+      .number({ coerce: config.coerce })
+      .positive('ความกว้างต้องมากกว่า 0'),
+    length: z
+      .number({ coerce: config.coerce })
+      .positive('ความยาวต้องมากกว่า 0'),
+    price: z.number({ coerce: config.coerce }).positive('ราคาต้องไม่ต่ำกว่า 0'),
   })
 
-export const zPostDorm = () =>
+export const zPostDorm = (config: ValidatorConfig = {}) =>
   z.object({
     name: z
       .string({ required_error: 'กรุณากรอกชื่อหอ' })
@@ -56,7 +64,10 @@ export const zPostDorm = () =>
       .min(5, 'ที่อยู่สั่นเกินไป')
       .max(120, 'ที่อยู่ต้องสั่นกว่า 120 ตัวอักษร'),
     position: z.tuple(
-      [z.number().min(-85).max(85), z.number().min(-180).max(180)],
+      [
+        z.number({ coerce: config.coerce }).min(-85).max(85),
+        z.number({ coerce: config.coerce }).min(-180).max(180),
+      ],
       { required_error: 'กรุณาเลือกตำแหน่งของหอ' },
     ),
     contacts: z.object({
@@ -77,30 +88,30 @@ export const zPostDorm = () =>
       .string({ required_error: 'กรุณากรอกค่าไฟ' })
       .max(100, 'ข้อความยาวเกินไป'),
     landmark: z
-      .number({ required_error: 'ต้องมีจุดมาร์ค' })
+      .number({ coerce: config.coerce, required_error: 'ต้องมีจุดมาร์ค' })
       .int('ไอดีจุดต้องเป็น integer'),
-    rooms: room()
+    rooms: room(config)
       .array()
       .nonempty('ต้องมีประเภทห้องอย่างน้อยหนึ่งห้อง')
       .max(100, 'ห้องเยอะเกินไป'),
     accomodations: z
       .object({
         name: z.string(),
-        value: z.coerce.boolean(),
+        value: z.boolean(),
       })
       .array(),
   })
 
-export const zPostRoom = room()
+export const zPostRoom = (config: ValidatorConfig = {}) => room(config)
 
-export const zPatchDorm = () =>
-  zPostDorm()
+export const zPatchDorm = (config: ValidatorConfig = {}) =>
+  zPostDorm({coerce: config.coerce})
     .omit({
       rooms: true,
     })
     .extend({
       dormid: z.number(),
-      rooms: room().extend({ id: z.number().int().nullable() }).array(),
+      rooms: room().extend({ id: z.number({coerce: config.coerce}).int().nullable() }).array(),
     })
 
 export const zPatchRoom = () => room().partial()

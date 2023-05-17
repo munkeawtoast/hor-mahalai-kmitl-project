@@ -20,5 +20,5 @@ export default {
 }
 </script>
 <template>
-  <DormDetails :dormData="dormData" />
+  <DormDetails  :dormData="dormData" />
 </template>

@@ -1,11 +1,6 @@
 import { defineStore } from 'pinia'
 import { axios } from '../utils'
-import {
-  useLocalStorage,
-  watchDebounced,
-  useAsyncState,
-  useTimeoutFn,
-} from '@vueuse/core'
+import { useLocalStorage, useAsyncState } from '@vueuse/core'
 import { dormAccommodations, roomAccomodations } from '@shared/validator'
 import jwtDecode from 'jwt-decode'
 
@@ -14,9 +9,7 @@ export const useDraftCreateStore = defineStore('createDormDraft', {
     const defaultRoom = {
       name: 'test',
       price: 0,
-      longitude: 0,
-      latitude: 0,
-      description: '',
+
       accomodations: roomAccomodations.map(acc => ({
         name: acc,
         value: false,
@@ -25,8 +18,8 @@ export const useDraftCreateStore = defineStore('createDormDraft', {
 
     const defaultDorm = {
       name: '',
-      waterRate: '',
-      electricityRate: '',
+      waterrate: '',
+      electricityrate: '',
       description: '',
       rooms: [{ ...defaultRoom }],
       university: null,
@@ -35,7 +28,6 @@ export const useDraftCreateStore = defineStore('createDormDraft', {
         name: acc,
         value: false,
       })),
-      landmarkOptions: [],
     }
     const procedureStep = useLocalStorage('createDormDraftStep', 1)
     const dorm = useLocalStorage('createDormDraft', { ...defaultDorm })

@@ -4,8 +4,6 @@ import StarterKit from '@tiptap/starter-kit'
 import Typography from '@tiptap/extension-typography'
 import {
   IconBold,
-  IconPhotoFilled,
-  IconMoodSmileFilled,
   IconList,
   IconListNumbers,
   IconItalic,
@@ -20,8 +18,6 @@ export default {
     this.editor = new Editor({
       content: this.modelValue ?? '',
       onUpdate: () => {
-        console.log('AAAA')
-        console.log(this.editor.getHTML())
         this.$emit('update:modelValue', this.editor.getHTML())
       },
       extensions: [
@@ -86,19 +82,15 @@ export default {
 </script>
 <template>
   <div
-    class="mb-4 w-full rounded-lg border border-gray-200 bg-gray-50 dark:border-gray-600 dark:bg-gray-700"
+    class="mb-4 w-full rounded-lg border border-lesser-gray bg-white dark:border-gray-600 dark:bg-gray-700"
   >
-    <div
-      class="flex items-center justify-between border-b px-3 py-2 dark:border-gray-600"
-    >
-      <div
-        class="flex flex-wrap items-center divide-gray-200 dark:divide-gray-600 sm:divide-x"
-      >
+    <div class="flex items-center justify-between border-b px-3 py-2">
+      <div class="flex flex-wrap items-center divide-gray-200 sm:divide-x">
         <div class="flex flex-wrap items-center space-x-1 sm:pr-4">
           <button
             type="button"
             @click="editor.chain().focus().toggleBold().run()"
-            class="cursor-pointer rounded p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+            class="cursor-pointer rounded p-2 text-gray-500 hover:bg-gray-100 hover:text-primary"
           >
             <IconBold size="20" />
             <span class="sr-only">ตัวหนา</span>
@@ -106,7 +98,7 @@ export default {
           <button
             type="button"
             @click="editor.chain().focus().toggleItalic().run()"
-            class="cursor-pointer rounded p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+            class="cursor-pointer rounded p-2 text-gray-500 hover:bg-gray-100 hover:text-primary"
           >
             <IconItalic size="20" />
             <span class="sr-only">ตัวเอียง</span>
@@ -114,7 +106,7 @@ export default {
           <button
             type="button"
             @click="editor.chain().focus().toggleStrike().run()"
-            class="cursor-pointer rounded p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+            class="cursor-pointer rounded p-2 text-gray-500 hover:bg-gray-100 hover:text-primary"
           >
             <IconStrikethrough size="20" />
             <span class="sr-only">StrikeThrough</span>
@@ -122,7 +114,7 @@ export default {
           <button
             type="button"
             @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
-            class="cursor-pointer rounded p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+            class="cursor-pointer rounded p-2 text-gray-500 hover:bg-gray-100 hover:text-primary"
           >
             <IconH1 size="20" />
             <span class="sr-only">Header 1</span>
@@ -130,55 +122,34 @@ export default {
           <button
             type="button"
             @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
-            class="cursor-pointer rounded p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+            class="cursor-pointer rounded p-2 text-gray-500 hover:bg-gray-100 hover:text-primary"
           >
             <IconH2 size="20" />
             <span class="sr-only">Header 2</span>
-          </button>
-          <button
-            type="button"
-            @click="
-              editor.chain().focus().resetAttributes('header', ['text']).run()
-            "
-            class="cursor-pointer rounded p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
-          >
-            <IconHeadingOff size="18" />
-            <span class="sr-only">Normal Text</span>
           </button>
         </div>
         <div class="flex flex-wrap items-center space-x-1 sm:pl-4">
           <button
             type="button"
-            class="cursor-pointer rounded p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+            @click="editor.chain().focus().toggleBulletList().run()"
+            class="cursor-pointer rounded p-2 text-gray-500 hover:bg-gray-100 hover:text-primary"
           >
             <IconList size="20" />
             <span class="sr-only">Add list</span>
           </button>
           <button
             type="button"
-            class="cursor-pointer rounded p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+            @click="editor.chain().focus().toggleOrderedList().run()"
+            class="cursor-pointer rounded p-2 text-gray-500 hover:bg-gray-100 hover:text-primary"
           >
             <IconListNumbers size="20" />
             <span class="sr-only">Add Numbered list</span>
-          </button>
-          <button
-            type="button"
-            class="cursor-pointer rounded p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
-          >
-            <span class="sr-only">Underline</span>
           </button>
         </div>
       </div>
     </div>
     <div class="relative rounded-b-lg bg-white p-4 pb-6">
       <label for="editor" class="sr-only">Publish post</label>
-      <!-- <textarea -->
-      <!--   id="editor" -->
-      <!--   rows="8" -->
-      <!--   class="block w-full border-0 bg-white px-0 text-sm text-gray-800 focus:ring-0 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400" -->
-      <!--   placeholder="Write an article..." -->
-      <!--   required -->
-      <!-- ></textarea> -->
       <EditorContent :editor="editor" />
       <span
         class="absolute bottom-2 right-4"
@@ -190,6 +161,5 @@ export default {
         >{{ editor ? editor.getText().length : 0 }}/{{ lengthLimit }}
       </span>
     </div>
-    <div></div>
   </div>
 </template>

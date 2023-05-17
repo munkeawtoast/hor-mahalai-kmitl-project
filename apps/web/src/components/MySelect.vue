@@ -9,11 +9,7 @@ export default {
       required: true,
       type: String,
     },
-    field: {
-      required: true,
-      type: null,
-    },
-    error: {
+    name: {
       required: true,
       type: null,
     },
@@ -40,15 +36,14 @@ export default {
 </script>
 <template>
   <div>
-    <label v-if="label" :for="id" class="mb-2 block font-medium">{{
+    <label v-if="label" for="first_name" class="mb-2 block font-medium">{{
       label
     }}</label>
     <select
       :required="required"
       @input="$emit('update:modelValue', $event.target.value)"
-      :name="field"
+      :name="name"
       :id="id"
-      :class="error('ring-red-400  focus:border-red-400 focus:ring-red-400')"
       class="block w-full rounded-lg border border-lesser-gray bg-gray p-2.5 text-sm text-black focus:border-primary focus:ring-primary"
     >
       <option
@@ -65,8 +60,22 @@ export default {
         :label="opt.label"
       />
     </select>
-    <span class="flex h-6 items-center text-xs text-danger">
-      {{ error()?.message }}
-    </span>
+    <span class="flex h-6 items-center text-xs text-danger"> </span>
   </div>
+  <!-- <div> -->
+  <!--   <label v-if="label" for="first_name" class="mb-2 block font-medium">{{ -->
+  <!--     label -->
+  <!--   }}</label> -->
+  <!---->
+  <!--   <input -->
+  <!--     :value="modelValue" -->
+  <!--     @input="$emit('update:modelValue', $event.target.value)" -->
+  <!--     type="text" -->
+  <!--     :placeholder="placeholder" -->
+  <!--     :required="required" -->
+  <!--     :name="field" -->
+  <!--     :class="error('ring-red-400  focus:border-red-400 focus:ring-red-400')" -->
+  <!--     class="block w-full rounded-lg border border-lesser-gray bg-gray-50 p-2.5 text-sm text-black focus:border-primary focus:ring-primary" -->
+  <!--   /> -->
+  <!-- </div> -->
 </template>

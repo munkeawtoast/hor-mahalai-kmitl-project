@@ -1,5 +1,3 @@
-const colors = require('tailwindcss/colors')
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./index.html', './src/**/*.{vue,js}'],
@@ -10,7 +8,7 @@ module.exports = {
       'primary-soft': '#8ec6ca',
       black: '#363636',
       'less-black': '#565656',
-      white: colors.white,
+      white: '#FFFFFF',
       'less-white': '#f4f4f4',
       'lesser-white': '#f1f1f1',
       gray: '#818181',

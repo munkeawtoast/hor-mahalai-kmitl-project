@@ -13,7 +13,10 @@ export default defineComponent({
 
 <template>
   <NavBar v-if="!$route.meta.hideNavBar" />
-  <div class="mx-auto" :class="[!$route.meta.hideNavBar ? 'container' : '']">
+  <div
+    class="mx-auto"
+    :class="[!$route.meta.hideNavBar ? 'container p-3 md:p-5' : '']"
+  >
     <RouterView />
   </div>
 </template>
