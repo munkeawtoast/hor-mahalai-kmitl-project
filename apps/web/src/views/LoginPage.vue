@@ -5,27 +5,39 @@ import { useZorm } from 'vue-zorm'
 import { zLogin } from '@shared/validator'
 import ZormInput from '../components/ZormInput.vue'
 import { axios } from '../utils'
+// import jwtDecode from 'jwt-decode'
+import { useUserStore } from '../stores'
 
 const validator = zLogin()
+let userStore = useUserStore()
 
-const zo = useZorm('userlogin', validator, {
-  onValidSubmit: async (e) => {
-    e.preventDefault()
-    console.log(e.data)
-    const res = await axios.post('/users/login/', e.data)
-    console.log(res.data)
-  },
-  onFormData: async (e) => {
-    console.log(e)
-  },
-  // customIssues: serverSideIssues
-})
 export default {
   components: {
     IconLogo,
     ZormInput,
   },
   data() {
+    const zo = useZorm('userlogin', validator, {
+      onValidSubmit: async e => {
+        e.preventDefault()
+        await axios
+          .post('/users/login/', e.data)
+          .then(res => {
+            userStore.token = res.data.token
+            this.$router.push({ path: '/' })
+          })
+          .catch(err => {
+            console.log(err.response.data)
+          })
+        // console.log(jwtDecode(res.data.token))
+        // userStore.token = res.data.token
+        // this.$router.push({ path: '/' })
+      },
+      onFormData: async e => {
+        console.log(e)
+      },
+      // customIssues: serverSideIssues
+    })
     return {
       zo,
       userData,

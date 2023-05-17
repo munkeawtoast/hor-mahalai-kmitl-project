@@ -2,7 +2,7 @@ import { RequestHandler } from 'express'
 import { PrismaClient } from '@prisma/client'
 import { zLogin } from '@shared/validator'
 import jwt from 'jsonwebtoken'
-import { getEnv } from 'utils'
+import { getEnv } from '../../utils/index.js'
 
 const prisma = new PrismaClient()
 
@@ -36,7 +36,12 @@ export const postUserLogin: RequestHandler = async (req, res) => {
     })
 
     if (!foundUser) {
-      throw new Error('No user found!')
+      // throw new Error('No user found!')
+      return res.status(404).json('No user found!')
+    }
+    if (foundUser.bannedAt != null) {
+      // throw new Error("You're banned")
+      return res.status(403).json("You're banned")
     }
 
     const env = getEnv()
@@ -47,11 +52,12 @@ export const postUserLogin: RequestHandler = async (req, res) => {
       {
         sub: userId,
         aud: Role,
-        firstName,
-        lastName,
+        firstname: firstName,
+        lastname: lastName,
         email,
         username,
-        profImgLink: foundUser.Image?.url,
+        // Role,
+        image_link: foundUser.Image?.url,
       },
       env.JWT_SECRET,
       {
@@ -60,13 +66,11 @@ export const postUserLogin: RequestHandler = async (req, res) => {
       },
     )
 
-    res.status(201).json({
+    return res.status(201).json({
       token,
       success: true,
     })
   } catch (e) {
-    res.status(400).json({
-      error: 'a',
-    })
+    return res.status(404).json('e')
   }
 }

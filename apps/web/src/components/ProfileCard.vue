@@ -1,4 +1,6 @@
 <script>
+import { useUserStore } from '../stores'
+
 export default {
   props: {
     // userName: String,
@@ -8,9 +10,9 @@ export default {
   },
   data() {
     return {
-      userName: this.userData.userName,
-      firstName: this.userData.firstName,
-      lastName: this.userData.lastName,
+      userName: this.userData.username,
+      firstName: this.userData.firstname,
+      lastName: this.userData.lastname,
       email: this.userData.email,
       dob: this.userData.dob,
       role: this.userData.role,
@@ -20,30 +22,23 @@ export default {
 }
 </script>
 <template>
-  <div id="profilecard" class="profilecard--container">
-    <div>
-      <div class="profilecard--info">
-        <p>{{ firstName }}</p>
-        <p>{{ lastName }}</p>
-      </div>
-      <div>
-        <p>{{ email }}</p>
-      </div>
-      <div>
-        <p>{{ dob }}</p>
-      </div>
-      <div>
-        <p>{{ role }}</p>
-      </div>
+  <div
+    id="profilecard"
+    class="flex flex-row h-full w-[60rem] border-black border content-center items-center justify-around text-2xl p-6 mt-12"
+  >
+    <div class="flex flex-col items-start gap-4">
+      <p>Name: {{ firstName }} {{ lastName }}</p>
+      <p>Email: {{ email }}</p>
+      <p>Role: {{ role }}</p>
     </div>
-    <div class="profilecard--imagesContainer">
-      <img :src="userImage" alt="prifileImage" class="profilecard--images" />
+    <div class="flex flex-col justify-center items-center gap-2">
+      <img :src="userImage" class="w-32 h-32 bg-pink-300 rounded-full" />
       <p>{{ userName }}</p>
     </div>
   </div>
 </template>
 <style scoped>
-.profilecard--container {
+/* .profilecard--container {
   width: 772px;
   height: 100%;
   background-color: antiquewhite;
@@ -76,5 +71,5 @@ export default {
   height: 128px;
   background-color: aqua;
   border-radius: 64px;
-}
+} */
 </style>

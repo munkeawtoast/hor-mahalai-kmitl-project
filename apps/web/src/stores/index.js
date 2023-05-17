@@ -7,6 +7,7 @@ import {
   useTimeoutFn,
 } from '@vueuse/core'
 import { dormAccommodations, roomAccomodations } from '@shared/validator'
+import jwtDecode from 'jwt-decode'
 
 export const useDraftCreateStore = defineStore('createDormDraft', {
   state: () => {
@@ -16,7 +17,7 @@ export const useDraftCreateStore = defineStore('createDormDraft', {
       longitude: 0,
       latitude: 0,
       description: '',
-      accomodations: roomAccomodations.map((acc) => ({
+      accomodations: roomAccomodations.map(acc => ({
         name: acc,
         value: false,
       })),
@@ -30,7 +31,7 @@ export const useDraftCreateStore = defineStore('createDormDraft', {
       rooms: [{ ...defaultRoom }],
       university: null,
       landmark: null,
-      accomodations: dormAccommodations.map((acc) => ({
+      accomodations: dormAccommodations.map(acc => ({
         name: acc,
         value: false,
       })),
@@ -62,7 +63,7 @@ export const useDraftCreateStore = defineStore('createDormDraft', {
   }),
 })
 
-export const createDraftEditStore = (id) =>
+export const createDraftEditStore = id =>
   defineStore(
     `createDraftEditStore-${id}`,
     (`createDraftEditStore-${id}`,
@@ -74,20 +75,20 @@ export const createDraftEditStore = (id) =>
           water: '',
           waterMode: 'number',
           electricity: '',
-          accomodations: roomAccomodations.map((acc) => ({
+          accomodations: roomAccomodations.map(acc => ({
             name: acc,
             value: false,
           })),
         }
 
         const defaultDorm = useAsyncState(
-          axios.get(`/dorms/${id}`).then((res) => res.data),
+          axios.get(`/dorms/${id}`).then(res => res.data),
           {
             name: '',
             waterrate: '',
             electricityrate: '',
             rooms: [{ ...defaultRoom }],
-            accomodations: dormAccommodations.map((acc) => ({
+            accomodations: dormAccommodations.map(acc => ({
               name: acc,
               value: false,
             })),
@@ -123,45 +124,13 @@ export const createDraftEditStore = (id) =>
 export const useUserStore = defineStore('user', {
   state: () => ({
     token: useLocalStorage('token', ''),
-    user: useLocalStorage('user', {
-      username: '',
-      firstName: '',
-      lastName: '',
-    }),
   }),
-  getters: () => ({
-    token: (state) => state.token,
-    loggedIn: (state) => !!state.token,
-    username: (state) => state.user.username,
-    firstName: (state) => state.user.firstName,
-    lastName: (state) => state.user.lastName,
-  }),
-  actions: () => ({
-    async login(username, password) {
-      // const { data } = await axios.post('/auth/login', {
-      //   username,
-      //   password,
-      // })
-
-      // test
-      const data = {
-        token: 'aaa',
-        user: {
-          username: 'aaa',
-          firstName: 'aaa',
-          lastName: 'aaa',
-        },
-      }
-
-      this.token = data.token
-      this.$patch((state) => {
-        state.user.username = data.user.username
-        state.user.firstName = data.user.firstName
-        state.user.lastName = data.user.lastName
-      })
-    },
-    async logout() {
-      this.$patch
-    },
-  }),
+  getters: {
+    parsed: state => jwtDecode(state.token),
+    username: state => state.parsed?.username,
+    firstname: state => state.parsed?.firstname,
+    lastname: state => state.parsed?.lastname,
+    email: state => state.parsed?.email,
+    role: state => state.parsed?.aud,
+  },
 })

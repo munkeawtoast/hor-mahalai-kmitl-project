@@ -2,15 +2,19 @@
 import { RouterLink } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
+import { useUserStore } from '../stores'
 
 export default {
   data() {
-    const userData = JSON.parse(localStorage.getItem('userObject'))
+    const userStore = useUserStore()
+    // const userData = JSON.parse(localStorage.getItem('userObject'))
     return {
-      userImage: userData?.userImage,
-      userName: userData?.userName,
-      role: userData?.role,
+      userImage: userStore?.userImage,
+      userName: userStore?.username,
+      role: userStore?.role,
       clicked: false,
+      userStore,
+      // username: userStore.username,
     }
   },
   methods: {
@@ -37,7 +41,7 @@ export default {
       this.$router.push('/dorms/new')
     },
     logout() {
-      localStorage.removeItem('userObject')
+      this.userStore.token = null
       this.$router.go()
     },
   },
@@ -158,7 +162,7 @@ export default {
         <!-- If Logged In -->
         <div class="flex flex-col gap-0.5" v-if="userName">
           <!-- Moderator -->
-          <template v-if="role === 'dorm-owner'">
+          <template v-if="role === 'DORM_OWNER'">
             <MenuItem as="template" v-slot="{ active }">
               <RouterLink
                 to="/dorms/new"
@@ -171,7 +175,7 @@ export default {
             </MenuItem>
           </template>
           <!-- Student -->
-          <template v-if="role === 'student'">
+          <template v-if="role === 'USER'">
             <MenuItem as="template" v-slot="{ active }">
               <RouterLink
                 to="/profile/me/"
@@ -252,7 +256,7 @@ export default {
         </div>
       </div>
       <div class="dropdown-button">
-        <button @click="addDormFunction" v-show="role === 'dorm-owner'">
+        <button @click="addDormFunction" v-show="role === 'DORM_OWNER'">
           Add dorm
         </button>
       </div>
