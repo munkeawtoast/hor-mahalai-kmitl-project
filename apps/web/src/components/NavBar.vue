@@ -1,5 +1,5 @@
 <script>
-import IconLogo from './icons/IconLogo.vue'
+import { IconLogo } from '@shared/components'
 import UserIcon from './UserIcon.vue'
 import { RouterLink } from 'vue-router'
 

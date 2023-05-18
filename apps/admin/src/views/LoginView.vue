@@ -1,5 +1,5 @@
 <script>
-import IconLogo from '../components/icons/IconLogo.vue'
+import { IconLogo } from '@shared/components'
 import { IconAlertTriangleFilled } from '@tabler/icons-vue'
 import userData from '@helper/data-gen/users.json'
 export default {
@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     checkUser() {
-      userData.forEach((element) => {
+      userData.forEach(element => {
         if (element.userName === this.ID || element.email === this.ID) {
           if (element.password == this.password) {
             let loginData = {
@@ -45,7 +45,6 @@ export default {
       e.preventDefault()
       // this.checkUser()
     },
-    
   },
 }
 </script>

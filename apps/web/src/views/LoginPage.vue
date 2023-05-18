@@ -1,5 +1,5 @@
 <script>
-import IconLogo from '../components/icons/IconLogo.vue'
+import IconLogo from '@shared/components'
 import userData from '@helper/data-gen/users.json'
 import { useZorm } from 'vue-zorm'
 import { zLogin } from '@shared/validator'
@@ -93,7 +93,7 @@ export default {
         class="flex flex-col items-center gap-2 rounded-xl border-black bg-white p-48"
         :ref="zo.getRef"
       >
-        <IconLogo></IconLogo>
+        <IconLogo />
         <ZormInput
           label="Username or email"
           v-model="id"

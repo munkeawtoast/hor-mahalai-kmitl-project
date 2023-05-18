@@ -1,5 +1,5 @@
 <script>
-import IconLogo from '../components/icons/IconLogo.vue'
+import { IconLogo } from '@shared/components'
 // import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useZorm } from 'vue-zorm'
 import { zRegister } from '@shared/validator'
