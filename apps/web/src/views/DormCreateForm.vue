@@ -86,7 +86,7 @@ export default {
   },
   watch: {
     selectedUniversity(newChoice) {
-      this.fetchUniversities(newChoice)
+      this.fetchLandmarks(newChoice)
     },
     dorm(newDorm) {
       console.log('a')
@@ -106,11 +106,16 @@ export default {
     },
     async fetchLandmarks(id) {
       const response = await axios.get(`/universities/${id}`)
+      console.log(response.data)
       this.landmarkOptions = response.data
     },
     async fetchUniversities() {
       const response = await axios.get(`/universities`)
-      this.universityOptions = response.data
+      console.log(response.data)
+      this.universityOptions = response.data.map(uni => ({
+        id: uni.id,
+        label: uni.name,
+      }))
     },
     addNewRoom() {
       this.rooms.push({ ...defaultRoom })
