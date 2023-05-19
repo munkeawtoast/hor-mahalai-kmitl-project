@@ -29,6 +29,7 @@
     "@mermaid-js/mermaid-cli": "^10.1.0",
     "@prisma/client": "^4.13.0",
     "@shared/validator": "workspace:^",
+    "@supabase/supabase-js": "^2.22.0",
     "@swc/cli": "^0.1.62",
     "@swc/core": "^1.3.53",
     "@types/cors": "^2.8.13",

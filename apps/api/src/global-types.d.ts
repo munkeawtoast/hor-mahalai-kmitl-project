@@ -1,6 +1,8 @@
 import { Stream } from 'form-data'
 import { Request, Response, NextFunction } from 'express'
 export declare type Env = {
+  SUPABASE_PROJECT_URL: string
+  SUPABASE_API_KEY: string
   POSTGRES_HOST: string
   POSTGRES_PORT: string
   POSTGRES_USER: string
