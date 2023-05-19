@@ -7,7 +7,11 @@ import { Request as JwtRequest } from 'express-jwt'
 const prisma = new PrismaClient()
 
 export const getDorms: RequestHandler = async (req, res) => {
+  const ownerId = req.query.ownerid ? Number(req.query.ownerid) : undefined
   const dormResult = await prisma.dorm.findMany({
+    where: {
+      userID: ownerId,
+    },
     orderBy: [{ name: 'asc' }],
     include: {
       Ratings: true,
@@ -140,7 +144,7 @@ export const postDorm: RequestHandler = async (req: JwtRequest, res) => {
   res.json(addDorm)
 }
 
-export const deleteDorm: RequestHandler<{ dormId: string }> = (req, res) => { }
+export const deleteDorm: RequestHandler<{ dormId: string }> = (req, res) => {}
 
 export const putDorm: RequestHandler = async (req: JwtRequest, res) => {
   if (!req.auth) return
@@ -168,7 +172,8 @@ export const putDorm: RequestHandler = async (req: JwtRequest, res) => {
       contactFacebook: facebook || undefined,
       contactLine: line || undefined,
       contactTelnum: telnum,
-      Rooms: {i
+      Rooms: {
+        i,
         // createMany: {
         //   data: dormData.rooms.map(room => ({
         //     length: room.length,
@@ -185,4 +190,4 @@ export const putDorm: RequestHandler = async (req: JwtRequest, res) => {
 export const patchApproveDorm: RequestHandler<{ dormId: string }> = (
   req,
   res,
-) => { }
+) => {}

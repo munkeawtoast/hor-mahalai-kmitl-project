@@ -1,5 +1,5 @@
 <script>
-import IconLogo from '@shared/components'
+import { IconLogo } from '@shared/components'
 import userData from '@helper/data-gen/users.json'
 import { useZorm } from 'vue-zorm'
 import { zLogin } from '@shared/validator'

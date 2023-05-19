@@ -4,7 +4,6 @@ import DormBrief from '../components/DormBrief.vue'
 import { generateDorms } from '@helper/data-gen'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useUserStore } from '../stores'
-import { axios } from '../utils'
 export default {
   components: { ProfileCard, DormBrief, FontAwesomeIcon },
   el: '#profile',
@@ -18,15 +17,6 @@ export default {
       favDorms: generateDorms(3, 5),
     }
   },
-  async beforeMount() {
-    console.log(this.userStore.id)
-    await axios.get('/dorms/', this.userStore.id).then(res => {
-      console.log(res)
-    })
-    // .catch(err => {
-    //   console.log(err.response.data)
-    // })
-  },
   methods: {},
   computed: {},
 }
@@ -36,13 +26,7 @@ export default {
     <ProfileCard :userData="userStore" />
     <!-- <DormBrief v-for="dorm in favDorms" :dormData="dorm"></DormBrief> -->
   </div>
-  <div v-if="userStore.role == 'USER'">
-    <FontAwesomeIcon :icon="['fa-regular', 'fa-star']"></FontAwesomeIcon>
-    <span>Favourite dorms"</span>
-  </div>
-  <div v-else>
-    <FontAwesomeIcon :icon="['fa-solid', 'fa-city']"></FontAwesomeIcon>
-    <span>Your dorms:</span>
-  </div>
+  <FontAwesomeIcon :icon="['fa-regular', 'fa-star']"></FontAwesomeIcon>
+  <span>Favourite dorms</span>
 </template>
 <style scoped></style>

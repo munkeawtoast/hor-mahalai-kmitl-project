@@ -1,6 +1,17 @@
 import { RequestHandler } from 'express'
+import { PrismaClient } from '@prisma/client'
 
-export const getTickets: RequestHandler = (req, res) => {}
+// import { zPostDorm, zPatchDorm } from '@shared/validator'
+// import { Request as JwtRequest } from 'express-jwt'
+
+const prisma = new PrismaClient()
+
+export const getTickets: RequestHandler = async (req, res) => {
+  const ticketResult = await prisma.ticket.findMany({
+    orderBy: [{ ticketID: 'asc' }],
+  })
+  res.json(ticketResult)
+}
 
 export const getSpecificTicket: RequestHandler<{ ticketId: string }> = (
   req,

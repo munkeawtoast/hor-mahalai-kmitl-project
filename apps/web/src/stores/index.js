@@ -119,6 +119,7 @@ export const useUserStore = defineStore('user', {
   }),
   getters: {
     parsed: state => jwtDecode(state.token),
+    id: state => state.parsed?.sub,
     username: state => state.parsed?.username,
     firstname: state => state.parsed?.firstname,
     lastname: state => state.parsed?.lastname,
