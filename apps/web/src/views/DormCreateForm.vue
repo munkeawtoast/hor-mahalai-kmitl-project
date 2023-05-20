@@ -30,6 +30,8 @@ import MySelect from '../components/MySelect.vue'
 import ZormEditor from '../components/ZormEditor.vue'
 import { ref } from 'vue'
 import ZormTextArea from '../components/ZormTextArea.vue'
+import { useGeolocation, useTimeout } from '@vueuse/core'
+import { IconPhotoPlus } from '@tabler/icons-vue'
 
 const defaultRoom = {
   name: '',
@@ -44,6 +46,10 @@ const validator = zPostDorm({ coerce: true })
 const zo = useZorm('dormpost', validator, {
   onValidSubmit(e) {
     e.preventDefault()
+    // TODO: continue here
+    const { name, address, lat, lng, contacts, description, waterrate, electricityrate, rooms, landmark, accomodations } = e.data
+    const formData = new FormData()
+    console.log(e.data)
     console.log('onValidSubmit')
   },
   onFormData(e) {
@@ -56,6 +62,7 @@ const { dorm, rooms } = dormStore
 
 export default {
   data: () => ({
+    alertMarkPicked: false,
     action: 'CREATE',
     zo,
     currentStep: 1,
@@ -85,6 +92,7 @@ export default {
     rooms,
     googleMapsApiKey,
     center,
+    uploadImages: [],
   }),
   setup() {
     return {
@@ -103,11 +111,33 @@ export default {
     },
   },
   methods: {
-    moveMarker(event) {
-      console.log(event.Va)
-      console.log(this.marker)
+    handleFileAdd(event) {
+      console.log(event.target.files[0])
+      const tempFiles = [...event.target.files]
+      const filesWithURL = tempFiles.map(file => {
+        file.imageURL = URL.createObjectURL(file)
+        return file
+      })
+      this.uploadImages = [...this.uploadImages, ...filesWithURL]
     },
-    submitForm() {
+    moveMarker(latitude, longitude) {
+      dorm.lat = latitude
+      dorm.lng = longitude
+      this.alertMarkPicked = true
+      setTimeout(() => {
+        this.alertMarkPicked = false
+      }, 1000)
+    },
+    moveMarkerToUserLocation() {
+      const { coords } = useGeolocation()
+      const { latitude, longitude } = coords.value
+      this.moveMarker(latitude, longitude)
+    },
+    moveMarkerToClick(event) {
+      const { lat, lng } = event.latLng.toJSON()
+      this.moveMarker(lat, lng)
+    },
+    triggerSubmit() {
       this.submitButton.click()
     },
     getState(roomAction) {
@@ -161,13 +191,14 @@ export default {
     ZormTextArea,
     GoogleMap,
     Marker,
+    IconPhotoPlus,
   },
 }
 </script>
 <template>
   {{ JSON.stringify(zo.validation) }}
   <div class="w-full">
-    <form @change="zo.validate()" :ref="zo.getRef">
+    <form :ref="zo.getRef">
       <div class="">
         <div class="block justify-between sm:flex">
           <div class="inline-flex items-center space-x-3">
@@ -222,8 +253,8 @@ export default {
         <div class="grid-cols-2 gap-3 sm:grid">
           <MySelect
             v-model="selectedUniversity"
-            id="dormform:landmark"
-            name="landmark"
+            id="dormform:uni"
+            name="uni"
             label="กรุณาเลือกมหาลัย"
             placeholder="กรุณาเลือกมหาลัย"
             :options="universityOptions"
@@ -247,7 +278,37 @@ export default {
             label="ที่อยู่หอ"
           />
         </div>
-        <div>
+
+        <div class="grid grid-cols-1 space-x-3 lg:grid-cols-3">
+          <ZormInput
+            label="เบอร์โทรศัพท์"
+            v-model="dorm.contacts.telnum"
+            placeholder="X บาท"
+            :id="zo.fields.contacts.telnum('id')"
+            :field="zo.fields.contacts.telnum('name')"
+            :error="zo.errors.contacts.telnum"
+            required
+          />
+          <ZormInput
+            label="ลิงค์เฟสบุค"
+            v-model="dorm.contacts.facebook"
+            placeholder="X บาท"
+            :id="zo.fields.contacts.facebook('id')"
+            :field="zo.fields.contacts.facebook('name')"
+            :error="zo.errors.contacts.facebook"
+            required
+          />
+          <ZormInput
+            label="ไอดีไลน์"
+            v-model="dorm.contacts.line"
+            placeholder="X บาท"
+            :id="zo.fields.contacts.line('id')"
+            :field="zo.fields.contacts.line('name')"
+            :error="zo.errors.contacts.line"
+            required
+          />
+        </div>
+        <div class="mb-6">
           <input
             type="hidden"
             v-model="dorm.lat"
@@ -260,26 +321,19 @@ export default {
             :id="zo.fields.lng('id')"
             :name="zo.fields.lng('name')"
           />
-          <!-- <input -->
-          <!--   type="hidden" -->
-          <!--   v-model="dorm.position[1]" -->
-          <!--   :name="zo.fields.position(1)('name')" -->
-          <!--   :id="zo.fields.position(1)('id')" -->
-          <!-- /> -->
           <GoogleMap
             :api-key="googleMapsApiKey"
             :center="{
               lat: dorm.lat ?? center.lat,
               lng: dorm.lng ?? center.lng,
             }"
-
             draggable-cursor="pointer"
             dragging-cursor="grab"
             :clickable-icons="false"
             :zoom="15.5"
-            class="w-full h-40"
+            class="w-full h-[256px] md:h-[400px] relative border-lesser-gray border"
             ref="mapElement"
-            @click="moveMarker"
+            @click="moveMarkerToClick"
           >
             <Marker
               ref="marker"
@@ -287,7 +341,65 @@ export default {
                 position: lat ?? { lat: dorm.lat, lng: dorm.lng },
               }"
             />
+            <div
+              v-if="alertMarkPicked"
+              class="absolute rounded-xl bg-yellow-300 p-2 text-black right-2 bottom-2"
+            >
+              เลือกตำแหน่งแล้ว!
+            </div>
           </GoogleMap>
+
+          <span class="flex h-6 items-center text-xs text-danger">
+            {{ zo.errors.lat()?.message }}
+          </span>
+        </div>
+
+        <!-- FILE -->
+        <div class="flex items-center justify-center w-full">
+          <label
+            for="dropzone-file"
+            class="flex flex-col items-center justify-center w-full h-[256px] border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+          >
+            <div
+              v-if="this.uploadImages.length === 0"
+              class="flex flex-col items-center justify-center pt-5 pb-6"
+            >
+              <IconPhotoPlus class="text-gray-500 mb-4 space-y-2" size="80" />
+              <p class="text-sm text-center text-gray-500">
+                <span class="font-semibold">คลิกเพื่อเลือกไฟล์</span>
+                <span class="block"> รับไฟล์นามสกุล PNG, JPG </span>
+                <span class="block font-semibold">
+                  ภาพควรมีอัตราส่วน 16/9
+                </span>
+              </p>
+            </div>
+            <div
+              v-if="this.uploadImages.length > 0"
+              class="w-full h-full flex flex-wrap p-3 rounded-lg gap-2"
+            >
+              <div
+                v-for="(image, index) in uploadImages"
+                :key="image"
+                class="p-2 border rounded h-fit cursor-default border-lesser-gray space-y-2"
+              >
+                <img :src="image.imageURL" class="w-32 h-18" />
+                <button
+                  @click="uploadImages.splice(index, 1)"
+                  class="text-lg bg-danger p-1 text-white rounded-lg w-full"
+                >
+                  delete
+                </button>
+              </div>
+            </div>
+            <input
+              id="dropzone-file"
+              @change="handleFileAdd"
+              type="file"
+              multiple
+              class="hidden"
+              accept="image/jpeg, image/png, image/webp"
+            />
+          </label>
         </div>
         <div>
           <label for="first_name" class="mb-2 block font-medium"
@@ -473,8 +585,9 @@ export default {
       <div>
         <button
           for="submit-form"
+          
           class="flex bg-primary text-white cursor-pointer items-center space-x-2 rounded-md p-4 py-3"
-          @click="dialogShow.submit = true"
+          @click.prevent="dialogShow.submit = true"
         >
           <label class="submit-form"> สร้างหอ</label>
         </button>
@@ -518,7 +631,12 @@ export default {
         <div class="flex justify-center items-center">
           <button
             class="p-3 px-4 mr-4 text-white rounded bg-primary"
-            @click="submitForm"
+            @click="
+              () => {
+                this.triggerSubmit()
+                this.dialogShow.submit = false
+              }
+            "
           >
             เพิ่มหอ
           </button>
