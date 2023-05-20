@@ -1,6 +1,4 @@
 <script>
-import DescriptionTextEditor from './DescriptionTextEditor.vue'
-
 export default {
   props: {
     modelValue: {
@@ -28,19 +26,12 @@ export default {
       type: Boolean,
       default: false,
     },
-  },
-  computed: {
-    value: {
-      get() {
-        return this.modelValue
-      },
-      set(text) {
-        this.$emit('update:modelValue', text)
-      },
+    placeholder: {
+      type: String,
+      default: '',
     },
   },
   emits: ['update:modelValue'],
-  components: { DescriptionTextEditor },
 }
 </script>
 <template>
@@ -48,19 +39,14 @@ export default {
     <label v-if="label" for="first_name" class="mb-2 block font-medium">{{
       label
     }}</label>
-    <input
-      :id="id"
-      :name="field"
-      type="hidden"
-      aria-hidden
-      :value="value"
+    <textarea
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
+      :placeholder="placeholder"
       :required="required"
-    />
-    <DescriptionTextEditor
-      :main-class="
-        error('ring-red-400 ring focus:border-red-400 focus:ring-red-400')
-      "
-      v-model="value"
+      :name="field"
+      :class="error('ring-red-400  focus:border-red-400 focus:ring-red-400')"
+      class="resize-none block w-full rounded-lg border border-lesser-gray bg-gray-50 p-2.5 text-sm text-black focus:border-primary focus:ring-primary"
     />
     <span class="flex h-6 items-center text-xs text-danger">
       {{ error()?.message }}

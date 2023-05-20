@@ -46,7 +46,6 @@ const zo = useZorm('dormpost', validator, {
   onValidSubmit(e) {
     e.preventDefault()
     console.log(e)
-
   },
   onFormData(e) {},
   // customIssues: serverSideIssues

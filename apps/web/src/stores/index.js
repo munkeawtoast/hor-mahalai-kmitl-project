@@ -8,7 +8,7 @@ export const useDraftCreateStore = defineStore('createDormDraft', {
   state: () => {
     const defaultRoom = {
       name: 'test',
-      price: 0,
+      price: '0',
 
       accomodations: roomAccomodations.map(acc => ({
         name: acc,
@@ -28,6 +28,14 @@ export const useDraftCreateStore = defineStore('createDormDraft', {
         name: acc,
         value: false,
       })),
+      address: '',
+      lat: null,
+      lng: null,
+      contacts: {
+        telnum: '',
+        facebook: '',
+        line: '',
+      },
     }
     const procedureStep = useLocalStorage('createDormDraftStep', 1)
     const dorm = useLocalStorage('createDormDraft', { ...defaultDorm })
@@ -63,7 +71,7 @@ export const createDraftEditStore = id =>
       state: () => {
         const defaultRoom = {
           name: 'test',
-          price: 0,
+          price: '0',
           water: '',
           waterMode: 'number',
           electricity: '',
@@ -118,7 +126,14 @@ export const useUserStore = defineStore('user', {
     token: useLocalStorage('token', ''),
   }),
   getters: {
-    parsed: state => jwtDecode(state.token),
+    parsed: state => {
+      try {
+        return jwtDecode(state.token)
+      } catch (e) {
+        return { badToken: true }
+      }
+    },
+    badToken: state => state.parsed?.badToken,
     id: state => state.parsed?.sub,
     username: state => state.parsed?.username,
     firstname: state => state.parsed?.firstname,

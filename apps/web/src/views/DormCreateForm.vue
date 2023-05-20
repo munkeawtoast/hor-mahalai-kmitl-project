@@ -1,5 +1,5 @@
 <script>
-// import DormCreateRoomTab from '../components/DormCreateRoomTab.vue'
+import { center, googleMapsApiKey } from '../utils/google_maps'
 import {
   IconBuildingEstate,
   IconInfoCircle,
@@ -8,6 +8,7 @@ import {
   IconSquarePlus,
   IconAlertTriangleFilled,
 } from '@tabler/icons-vue'
+import { GoogleMap, Marker } from 'vue3-google-map'
 import {
   zPostDorm,
   // dormAccommodations,
@@ -15,11 +16,9 @@ import {
 } from '@shared/validator'
 import { useZorm } from 'vue-zorm'
 import { axios } from '../utils'
-import DescriptionTextEditor from '../components/DescriptionTextEditor.vue'
 import { useDraftCreateStore } from '../stores'
 import {
   Dialog,
-  DialogBackdrop,
   DialogDescription,
   DialogPanel,
   DialogTitle,
@@ -29,7 +28,8 @@ import ZormInput from '../components/ZormInput.vue'
 import ZormSelect from '../components/ZormSelect.vue'
 import MySelect from '../components/MySelect.vue'
 import ZormEditor from '../components/ZormEditor.vue'
-// import ZormCheckboxes from './ZormCheckboxes.vue'
+import { ref } from 'vue'
+import ZormTextArea from '../components/ZormTextArea.vue'
 
 const defaultRoom = {
   name: '',
@@ -44,9 +44,11 @@ const validator = zPostDorm({ coerce: true })
 const zo = useZorm('dormpost', validator, {
   onValidSubmit(e) {
     e.preventDefault()
-    console.log(e)
+    console.log('onValidSubmit')
   },
-  onFormData(e) {},
+  onFormData(e) {
+    console.log('onFormData')
+  },
 })
 
 const dormStore = useDraftCreateStore()
@@ -81,22 +83,33 @@ export default {
     },
     dorm,
     rooms,
+    googleMapsApiKey,
+    center,
   }),
+  setup() {
+    return {
+      marker: ref(),
+      submitButton: ref(),
+      mapElement: ref(),
+    }
+  },
   mounted() {
     this.fetchUniversities()
   },
   watch: {
     selectedUniversity(newChoice) {
+      console.log('uni change')
       this.fetchLandmarks(newChoice)
-    },
-    dorm(newDorm) {
-      console.log('a')
-      if (newDorm.university !== this.dorm.university) {
-        this.fetchLandmarks(newDorm.university.id)
-      }
     },
   },
   methods: {
+    moveMarker(event) {
+      console.log(event.Va)
+      console.log(this.marker)
+    },
+    submitForm() {
+      this.submitButton.click()
+    },
     getState(roomAction) {
       if (this.action === 'CREATE') {
         return 'create'
@@ -108,7 +121,10 @@ export default {
     async fetchLandmarks(id) {
       const response = await axios.get(`/universities/${id}`)
       console.log(response.data)
-      this.landmarkOptions = response.data
+      this.landmarkOptions = response.data.map(landmark => ({
+        id: landmark.id,
+        label: landmark.name,
+      }))
     },
     async fetchUniversities() {
       const response = await axios.get(`/universities`)
@@ -131,7 +147,6 @@ export default {
     IconSquarePlus,
     IconBuildingEstate,
     IconAlertCircle,
-    DescriptionTextEditor,
     Dialog,
     DialogPanel,
     DialogTitle,
@@ -143,10 +158,14 @@ export default {
     ZormSelect,
     MySelect,
     ZormEditor,
+    ZormTextArea,
+    GoogleMap,
+    Marker,
   },
 }
 </script>
 <template>
+  {{ JSON.stringify(zo.validation) }}
   <div class="w-full">
     <form @change="zo.validate()" :ref="zo.getRef">
       <div class="">
@@ -202,7 +221,7 @@ export default {
         </div>
         <div class="grid-cols-2 gap-3 sm:grid">
           <MySelect
-            v-model="dorm.university"
+            v-model="selectedUniversity"
             id="dormform:landmark"
             name="landmark"
             label="กรุณาเลือกมหาลัย"
@@ -218,6 +237,57 @@ export default {
             placeholder="กรุณาเลือกโซนของหอ"
             :options="landmarkOptions"
           />
+        </div>
+        <div>
+          <ZormTextArea
+            v-model="dorm.address"
+            :id="zo.fields.address('id')"
+            :field="zo.fields.address('name')"
+            :error="zo.errors.address"
+            label="ที่อยู่หอ"
+          />
+        </div>
+        <div>
+          <input
+            type="hidden"
+            v-model="dorm.lat"
+            :id="zo.fields.lat('id')"
+            :name="zo.fields.lat('name')"
+          />
+          <input
+            type="hidden"
+            v-model="dorm.lat"
+            :id="zo.fields.lng('id')"
+            :name="zo.fields.lng('name')"
+          />
+          <!-- <input -->
+          <!--   type="hidden" -->
+          <!--   v-model="dorm.position[1]" -->
+          <!--   :name="zo.fields.position(1)('name')" -->
+          <!--   :id="zo.fields.position(1)('id')" -->
+          <!-- /> -->
+          <GoogleMap
+            :api-key="googleMapsApiKey"
+            :center="{
+              lat: dorm.lat ?? center.lat,
+              lng: dorm.lng ?? center.lng,
+            }"
+
+            draggable-cursor="pointer"
+            dragging-cursor="grab"
+            :clickable-icons="false"
+            :zoom="15.5"
+            class="w-full h-40"
+            ref="mapElement"
+            @click="moveMarker"
+          >
+            <Marker
+              ref="marker"
+              :options="{
+                position: lat ?? { lat: dorm.lat, lng: dorm.lng },
+              }"
+            />
+          </GoogleMap>
         </div>
         <div>
           <label for="first_name" class="mb-2 block font-medium"
@@ -257,8 +327,9 @@ export default {
           </span>
         </div>
         <ZormEditor
-          :id="zo.fields.address('id')"
-          :field="zo.fields.address('name')"
+          label="คำอธิบายหอ"
+          :id="zo.fields.description('id')"
+          :field="zo.fields.description('name')"
           :error="zo.errors.description"
           v-model="dorm.description"
         />
@@ -354,7 +425,7 @@ export default {
                   >
                     <input
                       type="hidden"
-                      v-model="acc.name"
+                      v-model="dorm.rooms[index].accomodations[jindex].name"
                       checked
                       :id="
                         zo.fields.rooms(index).accomodations(jindex).name('id')
@@ -379,7 +450,7 @@ export default {
                       "
                       :true-value="true"
                       :false-value="false"
-                      v-model="acc.value"
+                      v-model="dorm.rooms[index].accomodations[jindex].value"
                       class="h-4 w-4 rounded border-lesser-gray bg-gray-100 text-primary focus:ring-2 focus:ring-primary-soft"
                     />
                     <label
@@ -400,16 +471,68 @@ export default {
         </template>
       </div>
       <div>
-        <input type="submit" class="hidden" aria-hidden id="submit-form" />
         <button
           for="submit-form"
           class="flex bg-primary text-white cursor-pointer items-center space-x-2 rounded-md p-4 py-3"
+          @click="dialogShow.submit = true"
         >
           <label class="submit-form"> สร้างหอ</label>
         </button>
+        <input
+          type="submit"
+          ref="submitButton"
+          class="hidden"
+          aria-hidden
+          id="submit-form"
+        />
       </div>
     </form>
   </div>
+  <TransitionRoot
+    :show="dialogShow.submit"
+    as="template"
+    enter="duration-300 ease-out"
+    enter-from="opacity-0"
+    enter-to="opacity-100"
+    leave="duration-200 ease-in"
+    leave-from="opacity-100"
+    leave-to="opacity-0"
+  >
+    <Dialog
+      @close="dialogShow.submit = false"
+      class="bg-opacity-30 flex justify-center text-black items-center bg-black inset-0 fixed"
+    >
+      <DialogPanel class="max-w-md bg-white space-y-3 p-8 border rounded-lg">
+        <DialogTitle>
+          <div class="flex items-center space-x-2">
+            <IconAlertCircle />
+            <h1 class="font-bold text-2xl">สร้างหอ</h1>
+          </div>
+        </DialogTitle>
+        <DialogDescription>
+          <p>
+            หากยืนยันจะส่งคำขอไปให้ผู้ดูแลยืนยันก่อนสามารถเพิ่มหอพักเข้าในระบบ
+            อาจใช้เวลาดำเนินการประมาณ 1 วัน
+          </p>
+        </DialogDescription>
+        <div class="flex justify-center items-center">
+          <button
+            class="p-3 px-4 mr-4 text-white rounded bg-primary"
+            @click="submitForm"
+          >
+            เพิ่มหอ
+          </button>
+
+          <button
+            class="p-3 px-4 mr-4 rounded bg-white border"
+            @click="dialogShow.submit = false"
+          >
+            Cancel
+          </button>
+        </div>
+      </DialogPanel>
+    </Dialog>
+  </TransitionRoot>
   <TransitionRoot
     :show="dialogShow.deleteRoom"
     as="template"
