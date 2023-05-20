@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@config/tailwind-config": "workspace:^1.0.0",
-    "@fawmi/vue-google-maps": "^0.9.79",
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
     "@fortawesome/free-brands-svg-icons": "^6.3.0",
     "@fortawesome/free-regular-svg-icons": "^6.3.0",
@@ -40,6 +39,7 @@
     "vue": "^3.2.31",
     "vue-router": "^4",
     "vue-zorm": "^0.3.0",
+    "vue3-google-map": "^0.15.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {
