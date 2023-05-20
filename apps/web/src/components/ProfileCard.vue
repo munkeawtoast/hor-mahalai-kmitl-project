@@ -24,16 +24,16 @@ export default {
 <template>
   <div
     id="profilecard"
-    class="flex flex-row h-full w-[60rem] border-black border content-center items-center justify-around text-2xl p-6 mt-12"
+    class="flex flex-row h-full w-full border-black border justify-around items-start text-2xl p-6 mt-12"
   >
-    <div class="flex flex-col items-start gap-4">
+    <div class="flex flex-col justify-center items-center gap-2">
+      <img :src="userImage" class="w-64 h-64 bg-pink-300 rounded-full" />
+      <p>{{ userName }}</p>
+    </div>
+    <div class="flex flex-row items-center justify-center content-center gap-4">
       <p>Name: {{ firstName }} {{ lastName }}</p>
       <p>Email: {{ email }}</p>
       <p>Role: {{ role }}</p>
-    </div>
-    <div class="flex flex-col justify-center items-center gap-2">
-      <img :src="userImage" class="w-32 h-32 bg-pink-300 rounded-full" />
-      <p>{{ userName }}</p>
     </div>
   </div>
 </template>

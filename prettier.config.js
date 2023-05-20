@@ -3,7 +3,7 @@ module.exports = {
   trailingComma: 'all',
   semi: false,
   tabWidth: 2,
-  endOfLine: 'lf',
+  endOfLine: 'crlf',
   vueIndentScriptAndStyle: false,
   arrowParens: 'avoid',
   bracketSameLine: false,

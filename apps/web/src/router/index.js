@@ -80,6 +80,14 @@ const router = createRouter({
       name: 'testtt',
       component: () => import('../views/TestttPage.vue'),
     },
+    {
+      path: '/issues',
+      meta: {
+        hideIssues: true,
+      },
+      name: 'issues',
+      component: () => import('../views/IssuePage.vue'),
+    },
     // {
     //   path: '/test',
     //   name: 'test',

@@ -56,10 +56,11 @@ model Ticket {
 }
 
 enum TicketCategory {
-  WEB
-  USER
-  DORM
+  REGISTER
+  LOGIN
+  WEBBUG
   OTHER
+  DORM
 }
 
 model Dorm {

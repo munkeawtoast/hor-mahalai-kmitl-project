@@ -2,11 +2,13 @@
 import { RouterView } from 'vue-router'
 import NavBar from './components/NavBar.vue'
 import { defineComponent } from 'vue'
+import TicketIcon from './components/TicketIcon.vue'
 
 export default defineComponent({
   components: {
     RouterView,
     NavBar,
+    TicketIcon,
   },
 })
 </script>
@@ -19,4 +21,5 @@ export default defineComponent({
   >
     <RouterView />
   </div>
+  <TicketIcon class="fixed right-1 bottom-1"></TicketIcon>
 </template>
