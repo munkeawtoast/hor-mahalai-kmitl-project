@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-import { getEnv } from '../utils'
+import { getEnv } from '../utils/index.js'
 import multer from 'multer'
 import path from 'node:path'
 import { MulterFile, RequestWithMulter, RequestWithUpload } from 'global-types'
@@ -101,8 +101,9 @@ const imageUploader = (
         ),
       )
       .then(linkArr => {
+        console.log('done', linkArr)
         req.links = linkArr.map(res => res.data.publicUrl)
-
+        next()
       })
   }
 }
@@ -110,9 +111,9 @@ const imageUploader = (
 export function imageUploadBuilder(
   config: (UploadSingle | UploadArray) & { required?: boolean },
 ): RequestHandler[] {
-  const memoryStorage = multer.memoryStorage()
+  console.log(config.fieldName)
   const upload = multer({
-    storage: memoryStorage,
+    storage: multer.memoryStorage(),
     fileFilter: (req, file, cb) => {
       if (!file) {
         cb(new Error('No Files'))
@@ -121,7 +122,7 @@ export function imageUploadBuilder(
         cb(new Error('Wrong File Type.'))
       }
 
-      cb(null, true)
+      cb(null, true) 
     },
   })
 
@@ -134,11 +135,11 @@ export function imageUploadBuilder(
   } else {
     throw new Error('Invalid config')
   }
-
-  if (config.required) {
-    middlewares.push(imageRequiredGuard)
-  }
-  middlewares.push(imageUploader)
+  //
+  // if (config.required) {
+  //   middlewares.push(imageRequiredGuard)
+  // }
+  // middlewares.push(imageUploader)
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore

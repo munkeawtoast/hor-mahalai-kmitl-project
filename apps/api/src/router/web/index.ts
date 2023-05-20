@@ -8,15 +8,14 @@ import ticketsRounter from './tickets.js'
 
 const webRouter = Router()
 
-webRouter.use(
-  cors({
-    // origin: 'http://localhost:3000',
-  }),
-)
+webRouter.use(cors())
 webRouter.use('/dorms', dormRouter)
 webRouter.use('/landmarks', landmarkRouter)
 webRouter.use('/universities', universityRouter)
 webRouter.use('/users', userRounter)
 webRouter.use('/tickets', ticketsRounter)
-
+webRouter.use(function (err, req, res, next) {
+  console.log('This is the invalid field ->', err.field)
+  next(err)
+})
 export default webRouter

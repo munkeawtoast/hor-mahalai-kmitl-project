@@ -48,23 +48,7 @@ const { dorm, rooms } = dormStore
 
 export default {
   data: () => {
-    const zo = useZorm('dormpost', validator, {
-      onValidSubmit: async e => {
-        e.preventDefault()
-        console.log(this.uploadImages)
-        await axios.postForm('/dorms', {
-          ...e.data,
-          images: this.uploadImages,
-        })
-        console.log(e.data)
-        console.log('onValidSubmit')
-      },
-      onFormData() {
-        console.log('onFormData')
-      },
-    })
     return {
-      zo,
       alertMarkPicked: false,
       action: 'CREATE',
       currentStep: 1,
@@ -94,14 +78,32 @@ export default {
       rooms,
       googleMapsApiKey,
       center,
-      uploadImages: [],
       marker: null,
       mapElement: null,
     }
   },
-  setup: () => ({
-    submitButton: ref(),
-  }),
+  setup: () => {
+    const uploadImages = ref([])
+    const zo = useZorm('dormpost', validator, {
+      onValidSubmit: async e => {
+        e.preventDefault()
+        console.log(uploadImages.value)
+        const res = await axios.postForm('/dorms', {
+          ...e.data,
+          images: uploadImages.value,
+        })
+        console.log(res)
+      },
+      onFormData() {
+        console.log('onFormData')
+      },
+    })
+    return {
+      zo,
+      uploadImages,
+      submitButton: ref(),
+    }
+  },
   mounted() {
     this.fetchUniversities()
   },
@@ -361,7 +363,7 @@ export default {
             class="flex flex-col items-center justify-center w-full h-[256px] border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
           >
             <div
-              v-if="this.uploadImages.length === 0"
+              v-if="uploadImages.length === 0"
               class="flex flex-col items-center justify-center pt-5 pb-6"
             >
               <IconPhotoPlus class="text-gray-500 mb-4 space-y-2" size="80" />
@@ -374,7 +376,7 @@ export default {
               </p>
             </div>
             <div
-              v-if="this.uploadImages.length > 0"
+              v-if="uploadImages.length > 0"
               class="w-full h-full flex flex-wrap p-3 rounded-lg gap-2"
             >
               <div
