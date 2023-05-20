@@ -43,64 +43,65 @@ const defaultRoom = {
 
 const validator = zPostDorm({ coerce: true })
 
-const zo = useZorm('dormpost', validator, {
-  onValidSubmit(e) {
-    e.preventDefault()
-    // TODO: continue here
-    const { name, address, lat, lng, contacts, description, waterrate, electricityrate, rooms, landmark, accomodations } = e.data
-    const formData = new FormData()
-    console.log(e.data)
-    console.log('onValidSubmit')
-  },
-  onFormData(e) {
-    console.log('onFormData')
-  },
-})
-
 const dormStore = useDraftCreateStore()
 const { dorm, rooms } = dormStore
 
 export default {
-  data: () => ({
-    alertMarkPicked: false,
-    action: 'CREATE',
-    zo,
-    currentStep: 1,
-    steps: [
-      {
-        title: 'ข้อมูลทั่วไป',
+  data: () => {
+    const zo = useZorm('dormpost', validator, {
+      onValidSubmit: async e => {
+        e.preventDefault()
+        console.log(this.uploadImages)
+        await axios.postForm('/dorms', {
+          ...e.data,
+          images: this.uploadImages,
+        })
+        console.log(e.data)
+        console.log('onValidSubmit')
       },
-      {
-        title: 'เพิ่มห้อง',
+      onFormData() {
+        console.log('onFormData')
       },
-      {
-        title: 'ตัวอย่าง',
-      },
-    ],
-    landmarkOptions: [],
-    universityOptions: [],
-    selectedUniversity: null,
-    // accomodations: dormAccommodations,
-    // roomAccomodations,
-    defaultRoom,
-    activeRoom: 0,
-    dialogShow: {
-      submit: false,
-      deleteRoom: false,
-    },
-    dorm,
-    rooms,
-    googleMapsApiKey,
-    center,
-    uploadImages: [],
-  }),
-  setup() {
+    })
     return {
-      marker: ref(),
-      submitButton: ref(),
-      mapElement: ref(),
+      zo,
+      alertMarkPicked: false,
+      action: 'CREATE',
+      currentStep: 1,
+      steps: [
+        {
+          title: 'ข้อมูลทั่วไป',
+        },
+        {
+          title: 'เพิ่มห้อง',
+        },
+        {
+          title: 'ตัวอย่าง',
+        },
+      ],
+      landmarkOptions: [],
+      universityOptions: [],
+      selectedUniversity: null,
+      // accomodations: dormAccommodations,
+      // roomAccomodations,
+      defaultRoom,
+      activeRoom: 0,
+      dialogShow: {
+        submit: false,
+        deleteRoom: false,
+      },
+      dorm,
+      rooms,
+      googleMapsApiKey,
+      center,
+      uploadImages: [],
+      marker: null,
+      mapElement: null,
     }
   },
+  setup: () => ({
+    submitButton: ref(),
+  }),
   mounted() {
     this.fetchUniversities()
   },
@@ -112,7 +113,6 @@ export default {
   },
   methods: {
     handleFileAdd(event) {
-      console.log(event.target.files[0])
       const tempFiles = [...event.target.files]
       const filesWithURL = tempFiles.map(file => {
         file.imageURL = URL.createObjectURL(file)
@@ -137,7 +137,9 @@ export default {
       const { lat, lng } = event.latLng.toJSON()
       this.moveMarker(lat, lng)
     },
-    triggerSubmit() {
+    triggerSubmitt() {
+      this.dialogShow.submit = false
+      console.log('CLICKING')
       this.submitButton.click()
     },
     getState(roomAction) {
@@ -198,7 +200,7 @@ export default {
 <template>
   {{ JSON.stringify(zo.validation) }}
   <div class="w-full">
-    <form :ref="zo.getRef">
+    <form @change="zo.validate" :ref="zo.getRef" ref="formm">
       <div class="">
         <div class="block justify-between sm:flex">
           <div class="inline-flex items-center space-x-3">
@@ -296,7 +298,6 @@ export default {
             :id="zo.fields.contacts.facebook('id')"
             :field="zo.fields.contacts.facebook('name')"
             :error="zo.errors.contacts.facebook"
-            required
           />
           <ZormInput
             label="ไอดีไลน์"
@@ -305,7 +306,6 @@ export default {
             :id="zo.fields.contacts.line('id')"
             :field="zo.fields.contacts.line('name')"
             :error="zo.errors.contacts.line"
-            required
           />
         </div>
         <div class="mb-6">
@@ -583,20 +583,18 @@ export default {
         </template>
       </div>
       <div>
-        <button
-          for="submit-form"
-          
-          class="flex bg-primary text-white cursor-pointer items-center space-x-2 rounded-md p-4 py-3"
-          @click.prevent="dialogShow.submit = true"
-        >
-          <label class="submit-form"> สร้างหอ</label>
-        </button>
+        <!-- <button -->
+        <!--   for="submit-form" -->
+        <!--   class="flex bg-primary text-white cursor-pointer items-center space-x-2 rounded-md p-4 py-3" -->
+        <!--   @click.prevent="dialogShow.submit = true" -->
+        <!-- > -->
+        <!--   <label class="submit-form"> สร้างหอ</label> -->
+        <!-- </button> -->
         <input
           type="submit"
           ref="submitButton"
-          class="hidden"
-          aria-hidden
           id="submit-form"
+          value="submit"
         />
       </div>
     </form>
@@ -631,14 +629,9 @@ export default {
         <div class="flex justify-center items-center">
           <button
             class="p-3 px-4 mr-4 text-white rounded bg-primary"
-            @click="
-              () => {
-                this.triggerSubmit()
-                this.dialogShow.submit = false
-              }
-            "
+            @click="triggerSubmitt"
           >
-            เพิ่มหอ
+            สร้างหอ
           </button>
 
           <button

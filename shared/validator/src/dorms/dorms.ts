@@ -39,7 +39,7 @@ const room = (config: ValidatorConfig = {}) =>
     accomodations: z
       .object({
         name: z.string(),
-        value: z.boolean(),
+        value: z.boolean({ coerce: config.coerce }),
       })
       .array(),
     width: z
@@ -63,19 +63,23 @@ export const zPostDorm = (config: ValidatorConfig = {}) =>
       .string({ required_error: 'กรุณากรอกที่อยู่' })
       .min(5, 'ที่อยู่สั่นเกินไป')
       .max(120, 'ที่อยู่ต้องสั่นกว่า 120 ตัวอักษร'),
-    position: z.tuple(
-      [
-        z.number({ coerce: config.coerce }).min(-85).max(85),
-        z.number({ coerce: config.coerce }).min(-180).max(180),
-      ],
-      { required_error: 'กรุณาเลือกตำแหน่งของหอ' },
-    ),
+    lat: z
+      .number({
+        coerce: config.coerce,
+        required_error: 'กรุณาเลือกตำแหน่งในแผนที่',
+      })
+      .min(-85)
+      .max(85).refine(val => val !== 0, { message: 'กรุณากรอกตำแหน่งในแผนที่'}),
+    lng: z
+      .number({ coerce: config.coerce, required_error: '' })
+      .min(-180)
+      .max(180),
     contacts: z.object({
       telnum: z
         .string({ required_error: 'กรุณากรอกเบอร์ติดต่อ' })
         .min(9, 'เบอร์ติดต่อสั้นเกินไป')
         .max(10, 'เบอร์ติดต่อยาวเกินไป'),
-      facebook: z.string().url().nullable(),
+      facebook: z.union([z.string().url(), z.literal('')]),
       line: z.string().nullable(),
     }),
     description: z
@@ -97,7 +101,7 @@ export const zPostDorm = (config: ValidatorConfig = {}) =>
     accomodations: z
       .object({
         name: z.string(),
-        value: z.boolean(),
+        value: z.boolean({ coerce: config.coerce }),
       })
       .array(),
   })
@@ -105,13 +109,15 @@ export const zPostDorm = (config: ValidatorConfig = {}) =>
 export const zPostRoom = (config: ValidatorConfig = {}) => room(config)
 
 export const zPatchDorm = (config: ValidatorConfig = {}) =>
-  zPostDorm({coerce: config.coerce})
+  zPostDorm({ coerce: config.coerce })
     .omit({
       rooms: true,
     })
     .extend({
       dormid: z.number(),
-      rooms: room().extend({ id: z.number({coerce: config.coerce}).int().nullable() }).array(),
+      rooms: room()
+        .extend({ id: z.number({ coerce: config.coerce }).int().nullable() })
+        .array(),
     })
 
 export const zPatchRoom = () => room().partial()
