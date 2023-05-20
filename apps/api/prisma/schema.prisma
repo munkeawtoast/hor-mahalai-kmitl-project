@@ -100,7 +100,6 @@ model Room {
   price          Float
   name           String
   Accommodations Accommodation[] @relation("RoomAccommodation")
-  RoomImages     Image[]         @relation("RoomImages")
 }
 
 model Landmark {
@@ -142,6 +141,7 @@ model Comment {
   User             User      @relation("UserComment", fields: [userID], references: [userId], onDelete: Cascade)
   userID           Int
   description      String
+  createdAt        DateTime  @default(now())
   TargetDorm       Dorm      @relation("DormComments", fields: [dormID], references: [dormID], onDelete: Cascade)
   dormID           Int
   ParentComment    Comment?  @relation("CommentedComment", fields: [parentCommentID], references: [commentID], onDelete: Cascade)
@@ -155,8 +155,6 @@ model Image {
   UserProfile User[] @relation("UserImage")
   InDorm      Dorm?  @relation("DormImages", fields: [dormID], references: [dormID], onDelete: Cascade)
   dormID      Int
-  InRoom      Room?  @relation("RoomImages", fields: [roomID], references: [roomID], onDelete: Cascade)
-  roomID      Int
 }
 
 // /////////////////
