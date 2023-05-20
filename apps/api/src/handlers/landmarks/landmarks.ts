@@ -60,10 +60,15 @@ export const getUniversityIdLandmarks: RequestHandler<{
         LandmarksInUniversity: true,
       },
     })
-    return res.json(universities.LandmarksInUniversity)
+    return res.json(
+      universities.LandmarksInUniversity.map(area => ({
+        id: area.landmarkID,
+        name: area.name,
+      })),
+    )
   } catch (e) {
-    return res.status(400).json({
-      error: 'No university of that id',
+    return res.status(404).json({
+      error: `No university of id '${req.params.landmarkId}'`,
     })
   }
 }
