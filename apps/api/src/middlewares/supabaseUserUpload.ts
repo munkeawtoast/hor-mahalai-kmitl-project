@@ -52,13 +52,7 @@ function imageRequiredGuard(
     filesArr = [req.file]
   }
   if (filesArr.length === 0) {
-    next(new Error('Please upload a file'))
-    // res.status(400).json({
-    //   error: {
-    //     message: 'please upload a file',
-    //   },
-    // })
-    return
+    return next(new Error('Please upload a file'))
   } else {
     next()
   }
@@ -79,7 +73,7 @@ const imageUploader = (
   if (filesArr.length === 0) {
     next()
   } else {
-    const links = Promise.all(
+    Promise.all(
       filesArr.map(file =>
         supabase.storage
           .from('images')
@@ -106,7 +100,10 @@ const imageUploader = (
           }),
         ),
       )
-      .then(resArray => resArray.map(res => res.data.publicUrl))
+      .then(linkArr => {
+        req.links = linkArr.map(res => res.data.publicUrl)
+
+      })
   }
 }
 
