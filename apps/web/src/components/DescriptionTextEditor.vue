@@ -44,6 +44,10 @@ export default {
       type: Number,
       default: 1500,
     },
+    mainClass: {
+      type: Array,
+      default: () => [],
+    },
   },
   emits: ['update:modelValue'],
   data: () => ({
@@ -75,14 +79,14 @@ export default {
     IconItalic,
     IconH1,
     IconH2,
-    IconHeadingOff,
     IconStrikethrough,
   },
 }
 </script>
 <template>
   <div
-    class="mb-4 w-full rounded-lg border border-lesser-gray bg-white dark:border-gray-600 dark:bg-gray-700"
+    :class="mainClass"
+    class="w-full rounded-lg border border-lesser-gray bg-white dark:border-gray-600 dark:bg-gray-700"
   >
     <div class="flex items-center justify-between border-b px-3 py-2">
       <div class="flex flex-wrap items-center divide-gray-200 sm:divide-x">

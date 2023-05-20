@@ -28,6 +28,7 @@ import {
 import ZormInput from '../components/ZormInput.vue'
 import ZormSelect from '../components/ZormSelect.vue'
 import MySelect from '../components/MySelect.vue'
+import ZormEditor from '../components/ZormEditor.vue'
 // import ZormCheckboxes from './ZormCheckboxes.vue'
 
 const defaultRoom = {
@@ -141,6 +142,7 @@ export default {
     ZormInput,
     ZormSelect,
     MySelect,
+    ZormEditor,
   },
 }
 </script>
@@ -254,9 +256,12 @@ export default {
             {{ zo.errors.accomodations()?.message }}
           </span>
         </div>
-        <div>
-          <DescriptionTextEditor v-model="dorm.description" />
-        </div>
+        <ZormEditor
+          :id="zo.fields.address('id')"
+          :field="zo.fields.address('name')"
+          :error="zo.errors.description"
+          v-model="dorm.description"
+        />
         <div class="space-y-2">
           <ul
             class="flex flex-wrap gap-2 text-center text-sm font-medium text-gray-500"
