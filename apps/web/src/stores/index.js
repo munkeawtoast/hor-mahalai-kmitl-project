@@ -5,11 +5,10 @@ import { dormAccommodations, roomAccomodations } from '@shared/validator'
 import jwtDecode from 'jwt-decode'
 
 export const useDraftCreateStore = defineStore('createDormDraft', {
-  state: () => {
+  state() {
     const defaultRoom = {
-      name: 'test',
-      price: '0',
-
+      name: '',
+      price: '',
       accomodations: roomAccomodations.map(acc => ({
         name: acc,
         value: false,
@@ -40,27 +39,20 @@ export const useDraftCreateStore = defineStore('createDormDraft', {
     const procedureStep = useLocalStorage('createDormDraftStep', 1)
     const dorm = useLocalStorage('createDormDraft', { ...defaultDorm })
     const rooms = dorm.value.rooms
-
     return {
       step: procedureStep,
       dorm,
-      defaultDorm,
       rooms,
+      defaultDorm,
       defaultRoom,
     }
   },
-  actions: () => ({
-    addRoom: () => {
-      const getDefaultRoom = () => ({
-        name: '',
-        images: [],
-        accomodations: [],
-      })
-      const newRoom = getDefaultRoom()
+  actions: {
+    addRoom() {
+      const newRoom = { ...this.defaultRoom }
       this.rooms.push(newRoom)
-      return newRoom
     },
-  }),
+  },
 })
 
 export const createDraftEditStore = id =>
