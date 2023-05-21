@@ -112,77 +112,64 @@ export const postDorm: RequestHandler = async (
   res,
   next,
 ) => {
-  // if (!req.auth) return next(new Error('no auth'))
-  // if (!req.links) return next(new Error('no images'))
-  // console.log(req.body)
-  // const parseResult = zPostDorm({ coerce: true }).safeParse(req.body)
-  // if (!parseResult.success) return res.status(400).send(parseResult.error)
-  // const dormData = parseResult.data
-  // const { line, telnum, facebook } = dormData.contacts
-  // const addDorm = await prisma.dorm.create({
-  //   data: {
-  //     userID: Number(req.auth.sub),
-  //     name: dormData.name,
-  //     address: dormData.address,
-  //     latitude: dormData.lat,
-  //     longitude: dormData.lng,
-  //     description: dormData.description,
-  //     waterRate: dormData.waterrate,
-  //     electricityRate: dormData.electricityrate,
-  //     landmarkID: dormData.landmark,
-  //     contactFacebook: facebook || undefined,
-  //     contactLine: line || undefined,
-  //     contactTelnum: telnum,
-  //     Accommodations: {
-  //       createMany: {
-  //         data: [
-  //           {
-  //             accommodationTypeID:
-  //           },
-  //         ],
-  //       },
-  //       // connect: dormData.accomodations.filter(acc => acc.value).map(acc => ({
-  //       //   accomodationID: acc.name
-  //       // }))
-  //     },
-  //     Rooms: {
-  //       create: [
-  //         {
-  //           Accommodations: {
-  //             createMany: {
-  //               data: [
-  //                 {
-  //                   accommodationTypeID,
-  //                 },
-  //               ],
-  //             },
-  //           },
-  //         },
-  //       ],
-  //       // createMany: {
-  //       //   data: dormData.rooms.map(room => ({
-  //       //     length: room.length,
-  //       //     name: room.name,
-  //       //     price: room.price,
-  //       //     width: room.width,
-  //       //   })),
-  //       // },
-  //     },
-  //     DormImages: {
-  //       createMany: req.links
-  //         ? {
-  //             data: req.links.map(url => ({
-  //               url,
-  //             })),
-  //           }
-  //         : undefined,
-  //     },
-  //   },
-  //   include: {
-  //     Rooms: true,
-  //   },
-  // })
-  // res.json(addDorm)
+  if (!req.auth) return next(new Error('no auth'))
+  if (!req.links) return next(new Error('no images'))
+
+  console.log(req.body)
+
+  const parseResult = zPostDorm({ coerce: true }).safeParse(req.body)
+  if (!parseResult.success) return res.status(400).send(parseResult.error)
+
+  const dormData = parseResult.data
+  const { line, telnum, facebook } = dormData.contacts
+  const addDorm = await prisma.dorm.create({
+    data: {
+      userID: Number(req.auth.sub),
+      name: dormData.name,
+      address: dormData.address,
+      latitude: dormData.lat,
+      longitude: dormData.lng,
+      description: dormData.description,
+      waterRate: dormData.waterrate,
+      electricityRate: dormData.electricityrate,
+      landmarkID: dormData.landmark,
+      contactFacebook: facebook || undefined,
+      contactLine: line || undefined,
+      contactTelnum: telnum,
+      Accommodations: {
+        create: dormData.accomodations.map(acc => ({
+          accommodationTypeID: acc.id,
+        })),
+      },
+      Rooms: {
+        create: dormData.rooms.map(room => ({
+          width: room.width,
+          price: room.price,
+          name: room.name,
+          length: room.length,
+          Accommodations: {
+            create: room.accomodations.map(acc => ({
+              accommodationTypeID: acc.id,
+            })),
+          },
+        })),
+      },
+      DormImages: {
+        createMany: req.links
+          ? {
+              data: req.links.map(url => ({
+                url,
+              })),
+            }
+          : undefined,
+      },
+    },
+  })
+
+  res.status(201).json({
+    message: 'success',
+    id: addDorm.dormID,
+  })
 }
 
 export const deleteDorm: RequestHandler<{ dormId: string }> = async (
