@@ -47,7 +47,8 @@ export const postUserLogin: RequestHandler = async (req, res) => {
     }
 
     const env = getEnv()
-    const { firstName, lastName, email, username, userId, Role } = foundUser
+    const { firstName, lastName, email, username, userId, Role, Image } =
+      foundUser
 
     const expireInMinute = 3000000000
     const token = jwt.sign(
@@ -58,8 +59,8 @@ export const postUserLogin: RequestHandler = async (req, res) => {
         lastname: lastName,
         email,
         username,
-        // Role,
-        image_link: foundUser.Image?.url,
+        Role,
+        image_link: Image?.url,
       },
       env.JWT_SECRET,
       {

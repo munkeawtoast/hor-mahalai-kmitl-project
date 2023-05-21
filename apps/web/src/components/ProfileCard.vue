@@ -4,8 +4,10 @@ import ZormInput from './ZormInput.vue'
 import { useZorm } from 'vue-zorm'
 import { IconPhotoPlus } from '@tabler/icons-vue'
 import { axios } from '../utils'
+import { useUserStore } from '../stores'
 
 const validator = zPatchUser()
+let userStore = useUserStore()
 export default {
   props: {
     userData: Object,
@@ -16,10 +18,13 @@ export default {
         e.preventDefault()
         e.data.uploadImage = this.uploadImage
         console.log(e.data)
-        this.buttoncount = 0
-        await axios.patchForm('/users/', e.data)
-        // .then(this.$router.go(this.$router.currentRoute))
-        // .catch(err => console.log(err))
+        await axios
+          .patchForm('/users/', e.data)
+          .then(res => {
+            userStore.token = res.data.token
+            this.$router.go(this.$router.currentRoute)
+          })
+          .catch(err => console.log(err))
       },
       // onFormData: async e => {
       //   console.log(e)

@@ -47,7 +47,7 @@ export default {
 </script>
 <template>
   <DormDetails :dormData="dormData" />
-  <DormRoom></DormRoom>
+  <DormRoom :roomData="4"></DormRoom>
   <form :ref="zo.getRef">
     <ZormTextArea
       label="Write your comment"

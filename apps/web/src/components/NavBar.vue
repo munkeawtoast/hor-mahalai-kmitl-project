@@ -18,6 +18,6 @@ export default {
     <RouterLink to="/" class="">
       <IconLogo size="xl" />
     </RouterLink>
-    <UserIcon />
+    <UserIcon class="z-10" />
   </header>
 </template>

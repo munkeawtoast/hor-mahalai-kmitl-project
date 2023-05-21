@@ -110,7 +110,6 @@ const imageUploader = (
 export function imageUploadBuilder(
   config: (UploadSingle | UploadArray) & { required?: boolean },
 ): RequestHandler[] {
-  console.log(config.fieldName)
   const upload = multer({
     storage: multer.memoryStorage(),
     fileFilter: (req, file, cb) => {
