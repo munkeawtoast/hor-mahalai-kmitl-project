@@ -122,9 +122,15 @@ model Accommodation {
 }
 
 model AccommodationType {
-  accommodationTypeID Int             @id @default(autoincrement())
-  accommodationName   String
-  Accommodations      Accommodation[] @relation("AccommodationType")
+  accommodationTypeID   Int                   @id @default(autoincrement())
+  accommodationName     String
+  AccommodationCategory AccommodationCategory
+  Accommodations        Accommodation[]       @relation("AccommodationType")
+}
+
+enum AccommodationCategory {
+  DORM
+  ROOM
 }
 
 model Rating {
