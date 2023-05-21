@@ -7,10 +7,7 @@ import { Request as JwtRequest } from 'express-jwt'
 const prisma = new PrismaClient()
 
 export const getDorms: RequestHandler = async (req: JwtRequest, res) => {
-  let isAdmin
-  if (req.auth?.aud === 'ADMIN') {
-    isAdmin = true
-  }
+  let isAdmin = req.auth?.aud === 'ADMIN'
 
   const queryOwnerId = req.query.ownerid ? Number(req.query.ownerid) : undefined
   const queryName = req.query.query as string
@@ -23,22 +20,45 @@ export const getDorms: RequestHandler = async (req: JwtRequest, res) => {
     where: {
       userID: queryOwnerId,
       landmarkID: queryLandmark,
+
       // NOT: {
       //   approvedAt: isAdmin ? null : undefined
       // }
     },
     orderBy: [{ name: 'asc' }],
     include: {
-      Ratings: true,
-      Accommodations: true,
-      Landmarks: true,
-      DormImages: true,
-      Rooms: true,
+      Ratings: {
+        select: {
+          score: true,
+        },
+      },
+      Landmarks: {
+        select: {
+          name: true,
+          ParentUniversity: {
+            select: {
+              landmarkID: true,
+              name: true,
+            },
+          },
+        },
+      },
+      Rooms: {
+        select: {
+          price: true,
+        },
+      },
+      DormImages: {
+        take: 1,
+        select: {
+          url: true,
+        },
+      },
     },
   })
   if (queryUniversity) {
     dormResult = dormResult.filter(
-      dorm => dorm.Landmarks.parentUniversityID === queryUniversity,
+      dorm => dorm.Landmarks.ParentUniversity?.landmarkID === queryUniversity,
     )
   }
 
@@ -46,11 +66,20 @@ export const getDorms: RequestHandler = async (req: JwtRequest, res) => {
     dormResult = dormResult.filter(dorm => dorm.name.includes(queryName))
   }
 
-  const dormsOut = dormResult.map(value => {
-    const ratingsCount = value.Ratings.length
-    const ratingsTotal = value.Ratings.reduce((acc, b) => acc + b.score, 0)
+  const dormsOut = dormResult.map(d => {
+    const basePrices = d.Rooms.map(r => r.price)
+    basePrices.sort((a, b) => a - b)
+    const priceRange = [basePrices[0], basePrices[-1]]
+
+    const ratingsCount = d.Ratings.length
+    const ratingsTotal = d.Ratings.reduce((acc, b) => acc + b.score, 0)
     return {
-      ...value,
+      name: d.name,
+      priceRange,
+      landmark: d.Landmarks.name,
+      university: d.Landmarks.ParentUniversity?.name,
+      images: d.DormImages.map(a => a.url),
+
       userRating: ratingsCount ? ratingsTotal / ratingsCount : 0,
     }
   })
@@ -112,8 +141,8 @@ export const postDorm: RequestHandler = async (
   res,
   next,
 ) => {
-  if (!req.auth) return res.status(401).json({error: 'bad'})
-  if (!req.links) return res.status(400).json({error: 'no images'})
+  if (!req.auth) return res.status(401).json({ error: 'bad' })
+  if (!req.links) return res.status(400).json({ error: 'no images' })
 
   console.log(req.body)
 
@@ -202,4 +231,3 @@ export const deleteDorm: RequestHandler<{ dormId: string }> = async (
   })
   return res.status(200).json({ message: 'dorm deleted successfully' })
 }
-
