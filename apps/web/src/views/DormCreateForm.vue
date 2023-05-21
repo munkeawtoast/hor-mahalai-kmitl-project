@@ -1,5 +1,5 @@
 <script>
-import { center, googleMapsApiKey } from '../utils/google_maps'
+import { googleMapsApiKey, center } from '../utils/google_maps'
 import {
   IconBuildingEstate,
   IconInfoCircle,
@@ -9,11 +9,7 @@ import {
   IconAlertTriangleFilled,
 } from '@tabler/icons-vue'
 import { GoogleMap, Marker } from 'vue3-google-map'
-import {
-  zPostDorm,
-  // dormAccommodations,
-  // roomAccomodations,
-} from '@shared/validator'
+import { zPostDorm } from '@shared/validator'
 import { useZorm } from 'vue-zorm'
 import { axios } from '../utils'
 import { useDraftCreateStore } from '../stores'
@@ -30,14 +26,8 @@ import MySelect from '../components/MySelect.vue'
 import ZormEditor from '../components/ZormEditor.vue'
 import { ref } from 'vue'
 import ZormTextArea from '../components/ZormTextArea.vue'
-import { useGeolocation, useTimeout } from '@vueuse/core'
+import { useGeolocation } from '@vueuse/core'
 import { IconPhotoPlus } from '@tabler/icons-vue'
-
-const defaultRoom = {
-  name: '',
-  images: [],
-  accomodations: [],
-}
 
 //TODO test
 
@@ -47,42 +37,7 @@ const dormStore = useDraftCreateStore()
 const { dorm, rooms } = dormStore
 
 export default {
-  data: () => {
-    return {
-      alertMarkPicked: false,
-      action: 'CREATE',
-      currentStep: 1,
-      steps: [
-        {
-          title: 'ข้อมูลทั่วไป',
-        },
-        {
-          title: 'เพิ่มห้อง',
-        },
-        {
-          title: 'ตัวอย่าง',
-        },
-      ],
-      landmarkOptions: [],
-      universityOptions: [],
-      selectedUniversity: null,
-      // accomodations: dormAccommodations,
-      // roomAccomodations,
-      defaultRoom,
-      activeRoom: 0,
-      dialogShow: {
-        submit: false,
-        deleteRoom: false,
-      },
-      dorm,
-      rooms,
-      googleMapsApiKey,
-      center,
-      marker: null,
-      mapElement: null,
-    }
-  },
-  setup: () => {
+  setup() {
     const uploadImages = ref([])
     const zo = useZorm('dormpost', validator, {
       onValidSubmit: async e => {
@@ -100,6 +55,36 @@ export default {
     })
     return {
       zo,
+      center,
+      alertMarkPicked: ref(false),
+      action: ref('CREATE'),
+      currentStep: ref(1),
+      steps: ref([
+        {
+          title: 'ข้อมูลทั่วไป',
+        },
+        {
+          title: 'เพิ่มห้อง',
+        },
+        {
+          title: 'ตัวอย่าง',
+        },
+      ]),
+      landmarkOptions: ref([]),
+      universityOptions: ref([]),
+      selectedUniversity: ref(),
+      activeRoom: ref(0),
+      dialogShow: ref({
+        submit: false,
+        deleteRoom: false,
+        reset: false,
+      }),
+      dormStore,
+      dorm,
+      rooms,
+      googleMapsApiKey,
+      marker: ref(),
+      mapElement: ref(),
       uploadImages,
       submitButton: ref(),
     }
@@ -168,8 +153,9 @@ export default {
         label: uni.name,
       }))
     },
-    addNewRoom() {
-      this.rooms.push({ ...defaultRoom })
+    addNewRoom(event) {
+      event.preventDefault()
+      this.dormStore.addRoom()
     },
     deleteRoom() {
       this.dialogShow.deleteRoom = false
@@ -200,9 +186,8 @@ export default {
 }
 </script>
 <template>
-  {{ JSON.stringify(zo.validation) }}
   <div class="w-full">
-    <form @change="zo.validate" :ref="zo.getRef" ref="formm">
+    <form :ref="zo.getRef">
       <div class="">
         <div class="block justify-between sm:flex">
           <div class="inline-flex items-center space-x-3">
@@ -453,7 +438,7 @@ export default {
           >
             <li v-for="(room, index) in rooms" :key="room.name">
               <button
-                @click="activeRoom = index"
+                @click.prevent="activeRoom = index"
                 for="current-room-tab"
                 class="flex cursor-pointer items-center space-x-2 rounded-md p-4 py-3"
                 :class="{
@@ -539,7 +524,7 @@ export default {
                   >
                     <input
                       type="hidden"
-                      v-model="dorm.rooms[index].accomodations[jindex].name"
+                      v-model="rooms[index].accomodations[jindex].name"
                       checked
                       :id="
                         zo.fields.rooms(index).accomodations(jindex).name('id')
@@ -564,7 +549,7 @@ export default {
                       "
                       :true-value="true"
                       :false-value="false"
-                      v-model="dorm.rooms[index].accomodations[jindex].value"
+                      v-model="rooms[index].accomodations[jindex].value"
                       class="h-4 w-4 rounded border-lesser-gray bg-gray-100 text-primary focus:ring-2 focus:ring-primary-soft"
                     />
                     <label
@@ -639,6 +624,48 @@ export default {
           <button
             class="p-3 px-4 mr-4 rounded bg-white border"
             @click="dialogShow.submit = false"
+          >
+            Cancel
+          </button>
+        </div>
+      </DialogPanel>
+    </Dialog>
+  </TransitionRoot>
+  <TransitionRoot
+    :show="dialogShow.reset"
+    as="template"
+    enter="duration-300 ease-out"
+    enter-from="opacity-0"
+    enter-to="opacity-100"
+    leave="duration-200 ease-in"
+    leave-from="opacity-100"
+    leave-to="opacity-0"
+  >
+    <Dialog
+      @close="dialogShow.reset = false"
+      class="bg-opacity-30 flex justify-center text-black items-center bg-black inset-0 fixed"
+    >
+      <DialogPanel class="max-w-md bg-white space-y-3 p-8 border rounded-lg">
+        <DialogTitle>
+          <div class="flex items-center space-x-2">
+            <IconAlertCircle />
+            <h1 class="font-bold text-2xl">แน่ใจแล้วว่าจะลบห้องนี้?</h1>
+          </div>
+        </DialogTitle>
+        <DialogDescription>
+          <p>หากยืนยัน จะไม่สามารถกู้คืนข้อมูลที่เขียนไว้ได้</p>
+        </DialogDescription>
+        <div class="flex justify-center items-center">
+          <button
+            class="p-3 px-4 mr-4 text-white rounded bg-danger"
+            @click="this.dormStore.$reset()"
+          >
+            รีเซ็ต
+          </button>
+
+          <button
+            class="p-3 px-4 mr-4 rounded bg-white border"
+            @click="dialogShow.reset = false"
           >
             Cancel
           </button>
