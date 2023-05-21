@@ -1,4 +1,5 @@
-/<script>
+/
+<script>
 import { RouterView } from 'vue-router'
 import NavBar from './components/NavBar.vue'
 import SideBar from './components/SideBar.vue'
@@ -13,10 +14,10 @@ export default {
 </script>
 
 <template>
-  <NavBar />
-  <div class="container">
+  <!-- <NavBar /> -->
+  <div id="app-shell" class="min-h-screen flex w-full">
     <SideBar />
-    <div class="inner">
+    <div class="container">
       <RouterView />
     </div>
   </div>

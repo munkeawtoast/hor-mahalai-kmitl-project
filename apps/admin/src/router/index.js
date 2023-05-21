@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+
   routes: [
     {
       path: '/',
@@ -41,10 +42,6 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, _from) => {
-  // const token = localStorage.getItem('token') // JWT token
-  // if (to.name !== 'login' && !token) {
-  //   return { name: 'login' }
-  // }
 })
 
 export default router
