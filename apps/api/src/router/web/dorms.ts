@@ -4,7 +4,7 @@ import { postComment } from '~handlers/dorms/comments.js'
 import { getDorms } from '~handlers/dorms/dorms.js'
 import { checkAuth } from '~middlewares/auth.js'
 import { imageUploadBuilder } from '~middlewares/supabaseUserUpload.js'
-import { getAccomodationTypes } from '~handlers/dorms/accomodations'
+import { getAccomodationTypes } from '~handlers/dorms/accomodations.js'
 
 const dormRouter = Router()
 
