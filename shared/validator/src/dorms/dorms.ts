@@ -1,29 +1,29 @@
 import { z } from 'zod'
 
 export const roomAccomodations = [
-  'แอร์',
-  'ห้องน้ำเดี่ยว',
-  'เตียง',
-  'โต๊ะ',
-  'พัดลม',
-  'ตู้เย็น',
-  'พื่นที่ครัว',
-  'ไมโครเวฟ',
-  'ทีวี',
-  'ตู้เสื้อผ้า',
-  'เครื่องทำน้ำอุ่น',
-  'ไวไฟ',
-  'ระเบียง',
+  { id: 1, label: 'แอร์' },
+  { id: 2, label: 'ห้องน้ำเดี่ยว' },
+  { id: 3, label: 'เตียง' },
+  { id: 4, label: 'โต๊ะ' },
+  { id: 5, label: 'พัดลม' },
+  { id: 6, label: 'ตู้เย็น' },
+  { id: 7, label: 'พื่นที่ครัว' },
+  { id: 8, label: 'ไมโครเวฟ' },
+  { id: 9, label: 'ทีวี' },
+  { id: 10, label: 'ตู้เสื้อผ้า' },
+  { id: 11, label: 'เครื่องทำน้ำอุ่น' },
+  { id: 12, label: 'ไวไฟ' },
+  { id: 13, label: 'ระเบียง' },
 ]
 
 export const dormAccommodations = [
-  'ตู้กดน้ำ',
-  'เครื่องซักผ้า',
-  'กล้องวงจรปิด',
-  'ที่จอดรถ',
-  'ที่จอดมอเตอร์ไซค์',
-  'ฟิตเนส',
-  'ร้านสะดวกซื้อใกล้หอ',
+  { id: 14, label: 'ตู้กดน้ำ' },
+  { id: 15, label: 'เครื่องซักผ้า' },
+  { id: 16, label: 'กล้องวงจรปิด' },
+  { id: 17, label: 'ที่จอดรถ' },
+  { id: 18, label: 'ที่จอดมอเตอร์ไซค์' },
+  { id: 19, label: 'ฟิตเนส' },
+  { id: 20, label: 'ร้านสะดวกซื้อใกล้หอ' },
 ]
 
 type ValidatorConfig = {
@@ -69,7 +69,8 @@ export const zPostDorm = (config: ValidatorConfig = {}) =>
         required_error: 'กรุณาเลือกตำแหน่งในแผนที่',
       })
       .min(-85)
-      .max(85).refine(val => val !== 0, { message: 'กรุณากรอกตำแหน่งในแผนที่'}),
+      .max(85)
+      .refine(val => val !== 0, { message: 'กรุณากรอกตำแหน่งในแผนที่' }),
     lng: z
       .number({ coerce: config.coerce, required_error: '' })
       .min(-180)

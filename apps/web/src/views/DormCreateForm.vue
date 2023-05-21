@@ -402,10 +402,10 @@ export default {
               >
                 <input
                   type="hidden"
-                  v-model="acc.name"
+                  v-model="acc.id"
                   checked
-                  :id="zo.fields.accomodations(index).name('id')"
-                  :name="zo.fields.accomodations(index).name('name')"
+                  :id="zo.fields.accomodations(index).id('id')"
+                  :name="zo.fields.accomodations(index).id('name')"
                 />
                 <input
                   type="checkbox"
@@ -527,16 +527,16 @@ export default {
                   >
                     <input
                       type="hidden"
-                      v-model="rooms[index].accomodations[jindex].name"
+                      v-model="acc.id"
                       checked
                       :id="
-                        zo.fields.rooms(index).accomodations(jindex).name('id')
+                        zo.fields.rooms(index).accomodations(jindex).id('id')
                       "
                       :name="
                         zo.fields
                           .rooms(index)
                           .accomodations(jindex)
-                          .name('name')
+                          .id('name')
                       "
                     />
                     <input

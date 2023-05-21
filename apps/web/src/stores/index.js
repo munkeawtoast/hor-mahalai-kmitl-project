@@ -10,7 +10,8 @@ export const useDraftCreateStore = defineStore('createDormDraft', {
       name: '',
       price: '',
       accomodations: roomAccomodations.map(acc => ({
-        name: acc,
+        name: acc.label,
+        id: acc.id,
         value: false,
       })),
     }
@@ -24,7 +25,8 @@ export const useDraftCreateStore = defineStore('createDormDraft', {
       university: null,
       landmark: null,
       accomodations: dormAccommodations.map(acc => ({
-        name: acc,
+        name: acc.label,
+        id: acc.id,
         value: false,
       })),
       address: '',
