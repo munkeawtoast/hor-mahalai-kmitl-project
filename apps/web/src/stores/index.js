@@ -132,5 +132,6 @@ export const useUserStore = defineStore('user', {
     lastname: state => state.parsed?.lastname,
     email: state => state.parsed?.email,
     role: state => state.parsed?.aud,
+    image: state => state.parsed?.imageID,
   },
 })

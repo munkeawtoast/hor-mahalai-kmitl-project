@@ -73,38 +73,37 @@ const imageUploader = (
   if (filesArr.length === 0) {
     next()
   } else {
-    Promise.all(
-      filesArr.map(file =>
-        supabase.storage
-          .from('images')
-          .upload(
-            `${file.fieldname}-${Date.now()}.${path.extname(
-              file.originalname,
-            )}`,
-            file.buffer,
-            {
-              cacheControl: '3600',
-              upsert: false,
-            },
-          ),
-      ),
-    )
-      .then(resArr =>
-        Promise.all(
-          resArr.map(res => {
-            const { data, error } = res
-            if (error) {
-              throw error
-            }
-            return supabase.storage.from('images').getPublicUrl(data.path)
-          }),
+    ;(async () => {
+      const resArr = await Promise.all(
+        filesArr.map(file =>
+          supabase.storage
+            .from('images')
+            .upload(
+              `${file.fieldname}-${Date.now()}${path.extname(
+                file.originalname,
+              )}`,
+              file.buffer,
+              {
+                cacheControl: '3600',
+                upsert: false,
+                contentType: file.mimetype,
+              },
+            ),
         ),
       )
-      .then(linkArr => {
-        console.log('done', linkArr)
-        req.links = linkArr.map(res => res.data.publicUrl)
-        next()
-      })
+      const linksRes = await Promise.all(
+        resArr.map(res => {
+          const { data, error } = res
+          if (error) {
+            throw error
+          }
+          return supabase.storage.from('images').getPublicUrl(data.path)
+        }),
+      )
+      const links = linksRes.map(linkres => linkres.data.publicUrl)
+      req.links = links
+      next()
+    })()
   }
 }
 
@@ -122,7 +121,7 @@ export function imageUploadBuilder(
         cb(new Error('Wrong File Type.'))
       }
 
-      cb(null, true) 
+      cb(null, true)
     },
   })
 
@@ -139,7 +138,7 @@ export function imageUploadBuilder(
   // if (config.required) {
   //   middlewares.push(imageRequiredGuard)
   // }
-  // middlewares.push(imageUploader)
+  middlewares.push(imageUploader)
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
