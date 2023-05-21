@@ -27,9 +27,9 @@ export default {
     }
   },
   async beforeMount() {
-    await axios.get('/dorms/', this.userStore.id).then(res => {
-      console.log(res)
-    })
+    // await axios.get('/dorms/', this.userStore.id).then(res => {
+    //   console.log(res)
+    // })
     // .catch(err => {
     //   console.log(err.response.data)
     // })

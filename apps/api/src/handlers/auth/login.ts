@@ -35,6 +35,8 @@ export const postUserLogin: RequestHandler = async (req, res) => {
       },
     })
 
+    console.log(foundUser?.Image?.url)
+
     if (!foundUser) {
       // throw new Error('No user found!')
       return res.status(404).json('No user found!')
@@ -47,7 +49,7 @@ export const postUserLogin: RequestHandler = async (req, res) => {
     const env = getEnv()
     const { firstName, lastName, email, username, userId, Role } = foundUser
 
-    const expireInMinute = 30
+    const expireInMinute = 3000000000
     const token = jwt.sign(
       {
         sub: userId,
@@ -62,7 +64,7 @@ export const postUserLogin: RequestHandler = async (req, res) => {
       env.JWT_SECRET,
       {
         algorithm: 'HS256',
-        // expiresIn: new Date().getTime() + expireInMinute * 60 * 1000,
+        expiresIn: new Date().getTime() + expireInMinute * 60 * 1000,
       },
     )
 
