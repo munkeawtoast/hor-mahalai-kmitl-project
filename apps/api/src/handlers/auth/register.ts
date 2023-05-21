@@ -41,7 +41,7 @@ export const postUserRegister = async (
 
 export const deleteUser: RequestHandler<{ userId: string }> = (req, res) => {}
 
-export const patchUser: RequestHandler<{ userId: string }> = async (
+export const putUser: RequestHandler<{ userId: string }> = async (
   req: any,
   res,
 ) => {

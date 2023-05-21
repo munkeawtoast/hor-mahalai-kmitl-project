@@ -7,14 +7,23 @@ import { Request as JwtRequest } from 'express-jwt'
 const prisma = new PrismaClient()
 
 export const getDorms: RequestHandler = async (req: JwtRequest, res) => {
-  let isAdmin = req.auth?.aud === 'ADMIN'
+  const isAdmin = req.auth?.aud === 'ADMIN'
 
+  let count = parseInt(req.query.count as string)
+  let startPoint = parseInt(req.query.start as string)
   const queryOwnerId = req.query.ownerid ? Number(req.query.ownerid) : undefined
   const queryName = req.query.query as string
   const queryLandmark = req.query.landmarkid
     ? Number(req.query.landmarkid)
     : undefined
   const queryUniversity = req.query.uniid ? Number(req.query.uniid) : undefined
+
+  if (Number.isNaN(count)) {
+    count = 10
+  }
+  if (Number.isNaN(startPoint)) {
+    startPoint = 0
+  }
 
   let dormResult = await prisma.dorm.findMany({
     where: {
@@ -25,6 +34,8 @@ export const getDorms: RequestHandler = async (req: JwtRequest, res) => {
       //   approvedAt: isAdmin ? null : undefined
       // }
     },
+    // skip: startPoint,
+    // take: count,
     orderBy: [{ name: 'asc' }],
     include: {
       Ratings: {

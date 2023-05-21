@@ -15,6 +15,7 @@ export const getUserDetails: RequestHandler<{ userId: string }> = (
 
 export const getSelfDetails: RequestHandler = (req, res) => {}
 
+
 export const postUserLogin: RequestHandler = async (req, res) => {
   const parseResult = zLogin().safeParse(req.body)
   if (!parseResult.success) {
