@@ -42,7 +42,6 @@ export default {
     const zo = useZorm('dormpost', validator, {
       onValidSubmit: async e => {
         e.preventDefault()
-        console.log(uploadImages.value)
         const res = await axios.postForm('/dorms', {
           ...e.data,
           images: uploadImages.value,
@@ -89,6 +88,12 @@ export default {
       submitButton: ref(),
     }
   },
+  computed: {
+    imageURL() {
+      return this.uploadImages.map(image => URL.createObjectURL(image))
+    
+    },
+  },
   mounted() {
     this.fetchUniversities()
   },
@@ -100,12 +105,7 @@ export default {
   },
   methods: {
     handleFileAdd(event) {
-      const tempFiles = [...event.target.files]
-      const filesWithURL = tempFiles.map(file => {
-        file.imageURL = URL.createObjectURL(file)
-        return file
-      })
-      this.uploadImages = [...this.uploadImages, ...filesWithURL]
+      this.uploadImages = [...this.uploadImages, ...event.target.files]
     },
     moveMarker(latitude, longitude) {
       dorm.lat = latitude
@@ -124,9 +124,10 @@ export default {
       const { lat, lng } = event.latLng.toJSON()
       this.moveMarker(lat, lng)
     },
-    triggerSubmitt() {
+    triggerSubmit() {
       this.dialogShow.submit = false
       console.log('CLICKING')
+      console.log(this.submitButton)
       this.submitButton.click()
     },
     getState(roomAction) {
@@ -369,7 +370,7 @@ export default {
                 :key="image"
                 class="p-2 border rounded h-fit cursor-default border-lesser-gray space-y-2"
               >
-                <img :src="image.imageURL" class="w-32 h-18" />
+                <img :src="imageURL[index]" class="w-32 h-18" />
                 <button
                   @click="uploadImages.splice(index, 1)"
                   class="text-lg bg-danger p-1 text-white rounded-lg w-full"
@@ -579,9 +580,9 @@ export default {
         <!-- </button> -->
         <input
           type="submit"
+          class="flex bg-primary text-white cursor-pointer items-center space-x-2 rounded-md p-4 py-3"
           ref="submitButton"
-          id="submit-form"
-          value="submit"
+          value="สร้างหอ"
         />
       </div>
     </form>
@@ -616,7 +617,7 @@ export default {
         <div class="flex justify-center items-center">
           <button
             class="p-3 px-4 mr-4 text-white rounded bg-primary"
-            @click="triggerSubmitt"
+            for="real-submit-form"
           >
             สร้างหอ
           </button>

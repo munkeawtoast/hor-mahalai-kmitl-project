@@ -74,35 +74,39 @@ const imageUploader = (
     next()
   } else {
     ;(async () => {
-      const resArr = await Promise.all(
-        filesArr.map(file =>
-          supabase.storage
-            .from('images')
-            .upload(
-              `${file.fieldname}-${Date.now()}${path.extname(
-                file.originalname,
-              )}`,
-              file.buffer,
-              {
-                cacheControl: '3600',
-                upsert: false,
-                contentType: file.mimetype,
-              },
-            ),
-        ),
-      )
-      const linksRes = await Promise.all(
-        resArr.map(res => {
-          const { data, error } = res
-          if (error) {
-            throw error
-          }
-          return supabase.storage.from('images').getPublicUrl(data.path)
-        }),
-      )
-      const links = linksRes.map(linkres => linkres.data.publicUrl)
-      req.links = links
-      next()
+      try {
+        const resArr = await Promise.all(
+          filesArr.map(file => {
+            return supabase.storage
+              .from('images')
+              .upload(
+                `${file.fieldname.replaceAll('[]', '')}-${Date.now()}${path.extname(
+                  file.originalname,
+                )}`,
+                file.buffer,
+                {
+                  upsert: false,
+                  contentType: file.mimetype,
+                },
+              )
+          }),
+        )
+        console.log(resArr)
+        const linksRes = await Promise.all(
+          resArr.map(res => {
+            const { data, error } = res
+            if (error) {
+              throw error
+            }
+            return supabase.storage.from('images').getPublicUrl(data.path)
+          }),
+        )
+        const links = linksRes.map(linkres => linkres.data.publicUrl)
+        req.links = links
+        next()
+      } catch (e) {
+        next(e)
+      }
     })()
   }
 }
