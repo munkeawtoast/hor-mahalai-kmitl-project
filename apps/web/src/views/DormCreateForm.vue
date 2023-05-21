@@ -42,11 +42,14 @@ export default {
     const zo = useZorm('dormpost', validator, {
       onValidSubmit: async e => {
         e.preventDefault()
-        const res = await axios.postForm('/dorms', {
-          ...e.data,
-          images: uploadImages.value,
-        })
-        console.log(res)
+        console.log(e)
+        // const res = await axios.postForm('/dorms', {
+        //   ...e.data,
+        //   images: uploadImages.value,
+        // })
+        // console.log(res)
+        // alert('สร้างหอสำเร็จ!!!')
+        // this.$router.go('/')
       },
       onFormData() {
         console.log('onFormData')
@@ -91,7 +94,6 @@ export default {
   computed: {
     imageURL() {
       return this.uploadImages.map(image => URL.createObjectURL(image))
-    
     },
   },
   mounted() {
@@ -305,7 +307,7 @@ export default {
           />
           <input
             type="hidden"
-            v-model="dorm.lat"
+            v-model="dorm.lng"
             :id="zo.fields.lng('id')"
             :name="zo.fields.lng('name')"
           />

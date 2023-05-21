@@ -34,7 +34,17 @@ export default {
       zo,
       dormData: generateDorms(this.dormID, this.dormID + 1)[0],
       description: '',
+      dormf: null,
     }
+  },
+  beforeMount() {
+    this.fetchData()
+  },
+  methods: {
+    async fetchData() {
+      const response = await axios.get(`/dorms/${this.$route.params.dormID}`)
+      this.dormf = response.data
+    },
   },
   components: {
     DormDetails,
@@ -46,8 +56,8 @@ export default {
 }
 </script>
 <template>
-  <DormDetails :dormData="dormData" />
-  <DormRoom :roomData="4"></DormRoom>
+  <DormDetails :dormData="dormData" :dorminfo="dormf" />
+  <DormRoom :roomData="dormf?.Rooms"></DormRoom>
   <form :ref="zo.getRef">
     <ZormTextArea
       label="Write your comment"

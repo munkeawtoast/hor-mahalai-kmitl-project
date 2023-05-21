@@ -26,14 +26,14 @@ export default {
       favDorms: generateDorms(3, 5),
     }
   },
-  async beforeMount() {
-    // await axios.get('/dorms/', this.userStore.id).then(res => {
-    //   console.log(res)
-    // })
-    // .catch(err => {
-    //   console.log(err.response.data)
-    // })
-  },
+  // async beforeMount() {
+  //   await axios.get(`/dorms/${}`, this.userStore.id).then(res => {
+  //     console.log(res)
+  //   })
+  //   .catch(err => {
+  //     console.log(err.response.data)
+  //   })
+  // },
   methods: {},
   computed: {},
 }

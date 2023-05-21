@@ -1,7 +1,8 @@
 <script setup>
 import { defineProps } from 'vue'
 import Typography from '@tiptap/extension-typography'
-import { Editor, EditorContent, StarterKit } from '@tiptap/vue-3'
+import { Editor, EditorContent } from '@tiptap/vue-3'
+import StarterKit from '@tiptap/starter-kit'
 
 const props = defineProps({
   modelValue: {
@@ -19,6 +20,7 @@ const editor = new Editor({
     }),
     Typography,
   ],
+  editable: false,
   editorProps: {
     attributes: {
       class:

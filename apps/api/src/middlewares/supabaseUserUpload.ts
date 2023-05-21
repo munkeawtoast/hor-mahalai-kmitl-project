@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js'
 import { getEnv } from '../utils/index.js'
 import multer from 'multer'
 import path from 'node:path'
+import crypto from 'node:crypto'
 import { MulterFile, RequestWithMulter, RequestWithUpload } from 'global-types'
 import { NextFunction, Request, RequestHandler, Response } from 'express'
 
@@ -80,9 +81,10 @@ const imageUploader = (
             return supabase.storage
               .from('images')
               .upload(
-                `${file.fieldname.replaceAll('[]', '')}-${Date.now()}${path.extname(
-                  file.originalname,
-                )}`,
+                `${file.fieldname.replaceAll(
+                  '[]',
+                  '',
+                )}_${crypto.randomUUID()}${path.extname(file.originalname)}`,
                 file.buffer,
                 {
                   upsert: false,

@@ -1,6 +1,9 @@
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import DormImageCarousel from './DormImageCarousel.vue'
+import { googleMapsApiKey, center } from '../utils/google_maps'
+import DescriptionDisplay from './DescriptionDisplay.vue'
+import { GoogleMap, Marker } from 'vue3-google-map'
 import { generateUsers } from '@helper/data-gen'
 import {
   IconPhone,
@@ -17,6 +20,7 @@ export default {
       type: Object,
       required: true,
     },
+    dorminfo: Object,
   },
   data() {
     return {
@@ -25,6 +29,8 @@ export default {
         ...this.dormData.roomAmenities,
       }),
       rooms: [{ ...this.dormData }, { ...this.dormData }, { ...this.dormData }],
+      description: this.dorminfo?.description,
+      googleMapsApiKey,
     }
   },
   components: {
@@ -36,49 +42,46 @@ export default {
     IconDroplet,
     IconBolt,
     IconCheckbox,
+    DescriptionDisplay,
+    GoogleMap,
   },
 }
 </script>
 
 <template>
   <div class="flex">
-    <DormImageCarousel :images="dormData.images" class="my-4" />
+    <DormImageCarousel
+      :images="dorminfo.DormImages.map(img => img.url)"
+      class="my-4"
+    />
     <div class="my-4 w-1/2 bg-white p-4">
       <div class="flex w-full justify-between align-bottom">
-        <h1 class="text-2xl font-bold text-black">หอมหาชัย</h1>
+        <h1 class="text-2xl font-bold text-black">{{ dorminfo?.name }}</h1>
       </div>
       <div class="flex justify-between">
         <div>
-          <p>Address</p>
+          <p class="w-3/4">{{ dorminfo.address }}</p>
           <div class="flex">
             <IconPhone></IconPhone>
-            <p>0878789651</p>
+            <p>{{ dorminfo.contactTelnum }}</p>
           </div>
-          <div class="flex">
-            <a
-              class="flex"
-              href="https://www.facebook.com/groups/312966587409768"
-              target="_blank"
+          <div class="flex gap-2">
+            <a class="flex" :href="dorminfo.contactFacebook" target="_blank"
               ><IconBrandFacebook></IconBrandFacebook>หน้า Facebook</a
             >
             <div class="flex">
               <IconBrandLine class="text-primary"></IconBrandLine>
-              <p>line</p>
+              <p>{{ dorminfo.contactLine }}</p>
             </div>
           </div>
         </div>
-        <div>
-          <p>|</p>
-          <p>|</p>
-          <p>|</p>
-          <p>|</p>
-        </div>
-        <div>
-          <p>ค่าเช่า</p>
-          <p>5000</p>
-          <div class="flex">
-            <IconDroplet></IconDroplet> 50 <IconBolt></IconBolt> 50
-          </div>
+        <div class="flex flex-col items-center">
+          <IconDroplet></IconDroplet>
+          <p>
+            {{ dorminfo.waterRate }}
+          </p>
+          <IconBolt></IconBolt>
+          <p>{{ dorminfo.electricityRate }}</p>
         </div>
       </div>
       <div class="gap-1 align-middle text-xl text-primary-soft">
@@ -87,20 +90,33 @@ export default {
         <span class="font-light text-lesser-gray">/</span>
         <span>10</span>
       </div>
-      <div class="w-full h-72 bg-primary">
-        <p>Google maps</p>
-      </div>
+      <GoogleMap
+        :api-key="googleMapsApiKey"
+        :center="{
+          lat: dorminfo.latitude,
+          lng: dorminfo.longitude,
+        }"
+        draggable-cursor="pointer"
+        dragging-cursor="grab"
+        :clickable-icons="false"
+        :zoom="15.5"
+        class="w-full h-[256px] md:h-[400px] relative border-lesser-gray border"
+        ref="mapElement"
+        @click="moveMarkerToClick"
+      >
+        <Marker
+          ref="marker"
+          :options="{
+            position: { lat: dorminfo.latitude, lng: dorminfo.longitude },
+          }"
+        />
+      </GoogleMap>
     </div>
   </div>
   <div class="flex flex-col w-full bg-white p-4">
     <div>
       <p>Description</p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi velit
-        veniam iste obcaecati laboriosam, tenetur placeat inventore magni
-        provident dicta vitae ut, saepe, nulla minima impedit enim voluptatem.
-        Hic, et.
-      </p>
+      <DescriptionDisplay v-model="description"> </DescriptionDisplay>
     </div>
     <div
       class="w-24 border border-black aspect-video flex flex-row justify-center items-center m-4"
@@ -109,4 +125,5 @@ export default {
       <p>Amenities</p>
     </div>
   </div>
+  {{ dorminfo }}
 </template>

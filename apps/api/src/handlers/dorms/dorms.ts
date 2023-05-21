@@ -77,23 +77,23 @@ export const getOneDorm: RequestHandler<{ dormId: string }> = async (
       },
       Comments: {
         where: {
-          parentCommentID: null
+          parentCommentID: null,
         },
         include: {
-          ChildrenComments: true
-        }
+          ChildrenComments: true,
+        },
       },
       DormImages: true,
       User: {
         select: {
           firstName: true,
           lastName: true,
-        }
+        },
       },
       Ratings: {
         select: {
           score: true,
-        }
+        },
       },
       Accommodations: true,
     },
