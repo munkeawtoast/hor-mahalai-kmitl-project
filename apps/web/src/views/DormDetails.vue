@@ -8,6 +8,7 @@ import DormRating from '../components/DormRating.vue'
 import DormRoom from '../components/DormRoom.vue'
 import ZormTextArea from '../components/ZormTextArea.vue'
 import { axios } from '../utils'
+import { useUserStore } from '../stores'
 
 const validator = zPostComment()
 
@@ -19,6 +20,7 @@ export default {
     },
   },
   data() {
+    let userStore = useUserStore()
     const zo = useZorm('userComment', validator, {
       onValidSubmit: async e => {
         e.preventDefault()
@@ -31,6 +33,7 @@ export default {
       // customIssues: serverSideIssues
     })
     return {
+      userStore,
       zo,
       dormData: generateDorms(this.dormID, this.dormID + 1)[0],
       description: '',
@@ -56,8 +59,12 @@ export default {
 }
 </script>
 <template>
-  <DormDetails :dormData="dormData" :dorminfo="dormf" />
+  <DormDetails :dorminfo="dormf" />
   <DormRoom :roomData="dormf?.Rooms"></DormRoom>
+  <DormRating
+    :dormID="dormf.dormID"
+    v-if="!dormf.Ratings.map(rate => rate.userID).includes(userStore.id)"
+  ></DormRating>
   <form :ref="zo.getRef">
     <ZormTextArea
       label="Write your comment"
@@ -73,5 +80,4 @@ export default {
     />
   </form>
   <CommentBox></CommentBox>
-  <DormRating></DormRating>
 </template>

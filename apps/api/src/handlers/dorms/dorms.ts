@@ -122,9 +122,9 @@ export const getOneDorm: RequestHandler<{ dormId: string }> = async (
         },
       },
       Ratings: {
-        select: {
-          score: true,
-        },
+        // select: {
+        //   score: true,
+        // },
       },
       Accommodations: true,
     },

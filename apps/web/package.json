@@ -38,6 +38,7 @@
     "vite": "^4",
     "vue": "^3.2.31",
     "vue-router": "^4",
+    "vue-star-rating": "^2.1.0",
     "vue-zorm": "^0.3.0",
     "vue3-google-map": "^0.15.0",
     "zod": "^3.21.4"

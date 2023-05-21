@@ -1,16 +1,18 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { deleteDorm, getOneDorm, postDorm } from '~handlers/dorms/dorms.js'
+import { getAccomodationTypes } from '~handlers/dorms/accomodations.js'
 import { postComment } from '~handlers/dorms/comments.js'
 import { getDorms } from '~handlers/dorms/dorms.js'
 import { checkAuth } from '~middlewares/auth.js'
 import { imageUploadBuilder } from '~middlewares/supabaseUserUpload.js'
-import { getAccomodationTypes } from '~handlers/dorms/accomodations.js'
+import { postRating } from '~handlers/dorms/ratings.js'
 
 const dormRouter = Router()
 
 dormRouter.get('/', getDorms)
 dormRouter.get('/:dormId', getOneDorm)
 dormRouter.post('/:dormId/comments', checkAuth, postComment)
+dormRouter.post('/addrating', checkAuth, postRating)
 dormRouter.post(
   '/',
   checkAuth,

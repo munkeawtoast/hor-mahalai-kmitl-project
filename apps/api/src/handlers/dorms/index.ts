@@ -1,3 +1,5 @@
 export * from './dorms.js'
 export * from './comments.js'
 export * from './ratings.js'
+export * from './accomodations.js'
+export * from './ratings.js'

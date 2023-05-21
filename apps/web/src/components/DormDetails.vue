@@ -16,19 +16,19 @@ import {
 
 export default {
   props: {
-    dormData: {
-      type: Object,
-      required: true,
-    },
+    // dormData: {
+    //   type: Object,
+    //   required: true,
+    // },
     dorminfo: Object,
   },
   data() {
     return {
-      amenities: Object.entries({
-        ...this.dormData.dormAmenities,
-        ...this.dormData.roomAmenities,
-      }),
-      rooms: [{ ...this.dormData }, { ...this.dormData }, { ...this.dormData }],
+      // amenities: Object.entries({
+      //   ...this.dormData.dormAmenities,
+      //   ...this.dormData.roomAmenities,
+      // }),
+      // rooms: [{ ...this.dormData }, { ...this.dormData }, { ...this.dormData }],
       description: this.dorminfo?.description,
       googleMapsApiKey,
     }
@@ -86,9 +86,16 @@ export default {
       </div>
       <div class="gap-1 align-middle text-xl text-primary-soft">
         <FontAwesomeIcon icon="fa-solid fa-star" class="mr-2" />
-        <span class="text-primary">20</span>
+        <span class="text-primary">{{
+          dorminfo.Ratings.length
+            ? dorminfo.Ratings.map(rate => rate.score).reduce(
+                (acc, b) => acc + b,
+                0,
+              )
+            : 0
+        }}</span>
         <span class="font-light text-lesser-gray">/</span>
-        <span>10</span>
+        <span>5</span>
       </div>
       <GoogleMap
         :api-key="googleMapsApiKey"
@@ -115,7 +122,7 @@ export default {
   </div>
   <div class="flex flex-col w-full bg-white p-4">
     <div>
-      <p>Description</p>
+      <p class="text-2xl">Description</p>
       <DescriptionDisplay v-model="description"> </DescriptionDisplay>
     </div>
     <div

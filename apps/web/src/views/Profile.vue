@@ -7,6 +7,7 @@ import { useUserStore } from '../stores'
 import { axios } from '../utils'
 import { IconSquarePlus } from '@tabler/icons-vue'
 import { RouterLink } from 'vue-router'
+import ProfileDorm from '../components/ProfileDorm.vue'
 export default {
   components: {
     ProfileCard,
@@ -14,6 +15,7 @@ export default {
     FontAwesomeIcon,
     IconSquarePlus,
     RouterLink,
+    ProfileDorm,
   },
   el: '#profile',
 
@@ -24,16 +26,19 @@ export default {
       // userData,
       userStore,
       favDorms: generateDorms(3, 5),
+      ownDorms: null,
     }
   },
-  // async beforeMount() {
-  //   await axios.get(`/dorms/${}`, this.userStore.id).then(res => {
-  //     console.log(res)
-  //   })
-  //   .catch(err => {
-  //     console.log(err.response.data)
-  //   })
-  // },
+  async beforeMount() {
+    await axios
+      .get(`/dorms/`, { params: { ownerid: this.userStore.id } })
+      .then(res => {
+        this.ownDorms = res.data
+      })
+      .catch(err => {
+        console.log(err.response.data)
+      })
+  },
   methods: {},
   computed: {},
 }
@@ -50,6 +55,12 @@ export default {
   <div v-else>
     <FontAwesomeIcon :icon="['fa-solid', 'fa-city']"></FontAwesomeIcon>
     <span>Your dorms:</span>
+  </div>
+  <div v-for="(room, index) in ownDorms" :key="index">
+    <ProfileDorm
+      v-if="userStore.role == 'DORM_OWNER'"
+      :roomData="room"
+    ></ProfileDorm>
   </div>
   <div>
     <RouterLink

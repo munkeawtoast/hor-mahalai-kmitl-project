@@ -9,6 +9,9 @@ import {
   IconDroplet,
   IconBolt,
   IconCheckbox,
+  IconBed,
+  IconCurrencyDollar,
+  IconArrowAutofitWidth,
 } from '@tabler/icons-vue'
 
 export default {
@@ -23,7 +26,11 @@ export default {
       activeRoom: 0,
     }
   },
-  components: {},
+  components: {
+    IconBed,
+    IconCurrencyDollar,
+    IconArrowAutofitWidth,
+  },
 }
 </script>
 
@@ -42,7 +49,7 @@ export default {
             'border-lesser-gray': true,
           }"
         >
-          <IconBed size="18" />
+          <IconBed :size="18" />
           <label class="cursor-pointer">
             {{ room.name ? room.name : 'ห้องไม่มีชื่อ' }}
           </label>
@@ -55,7 +62,19 @@ export default {
       v-show="index === activeRoom"
       class="mt-2 rounded-md border-lesser-white bg-white p-3"
     >
-      <p>{{ room.price ? room.price : 'ห้องไม่มีชื่อ' }}</p>
+      <div class="flex items-center gap-4">
+        <IconBed :size="18" />Room name: {{ room.name }}
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-4">
+          <IconArrowAutofitWidth></IconArrowAutofitWidth>Room width:
+          {{ room.width }}
+        </div>
+        <div>Room height: {{ room.length }}</div>
+      </div>
+      <div class="flex items-center gap-4">
+        <IconCurrencyDollar></IconCurrencyDollar>Price: {{ room.price }}
+      </div>
     </div>
   </template>
 </template>

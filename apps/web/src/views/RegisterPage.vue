@@ -11,8 +11,8 @@ const validator = zRegister()
 const zo = useZorm('userlogin', validator, {
   onValidSubmit: async e => {
     e.preventDefault()
-    console.log(e.data)
     await axios.post('/users/register/', e.data)
+    this.$router.push({ path: '/' })
   },
   onFormData: async e => {
     console.log(e)
