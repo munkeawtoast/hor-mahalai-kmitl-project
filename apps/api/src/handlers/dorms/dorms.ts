@@ -206,7 +206,17 @@ export const postDorm: RequestHandler = async (
     },
   })
 
-  res.status(201).json({
+  await prisma.ticket.create({
+    data: {
+      title: 'Request Approval',
+      userID: addDorm.userID,
+      TicketCategory: 'DORM',
+      description: '',
+      dormID: addDorm.dormID,
+    },
+  })
+
+  return res.status(201).json({
     message: 'success',
     id: addDorm.dormID,
   })
