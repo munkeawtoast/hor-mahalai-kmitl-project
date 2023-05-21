@@ -7,18 +7,25 @@ import { Request as JwtRequest } from 'express-jwt'
 const prisma = new PrismaClient()
 
 export const getDorms: RequestHandler = async (req, res) => {
-  const ownerId = req.query.ownerid ? Number(req.query.ownerid) : undefined
+  const queryOwnerId = req.query.ownerid ? Number(req.query.ownerid) : undefined
+  const queryName = req.query.name
+  const queryLandmark = req.query.landmarkid
+    ? Number(req.query.landmarkid)
+    : undefined
+  const queryUniversity = req.query.uniid ? Number(req.query.uniid) : undefined
+
   const dormResult = await prisma.dorm.findMany({
     where: {
-      userID: ownerId,
+      userID: queryOwnerId,
     },
     orderBy: [{ name: 'asc' }],
     include: {
       Ratings: true,
       Accommodations: true,
+      Landmarks: true,
     },
   })
-  const dormResultFilter = dormResult.map(value => {
+  const dormsOut = dormResult.map(value => {
     const ratingsCount = value.Ratings.length
     const ratingsTotal = value.Ratings.reduce((acc, b) => acc + b.score, 0)
     return {
@@ -26,7 +33,7 @@ export const getDorms: RequestHandler = async (req, res) => {
       userRating: ratingsCount ? ratingsTotal / ratingsCount : 0,
     }
   })
-  res.json(dormResultFilter)
+  res.json(dormsOut)
 }
 
 export const getDormsByName: RequestHandler<{ name: string }> = async (
@@ -108,7 +115,9 @@ export const getOneDorm: RequestHandler<{ dormid: number }> = async (
 export const postDorm: RequestHandler = async (req: JwtRequest, res) => {
   if (!req.auth) return
 
-  const parseResult = zPostDorm().safeParse(req.body)
+  console.log(req.body)
+
+  const parseResult = zPostDorm({ coerce: true }).safeParse(req.body)
   if (!parseResult.success) return res.status(400).send(parseResult.error)
 
   const dormData = parseResult.data
@@ -118,8 +127,8 @@ export const postDorm: RequestHandler = async (req: JwtRequest, res) => {
       userID: Number(req.auth.sub),
       name: dormData.name,
       address: dormData.address,
-      latitude: dormData.position[0],
-      longitude: dormData.position[1],
+      latitude: dormData.lat,
+      longitude: dormData.lng,
       description: dormData.description,
       waterRate: dormData.waterrate,
       electricityRate: dormData.electricityrate,
@@ -138,13 +147,15 @@ export const postDorm: RequestHandler = async (req: JwtRequest, res) => {
         },
       },
     },
-    include: {},
+    include: {
+      Rooms: true
+    },
   })
 
   res.json(addDorm)
 }
 
-export const deleteDorm: RequestHandler<{ dormId: string }> = (req, res) => {}
+export const deleteDorm: RequestHandler<{ dormId: string }> = (req, res) => { }
 
 export const putDorm: RequestHandler = async (req: JwtRequest, res) => {
   if (!req.auth) return
@@ -190,4 +201,4 @@ export const putDorm: RequestHandler = async (req: JwtRequest, res) => {
 export const patchApproveDorm: RequestHandler<{ dormId: string }> = (
   req,
   res,
-) => {}
+) => { }

@@ -38,7 +38,7 @@ model User {
   Role      Role
   imageID   Int?
   Image     Image?    @relation("UserImage", fields: [imageID], references: [imageID])
-  Dorm      Dorm?     @relation("DormOwner")
+  Dorm      Dorm[]    @relation("DormOwner")
   Rating    Rating[]  @relation("UserRating")
   Comment   Comment[] @relation("UserComment")
   Ticket    Ticket[]  @relation("UserTicket")
@@ -66,7 +66,7 @@ enum TicketCategory {
 model Dorm {
   dormID          Int       @id @default(autoincrement())
   User            User      @relation("DormOwner", fields: [userID], references: [userId], onDelete: Cascade)
-  userID          Int       @unique
+  userID          Int  
   name            String
   address         String
   latitude        Float
