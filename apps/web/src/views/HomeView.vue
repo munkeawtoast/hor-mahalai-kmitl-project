@@ -25,8 +25,8 @@ async function fetchUniversities() {
 
 async function fetchDorms() {
   const response = await axios.get(`/dorms`, {
-    landmarkid: targetLandmark.value != null ? targetLandmark.value : undefined,
     uniid: targetUniversity.value != null ? targetUniversity.value : undefined,
+    landmarkid: targetLandmark.value != null ? targetLandmark.value : undefined,
     query: queryText.value != '' ? queryText.value : undefined,
   })
   dorms.value = response.data
@@ -70,7 +70,7 @@ watch(targetUniversity, newUni => {
         v-model="targetLandmark"
         id="dormform:landmark"
         name="landmark"
-        label="ย่าน..."
+        label="ย่าน"
         placeholder="---"
         :options="landmarkOptions"
       />
