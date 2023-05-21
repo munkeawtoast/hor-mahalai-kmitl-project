@@ -66,7 +66,7 @@ enum TicketCategory {
 model Dorm {
   dormID          Int       @id @default(autoincrement())
   User            User      @relation("DormOwner", fields: [userID], references: [userId], onDelete: Cascade)
-  userID          Int  
+  userID          Int
   name            String
   address         String
   latitude        Float
@@ -154,7 +154,7 @@ model Image {
   url         String @unique
   UserProfile User[] @relation("UserImage")
   InDorm      Dorm?  @relation("DormImages", fields: [dormID], references: [dormID], onDelete: Cascade)
-  dormID      Int
+  dormID      Int?
 }
 
 // /////////////////
