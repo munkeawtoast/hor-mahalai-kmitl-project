@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { getDormsByName, getOneDorm, postDorm } from '~handlers/dorms/dorms.js'
-import { getDormsByLandmark } from '~handlers/dorms/dorms.js'
+import { postComment } from '~handlers/dorms/comments.js'
 import { getDorms } from '~handlers/dorms/dorms.js'
 import { imageUploadBuilder } from '~middlewares/imgbb.js'
+import { checkAuth } from '~middlewares/auth.js'
 
 const dormRouter = Router()
 
@@ -18,5 +19,6 @@ dormRouter.get(
 dormRouter.get('/', getDorms)
 dormRouter.get('/:id', getOneDorm)
 dormRouter.post('/', postDorm)
+dormRouter.post('/:dormId/comment', checkAuth, postComment)
 
 export default dormRouter

@@ -62,7 +62,7 @@ export const postUserLogin: RequestHandler = async (req, res) => {
       env.JWT_SECRET,
       {
         algorithm: 'HS256',
-        expiresIn: new Date().getTime() + expireInMinute * 60 * 1000,
+        // expiresIn: new Date().getTime() + expireInMinute * 60 * 1000,
       },
     )
 

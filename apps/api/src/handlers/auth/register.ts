@@ -38,4 +38,37 @@ export const postUserRegister = async (
 
 export const deleteUser: RequestHandler<{ userId: string }> = (req, res) => {}
 
-export const patchUser: RequestHandler<{ userId: string }> = (req, res) => {}
+export const patchUser: RequestHandler<{ userId: string }> = async (
+  req: any,
+  res,
+) => {
+  if (!req.auth) return
+
+  const auth = req.auth.sub as number
+  const user = req.body
+  const imageLinks = req.links ?? []
+
+  const newUser = await prisma.user.update({
+    where: {
+      userId: user.username,
+    },
+    data: {
+      username: user.username,
+      password: user.password, //Hash later
+      firstName: user.firstname,
+      lastName: user.lastname,
+      email: user.email,
+      // imageID: 1,
+      // Image:
+      // imageLinks.length === 1?
+      //   {
+      //     create: {
+      //       url: 'https://cdn-prod.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg',
+      //     },
+      //   },
+      // : undefined,
+    },
+  })
+
+  // res.json(newUser)
+}

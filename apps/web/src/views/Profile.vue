@@ -5,8 +5,16 @@ import { generateDorms } from '@helper/data-gen'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useUserStore } from '../stores'
 import { axios } from '../utils'
+import { IconSquarePlus } from '@tabler/icons-vue'
+import { RouterLink } from 'vue-router'
 export default {
-  components: { ProfileCard, DormBrief, FontAwesomeIcon },
+  components: {
+    ProfileCard,
+    DormBrief,
+    FontAwesomeIcon,
+    IconSquarePlus,
+    RouterLink,
+  },
   el: '#profile',
 
   data() {
@@ -19,7 +27,6 @@ export default {
     }
   },
   async beforeMount() {
-    console.log(this.userStore.id)
     await axios.get('/dorms/', this.userStore.id).then(res => {
       console.log(res)
     })
@@ -43,6 +50,16 @@ export default {
   <div v-else>
     <FontAwesomeIcon :icon="['fa-solid', 'fa-city']"></FontAwesomeIcon>
     <span>Your dorms:</span>
+  </div>
+  <div>
+    <RouterLink
+      v-if="userStore.role == 'DORM_OWNER'"
+      :to="{ name: 'dorm-create' }"
+      class="w-full h-72 border-black border flex items-center justify-center text-3xl"
+    >
+      <IconSquarePlus :size="72" />
+      <p>เพิ่มหอใหม่</p>
+    </RouterLink>
   </div>
 </template>
 <style scoped></style>

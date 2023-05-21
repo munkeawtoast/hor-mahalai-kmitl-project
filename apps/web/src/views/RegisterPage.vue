@@ -60,89 +60,98 @@ export default {
         >
           &#60; Go back
         </p>
-        <form
-          :ref="zo.getRef"
-          class="flex flex-col items-start gap-2 rounded-xl border-black bg-white px-48 py-8 text-lg"
-        >
-          <IconLogo></IconLogo>
-          <ZormInput
-            label="Username"
-            v-model="userName"
-            placeholder="e.g. JohnDoe123, jd@gmail.com"
-            :id="zo.fields.username('id')"
-            :field="zo.fields.username('name')"
-            :error="zo.errors.username"
-            required
-          />
-          <ZormInput
-            label="Password"
-            v-model="password"
-            placeholder="หอพักไม่มีชื่อ"
-            :id="zo.fields.password('id')"
-            :field="zo.fields.password('name')"
-            :error="zo.errors.password"
-            required
-          />
-          <ZormInput
-            label="Confirm password"
-            v-model="confirm"
-            placeholder="หอพักไม่มีชื่อ"
-            :id="zo.fields.confirm('id')"
-            :field="zo.fields.confirm('name')"
-            :error="zo.errors.confirm"
-            required
-          />
-          <ZormInput
-            label="First Name"
-            v-model="firstName"
-            placeholder="หอพักไม่มีชื่อ"
-            :id="zo.fields.firstname('id')"
-            :field="zo.fields.firstname('name')"
-            :error="zo.errors.firstname"
-            required
-          />
-          <ZormInput
-            label="Last Name"
-            v-model="lastName"
-            placeholder="หอพักไม่มีชื่อ"
-            :id="zo.fields.lastname('id')"
-            :field="zo.fields.lastname('name')"
-            :error="zo.errors.lastname"
-            required
-          />
-          <ZormInput
-            label="Email"
-            v-model="email"
-            placeholder="หอพักไม่มีชื่อ"
-            :id="zo.fields.email('id')"
-            :field="zo.fields.email('name')"
-            :error="zo.errors.email"
-            required
-          />
-          <p>Your role</p>
-          <div class="flex items-center gap-2">
-            <label for="user">User:</label>
-            <input
-              type="radio"
-              id="fname"
-              name="role"
-              value="USER"
-              v-model="role"
+        <form :ref="zo.getRef">
+          <div
+            class="flex flex-col items-stretch gap-2 rounded-xl border-black bg-white px-48 py-8 text-lg"
+          >
+            <IconLogo></IconLogo>
+            <ZormInput
+              label="Username"
+              v-model="userName"
+              placeholder="e.g. JohnDoe123, jd@gmail.com"
+              :id="zo.fields.username('id')"
+              :field="zo.fields.username('name')"
+              :error="zo.errors.username"
+              required
             />
-            <label for="Dormowner">Dorm owner:</label>
+            <ZormInput
+              label="Password"
+              v-model="password"
+              placeholder="หอพักไม่มีชื่อ"
+              :id="zo.fields.password('id')"
+              :field="zo.fields.password('name')"
+              :error="zo.errors.password"
+              required
+            />
+            <ZormInput
+              label="Confirm password"
+              v-model="confirm"
+              placeholder="หอพักไม่มีชื่อ"
+              :id="zo.fields.confirm('id')"
+              :field="zo.fields.confirm('name')"
+              :error="zo.errors.confirm"
+              required
+            />
+            <div class="flex gap-2">
+              <ZormInput
+                label="First Name"
+                v-model="firstName"
+                placeholder="หอพักไม่มีชื่อ"
+                :id="zo.fields.firstname('id')"
+                :field="zo.fields.firstname('name')"
+                :error="zo.errors.firstname"
+                required
+              />
+              <ZormInput
+                label="Last Name"
+                v-model="lastName"
+                placeholder="หอพักไม่มีชื่อ"
+                :id="zo.fields.lastname('id')"
+                :field="zo.fields.lastname('name')"
+                :error="zo.errors.lastname"
+                required
+              />
+            </div>
+            <ZormInput
+              label="Email"
+              v-model="email"
+              placeholder="หอพักไม่มีชื่อ"
+              :id="zo.fields.email('id')"
+              :field="zo.fields.email('name')"
+              :error="zo.errors.email"
+              required
+            />
+            <div class="flex items-center justify-center gap-2">
+              <p>Your role</p>
+              <label for="user">User:</label>
+              <input
+                type="radio"
+                id="fname"
+                name="role"
+                value="USER"
+                v-model="role"
+              />
+              <label for="Dormowner">Dorm owner:</label>
+              <input
+                type="radio"
+                id="lname"
+                name="role"
+                value="DORM_OWNER"
+                v-model="role"
+              />
+            </div>
+            <!-- <input
+              type="file"
+              id="avatar"
+              name="avatar"
+              accept="image/png, image/jpeg"
+            /> -->
             <input
-              type="radio"
-              id="lname"
-              name="role"
-              value="DORM_OWNER"
-              v-model="role"
+              class="cursor-pointer rounded-md border border-lesser-gray p-2"
+              type="submit"
+              value="login"
             />
           </div>
-          <input
-            class="w-48 cursor-pointer rounded-md border border-lesser-gray p-2"
-            type="submit"
-            value="login"
-          />
         </form>
         <!-- <pre>Validation status: {{ JSON.stringify(zo.validation, null, 2) }}</pre> -->
       </div>

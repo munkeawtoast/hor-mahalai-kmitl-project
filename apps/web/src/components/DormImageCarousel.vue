@@ -34,7 +34,7 @@ export default {
 </script>
 
 <template>
-  <div class="relative flex aspect-video w-full overflow-hidden rounded-2xl">
+  <div class="relative flex aspect-video w-1/2 overflow-hidden rounded-2xl">
     <img
       v-for="(img, index) in images"
       :style="{
