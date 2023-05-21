@@ -8,19 +8,18 @@ import { imageUploadBuilder } from '~middlewares/supabaseUserUpload.js'
 const dormRouter = Router()
 
 dormRouter.get('/', getDorms)
-dormRouter.get('/:id', getOneDorm)
+dormRouter.get('/:dormId', getOneDorm)
 dormRouter.post('/:dormId/comment', checkAuth, postComment)
 dormRouter.post(
   '/',
   checkAuth,
-  imageUploadBuilder({ fieldName: 'images[]', type: 'array', maxCount: 10 }),
+  imageUploadBuilder({ fieldName: 'images[]', type: 'array', maxCount: 12 }),
   postDorm,
 )
 dormRouter.put(
   '/',
   checkAuth,
   imageUploadBuilder({ fieldName: 'images[]', type: 'array', maxCount: 10 }),
-  postDorm,
 )
 
 export default dormRouter

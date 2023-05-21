@@ -55,29 +55,38 @@ export const getDorms: RequestHandler = async (req: Request, res) => {
   res.json(dormsOut)
 }
 
-export const getOneDorm: RequestHandler<{ dormid: number }> = async (
+export const getOneDorm: RequestHandler<{ dormId: string }> = async (
   req,
   res,
 ) => {
-  const dorm = req.params.dormid
+  const dorm = Number(req.params.dormId)
   const dormResult = await prisma.dorm.findFirst({
     where: {
       dormID: dorm,
     },
     include: {
+      Rooms: true,
+      Comments: true,
+      DormImages: true,
+      User: true,
       Ratings: true,
       Accommodations: true,
     },
   })
-  if (dormResult == null) {
-    res.status(400).send({ error: 'not found' })
+  if (!dormResult) {
+    res.status(404).send({ error: 'not found' })
     return
   }
   res.json(dormResult)
 }
 
-export const postDorm: RequestHandler = async (req: JwtRequest, res) => {
-  if (!req.auth) return
+export const postDorm: RequestHandler = async (
+  req: JwtRequest & { links?: string[] },
+  res,
+  next
+) => {
+  if (!req.auth) return next(new Error('no auth'))
+  if (!req.links) return next(new Error('no images'))
 
   console.log(req.body)
 
@@ -110,6 +119,15 @@ export const postDorm: RequestHandler = async (req: JwtRequest, res) => {
           })),
         },
       },
+      DormImages: {
+        createMany: req.links
+          ? {
+              data: req.links.map(url => ({
+                url,
+              })),
+            }
+          : undefined,
+      },
     },
     include: {
       Rooms: true,
@@ -119,7 +137,7 @@ export const postDorm: RequestHandler = async (req: JwtRequest, res) => {
   res.json(addDorm)
 }
 
-export const deleteDorm: RequestHandler<{ dormId: string }> = (req, res) => { }
+export const deleteDorm: RequestHandler<{ dormId: string }> = (req, res) => {}
 
 export const putDorm: RequestHandler = async (req: JwtRequest, res) => {
   if (!req.auth) return
@@ -165,4 +183,4 @@ export const putDorm: RequestHandler = async (req: JwtRequest, res) => {
 export const patchApproveDorm: RequestHandler<{ dormId: string }> = (
   req,
   res,
-) => { }
+) => {}
