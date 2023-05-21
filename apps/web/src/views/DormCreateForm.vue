@@ -43,13 +43,13 @@ export default {
       onValidSubmit: async e => {
         e.preventDefault()
         console.log(e)
-        // const res = await axios.postForm('/dorms', {
-        //   ...e.data,
-        //   images: uploadImages.value,
-        // })
-        // console.log(res)
-        // alert('สร้างหอสำเร็จ!!!')
-        // this.$router.go('/')
+        const res = await axios.postForm('/dorms', {
+          ...e.data,
+          images: uploadImages.value,
+        })
+        console.log(res)
+        alert('สร้างหอสำเร็จ!!!')
+        this.$router.go('/')
       },
       onFormData() {
         console.log('onFormData')
@@ -189,6 +189,7 @@ export default {
 }
 </script>
 <template>
+  {{ JSON.stringify(zo.validation) }}
   <div class="w-full">
     <form :ref="zo.getRef">
       <div class="">
@@ -402,10 +403,10 @@ export default {
               >
                 <input
                   type="hidden"
-                  v-model="acc.name"
+                  v-model.number="acc.id"
                   checked
-                  :id="zo.fields.accomodations(index).name('id')"
-                  :name="zo.fields.accomodations(index).name('name')"
+                  :id="zo.fields.accomodations(index).id('id')"
+                  :name="zo.fields.accomodations(index).id('name')"
                 />
                 <input
                   type="checkbox"
@@ -527,16 +528,13 @@ export default {
                   >
                     <input
                       type="hidden"
-                      v-model="rooms[index].accomodations[jindex].name"
+                      v-model.number="acc.id"
                       checked
                       :id="
-                        zo.fields.rooms(index).accomodations(jindex).name('id')
+                        zo.fields.rooms(index).accomodations(jindex).id('id')
                       "
                       :name="
-                        zo.fields
-                          .rooms(index)
-                          .accomodations(jindex)
-                          .name('name')
+                        zo.fields.rooms(index).accomodations(jindex).id('name')
                       "
                     />
                     <input

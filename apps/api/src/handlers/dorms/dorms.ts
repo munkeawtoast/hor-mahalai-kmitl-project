@@ -112,8 +112,8 @@ export const postDorm: RequestHandler = async (
   res,
   next,
 ) => {
-  if (!req.auth) return next(new Error('no auth'))
-  if (!req.links) return next(new Error('no images'))
+  if (!req.auth) return res.status(401).json({error: 'bad'})
+  if (!req.links) return res.status(400).json({error: 'no images'})
 
   console.log(req.body)
 
