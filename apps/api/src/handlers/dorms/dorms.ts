@@ -67,6 +67,8 @@ export const getOneDorm: RequestHandler<{ dormid: number }> = async (
     include: {
       Ratings: true,
       Accommodations: true,
+      Comments: true,
+      Rooms: true,
     },
   })
   if (dormResult == null) {
@@ -119,7 +121,7 @@ export const postDorm: RequestHandler = async (req: JwtRequest, res) => {
   res.json(addDorm)
 }
 
-export const deleteDorm: RequestHandler<{ dormId: string }> = (req, res) => { }
+export const deleteDorm: RequestHandler<{ dormId: string }> = (req, res) => {}
 
 export const putDorm: RequestHandler = async (req: JwtRequest, res) => {
   if (!req.auth) return
@@ -165,4 +167,4 @@ export const putDorm: RequestHandler = async (req: JwtRequest, res) => {
 export const patchApproveDorm: RequestHandler<{ dormId: string }> = (
   req,
   res,
-) => { }
+) => {}
