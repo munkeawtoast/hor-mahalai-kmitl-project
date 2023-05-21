@@ -4,12 +4,13 @@ import { postComment } from '~handlers/dorms/comments.js'
 import { getDorms } from '~handlers/dorms/dorms.js'
 import { checkAuth } from '~middlewares/auth.js'
 import { imageUploadBuilder } from '~middlewares/supabaseUserUpload.js'
+import { getAccomodationTypes } from '~handlers/dorms/accomodations'
 
 const dormRouter = Router()
 
 dormRouter.get('/', getDorms)
 dormRouter.get('/:dormId', getOneDorm)
-dormRouter.post('/:dormId/comment', checkAuth, postComment)
+dormRouter.post('/:dormId/comments', checkAuth, postComment)
 dormRouter.post(
   '/',
   checkAuth,
@@ -21,5 +22,7 @@ dormRouter.put(
   checkAuth,
   imageUploadBuilder({ fieldName: 'images[]', type: 'array', maxCount: 10 }),
 )
+
+dormRouter.get('/accomodations', getAccomodationTypes)
 
 export default dormRouter

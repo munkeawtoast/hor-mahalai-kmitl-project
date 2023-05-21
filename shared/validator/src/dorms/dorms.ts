@@ -38,7 +38,7 @@ const room = (config: ValidatorConfig = {}) =>
       .max(30, 'ชื่อประเภทห้องต้องสั่นกว่า 30 ตัวอักษร'),
     accomodations: z
       .object({
-        name: z.string(),
+        id: z.number(),
         value: z.boolean({ coerce: config.coerce }),
       })
       .array(),
@@ -100,7 +100,7 @@ export const zPostDorm = (config: ValidatorConfig = {}) =>
       .max(100, 'ห้องเยอะเกินไป'),
     accomodations: z
       .object({
-        name: z.string(),
+        id: z.number(),
         value: z.boolean({ coerce: config.coerce }),
       })
       .array(),
