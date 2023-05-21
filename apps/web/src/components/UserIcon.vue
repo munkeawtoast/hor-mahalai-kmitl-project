@@ -21,7 +21,6 @@ export default {
     handleClick(event) {
       if (event) {
         event.preventDefault()
-        // this.clicked = !this.clicked
       }
     },
     loginFunction() {

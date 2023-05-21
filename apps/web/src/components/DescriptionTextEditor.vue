@@ -9,7 +9,6 @@ import {
   IconItalic,
   IconH1,
   IconH2,
-  IconHeadingOff,
   IconStrikethrough,
 } from '@tabler/icons-vue'
 

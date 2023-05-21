@@ -268,7 +268,7 @@ export default {
           />
         </div>
 
-        <div class="grid grid-cols-1 space-x-3 lg:grid-cols-3">
+        <div class="grid grid-cols-1 gap-3 lg:grid-cols-3">
           <ZormInput
             label="เบอร์โทรศัพท์"
             v-model="dorm.contacts.telnum"
