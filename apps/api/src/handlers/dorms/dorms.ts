@@ -32,6 +32,8 @@ export const getDorms: RequestHandler = async (req: JwtRequest, res) => {
       Ratings: true,
       Accommodations: true,
       Landmarks: true,
+      DormImages: true,
+      Rooms: true,
     },
   })
   if (queryUniversity) {
