@@ -192,8 +192,12 @@ export const postDorm: RequestHandler = async (
   const parseResult = zPostDorm({ coerce: true }).safeParse(req.body)
   if (!parseResult.success) return res.status(400).send(parseResult.error)
 
+
   const dormData = parseResult.data
   const { line, telnum, facebook } = dormData.contacts
+
+  console.log(dormData.accomodations)
+
   const addDorm = await prisma.dorm.create({
     data: {
       userID: Number(req.auth.sub),
