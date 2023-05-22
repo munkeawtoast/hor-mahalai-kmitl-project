@@ -128,7 +128,32 @@ export const getOneDorm: RequestHandler<{ dormId: string }> = async (
           parentCommentID: null,
         },
         include: {
-          ChildrenComments: true,
+          User: {
+            select: {
+              username: true,
+              userId: true,
+              Image: {
+                select: {
+                  url: true,
+                },
+              },
+            },
+          },
+          ChildrenComments: {
+            select: {
+              User: {
+                select: {
+                  username: true,
+                  userId: true,
+                  Image: {
+                    select: {
+                      url: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
         },
       },
       DormImages: true,

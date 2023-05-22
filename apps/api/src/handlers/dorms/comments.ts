@@ -25,9 +25,10 @@ export const postComment: RequestHandler<{ dormId: string }> = async (
       userID: auth,
       dormID: dormId,
     },
+
   })
   if (createComment) {
-    return
+    return res.status(201).json({ message: 'success' })
   }
 }
 

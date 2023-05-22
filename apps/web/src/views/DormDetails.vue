@@ -25,7 +25,7 @@ export default {
       onValidSubmit: async e => {
         e.preventDefault()
         console.log(e.data)
-        await axios.post(`/dorms/${this.$route.params.dormID}/comment`, e.data)
+        await axios.post(`/dorms/${this.$route.params.dormID}/comments`, e.data)
       },
       // onFormData: async e => {
       //   console.log(e)
@@ -79,6 +79,9 @@ export default {
       value="Submit"
     />
   </form>
-  {{ dormf.Comments }}
-  <CommentBox v-for="(comment, index) in dormf.Comments" :key="index" :comment="comment" />
+  <CommentBox
+    v-for="(comment, index) in dormf.Comments"
+    :key="index"
+    :comment="comment"
+  />
 </template>
