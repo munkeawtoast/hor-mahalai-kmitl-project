@@ -31,6 +31,9 @@ export default {
       // rooms: [{ ...this.dormData }, { ...this.dormData }, { ...this.dormData }],
       description: this.dorminfo?.description,
       googleMapsApiKey,
+      dormaccommodations: this.dorminfo.Accommodations.map(
+        acc => acc.AccommodationType.accommodationName,
+      ),
     }
   },
   components: {
@@ -125,12 +128,16 @@ export default {
       <p class="text-2xl">Description</p>
       <DescriptionDisplay v-model="description"> </DescriptionDisplay>
     </div>
-    <div
-      class="w-24 border border-black aspect-video flex flex-row justify-center items-center m-4"
-    >
-      <IconCheckbox></IconCheckbox>
-      <p>Amenities</p>
+    <div class="flex text-lg items-center">
+      <p>Accommodations:</p>
+      <div
+        class="w-24 border border-black aspect-video flex flex-row justify-center items-center m-4 text-xs"
+        v-for="(accom, index) in dormaccommodations"
+        :key="index"
+      >
+        <IconCheckbox></IconCheckbox>
+        <p>{{ accom }}</p>
+      </div>
     </div>
   </div>
-  {{ dorminfo }}
 </template>

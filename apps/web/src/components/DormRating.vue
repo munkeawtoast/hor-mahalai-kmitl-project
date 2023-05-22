@@ -24,6 +24,7 @@ export default {
           rating: this.rating,
         },
       })
+      this.$router.go()
     },
   },
 }

@@ -8,10 +8,10 @@ import {
   IconBrandLine,
   IconDroplet,
   IconBolt,
-  IconCheckbox,
   IconBed,
   IconCurrencyDollar,
   IconArrowAutofitWidth,
+  IconCheckbox,
 } from '@tabler/icons-vue'
 
 export default {
@@ -24,12 +24,16 @@ export default {
   data() {
     return {
       activeRoom: 0,
+      // roomaccom: this.room.Accommodations.map(
+      //   acc => acc.AccommodationType.accommodationName,
+      // ),
     }
   },
   components: {
     IconBed,
     IconCurrencyDollar,
     IconArrowAutofitWidth,
+    IconCheckbox,
   },
 }
 </script>
@@ -74,6 +78,19 @@ export default {
       </div>
       <div class="flex items-center gap-4">
         <IconCurrencyDollar></IconCurrencyDollar>Price: {{ room.price }}
+      </div>
+      <div class="flex text-lg items-center">
+        <p>Accommodations:</p>
+        <div
+          class="w-24 border border-black aspect-video flex flex-row justify-center items-center m-4 text-xs"
+          v-for="(accom, index) in room.Accommodations.map(
+            acc => acc.AccommodationType.accommodationName,
+          )"
+          :key="index"
+        >
+          <IconCheckbox></IconCheckbox>
+          <p>{{ accom }}</p>
+        </div>
       </div>
     </div>
   </template>

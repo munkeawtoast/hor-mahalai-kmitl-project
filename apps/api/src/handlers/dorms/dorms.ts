@@ -114,7 +114,7 @@ export const getOneDorm: RequestHandler<{ dormId: string }> = async (
     include: {
       Rooms: {
         include: {
-          Accommodations: true,
+          Accommodations: { include: { AccommodationType: true } },
         },
       },
       Comments: {
@@ -137,7 +137,7 @@ export const getOneDorm: RequestHandler<{ dormId: string }> = async (
         //   score: true,
         // },
       },
-      Accommodations: true,
+      Accommodations: { include: { AccommodationType: true } },
     },
   })
   if (!dormResult) {
