@@ -5,6 +5,7 @@ import { useZorm } from 'vue-zorm'
 import { zRegister } from '@shared/validator'
 import ZormInput from '../components/ZormInput.vue'
 import { axios } from '../utils'
+import { IconArrowBackUp } from '@tabler/icons-vue'
 
 const validator = zRegister()
 
@@ -37,6 +38,7 @@ export default {
   components: {
     IconLogo,
     ZormInput,
+    IconArrowBackUp,
   },
   methods: {
     backFunction() {
@@ -57,10 +59,11 @@ export default {
         class="flex h-screen flex-col items-center justify-center"
       >
         <p
-          class="absolute left-4 top-4 cursor-pointer hover:text-danger"
+          class="absolute flex gap-2 left-4 top-4 cursor-pointer hover:text-danger"
           @click="backFunction"
         >
-          &#60; Go back
+          <IconArrowBackUp />
+          <span> Go back </span>
         </p>
         <form :ref="zo.getRef">
           <div

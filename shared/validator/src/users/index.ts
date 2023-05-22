@@ -7,7 +7,6 @@ export const zLogin = () =>
     username: z.string().max(30).or(z.string().email()),
     password: z
       .string({ required_error: 'กรุณากรอก Password' })
-      .regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/, 'รหัสผ่านไม่ถูกต้อง'),
   })
 export const zRegister = () =>
   z
@@ -15,6 +14,7 @@ export const zRegister = () =>
       username: z.string({ required_error: 'กรุณากรอก Username' }).max(30),
       password: z
         .string({ required_error: 'กรุณากรอก Password' })
+        .min(8)
         .regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/, 'Password ไม่ถูกต้อง'),
       confirm: z
         .string({ required_error: 'กรุณากรอก Password' })

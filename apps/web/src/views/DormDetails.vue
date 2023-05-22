@@ -60,11 +60,11 @@ export default {
 </script>
 <template>
   <DormDetails :dorminfo="dormf" />
-  <DormRoom :roomData="dormf?.Rooms"></DormRoom>
+  <DormRoom :room-data="dormf?.Rooms" />
   <DormRating
     :dormID="dormf.dormID"
     v-if="!dormf.Ratings.map(rate => rate.userID).includes(userStore.id)"
-  ></DormRating>
+  />
   <form :ref="zo.getRef">
     <ZormTextArea
       label="Write your comment"

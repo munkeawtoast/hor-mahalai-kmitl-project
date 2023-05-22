@@ -1,3 +1,4 @@
+import { useUserStore } from '../stores'
 import { createRouter, createWebHistory } from 'vue-router'
 import NotFound from '../views/404Page.vue'
 
@@ -45,6 +46,7 @@ const router = createRouter({
       path: '/auth',
       meta: {
         hideNavBar: true,
+        noLogin: true,
       },
       children: [
         {
@@ -99,6 +101,16 @@ const router = createRouter({
       component: NotFound,
     },
   ],
+})
+
+router.beforeEach((from, to, next) => {
+  if (from.meta.noLogin) {
+    const userStore = useUserStore()
+    if (userStore.token && userStore.badToken === false) {
+      next({ name: 'home' })
+    }
+  }
+  next()
 })
 
 export default router

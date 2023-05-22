@@ -10,8 +10,9 @@ import { postRating } from '~handlers/dorms/ratings.js'
 const dormRouter = Router()
 
 dormRouter.get('/', getDorms)
-dormRouter.get('/:dormId', getOneDorm)
-dormRouter.post('/:dormId/comments', checkAuth, postComment)
+dormRouter.get('/accomodations', getAccomodationTypes)
+dormRouter.get('/:dormId(\\d+)', getOneDorm)
+dormRouter.post('/:dormId(\\d+)/comments', checkAuth, postComment)
 dormRouter.post('/addrating', checkAuth, postRating)
 dormRouter.post(
   '/',
@@ -26,6 +27,5 @@ dormRouter.put(
 )
 dormRouter.delete('/:dormId', checkAuth, deleteDorm)
 
-dormRouter.get('/accomodations', getAccomodationTypes)
 
 export default dormRouter

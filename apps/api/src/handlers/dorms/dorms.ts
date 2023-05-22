@@ -29,7 +29,6 @@ export const getDorms: RequestHandler = async (req: JwtRequest, res) => {
     where: {
       userID: queryOwnerId,
       landmarkID: queryLandmark,
-
       // NOT: {
       //   approvedAt: isAdmin ? null : undefined
       // }
@@ -51,6 +50,13 @@ export const getDorms: RequestHandler = async (req: JwtRequest, res) => {
               landmarkID: true,
               name: true,
             },
+          },
+        },
+      },
+      Accommodations: {
+        where: {
+          accommodationTypeID: {
+            in: [20, 19, 15],
           },
         },
       },
@@ -90,6 +96,7 @@ export const getDorms: RequestHandler = async (req: JwtRequest, res) => {
       landmark: d.Landmarks.name,
       university: d.Landmarks.ParentUniversity?.name,
       images: d.DormImages.map(a => a.url),
+      id: d.dormID,
 
       userRating: ratingsCount ? ratingsTotal / ratingsCount : 0,
     }
@@ -103,7 +110,10 @@ export const getOneDorm: RequestHandler<{ dormId: string }> = async (
 ) => {
   let isAdmin = req.auth?.aud === 'ADMIN'
 
-  const dorm = Number(req.params.dormId)
+  const dorm = parseInt(req.params.dormId)
+
+  if (Number.isNaN(dorm)) return res.status(400).json({message: 'bad dormid'})
+
   const dormResult = await prisma.dorm.findFirst({
     where: {
       dormID: dorm,

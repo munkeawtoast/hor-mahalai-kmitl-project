@@ -39,6 +39,8 @@ export default {
       v-for="(img, index) in images"
       :style="{
         transform: `translateX(${currentImage * -100}%)`,
+        minWidth: '100%',
+        minHeight: '100%',
       }"
       class="transition-transform duration-500 ease-in-out"
       :key="index"
