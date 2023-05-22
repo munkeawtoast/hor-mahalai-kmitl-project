@@ -54,7 +54,7 @@ export default {
           this.$router.push({ name: 'home' })
         } catch (e) {
           console.log(e)
-          alert(e)
+          // alert(e)
         }
       },
       onFormData() {
@@ -195,7 +195,6 @@ export default {
 }
 </script>
 <template>
-  {{ JSON.stringify(zo.validation) }}
   <div class="w-full">
     <form :ref="zo.getRef">
       <div class="">
