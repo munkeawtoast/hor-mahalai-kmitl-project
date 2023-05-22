@@ -29,7 +29,7 @@ export default {
             this.$router.push({ path: '/' })
           })
           .catch(err => {
-            console.log(err.response.data)
+            alert(err.response.data)
           })
         // console.log(jwtDecode(res.data.token))
         // userStore.token = res.data.token
