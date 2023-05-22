@@ -1,23 +1,23 @@
 import { zPostComment } from '@shared/validator'
 import { RequestHandler } from 'express'
 import { PrismaClient } from '@prisma/client'
-import { Request } from 'express-jwt'
+import { Request as JwtRequest } from 'express-jwt'
 
 const prisma = new PrismaClient()
 
-const getComment: RequestHandler<{ dormId: string }> = (req, res) => {}
+// const getComment: RequestHandler<{ dormId: string }> = (req, res) => {}
 
 export const postComment: RequestHandler<{ dormId: string }> = async (
-  req: any,
+  req: JwtRequest,
   res,
 ) => {
   if (!req.auth) return
-  const dormId = Number(req.params.dormId)
+  const dormId = parseInt(req.params.dormId)
   const parseResult = zPostComment().safeParse(req.body)
   if (!parseResult.success) return res.status(400).send(parseResult.error)
 
   const description = req.body.description as string
-  const auth = req.auth.sub as number
+  const auth = parseInt(req.auth.sub as string)
 
   const createComment = await prisma.comment.create({
     data: {
@@ -26,9 +26,52 @@ export const postComment: RequestHandler<{ dormId: string }> = async (
       dormID: dormId,
     },
   })
+  if (createComment) {
+    return
+  }
 }
-const deleteComment: RequestHandler<{ commentId: string }> = (req, res) => {
-  const { commentId } = req.params
+const deleteComment: RequestHandler<{ commentId: string }> = async (
+  req: JwtRequest,
+  res,
+) => {
+  if (!req.auth) {
+    return res.status(401).json({ error: 'no auth' })
+  }
+  const isAdmin = req.auth.aud === 'ADMIN'
+  const commentId = parseInt(req.params.commentId)
+  const ownerid = parseInt(req.auth.sub as string)
+
+  if (Number.isNaN(commentId)) {
+    return res.status(400).json({ error: 'bad comemnt id' })
+  }
+
+  const comment = await prisma.comment.findFirst({
+    where: {
+      commentID: commentId,
+    },
+  })
+
+  if (!comment) {
+    return res.status(404).json({ error: 'comment doenst exist' })
+  }
+
+  if (comment.userID !== ownerid && !isAdmin) {
+    return res.status(403).json({ error: 'bad comemnt id' })
+  }
+
+  const deleted = await prisma.comment.delete({
+    where: {
+      commentID: comment.commentID,
+    },
+  })
+  if (!deleted) {
+    return res.status(505).json({
+      error: 'error server',
+    })
+  }
+  return res.status(200).json({
+    message: 'success',
+  })
 }
 
 const patchComment: RequestHandler<{ commentId: string }> = (req, res) => {
