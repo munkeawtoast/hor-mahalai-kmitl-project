@@ -92,7 +92,7 @@ export default {
       <div class="gap-1 items-center flex text-xl text-primary-soft">
         <IconStarFilled />
         <span class="text-primary">{{
-          dorminfo.Ratings.length
+          dorminfo.Ratings
             ? dorminfo.Ratings.map(rate => rate.score).reduce(
                 (acc, b) => acc + b,
                 0,

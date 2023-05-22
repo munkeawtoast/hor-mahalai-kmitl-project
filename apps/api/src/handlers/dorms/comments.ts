@@ -31,8 +31,6 @@ export const postComment: RequestHandler<{ dormId: string }> = async (
   }
 }
 
-
-
 export const deleteComment: RequestHandler<{ commentId: string }> = async (
   req: JwtRequest,
   res,
@@ -77,23 +75,48 @@ export const deleteComment: RequestHandler<{ commentId: string }> = async (
   })
 }
 
-export const putComment: RequestHandler<{ commentId: string }> = (req: JwtRequest, res) => {
+export const putComment: RequestHandler<{ commentId: string }> = (
+  req: JwtRequest,
+  res,
+) => {
   if (!req.auth) return
-  const dormId = parseInt(req.params.dormId)
+  const isAdmin = req.auth.aud === 'ADMIN'
   const parseResult = zPostComment().safeParse(req.body)
+
   if (!parseResult.success) return res.status(400).send(parseResult.error)
 
   const description = req.body.description as string
   const auth = parseInt(req.auth.sub as string)
 
-  const createComment = await prisma.comment.create({
-    data: {
-      description: description,
-      userID: auth,
-      dormID: dormId,
+  const commentId = parseInt(req.params.commentId)
+
+  if (Number.isNaN(commentId)) {
+    return res.status(400).json({ error: 'bad comment id' })
+  }
+  const comment = await prisma.comment.findFirst({
+    where: {
+      commentID: commentId,
     },
   })
-  if (createComment) {
-    return
+
+  if (!comment) {
+    return res.status(404).json({ error: 'comment doenst exist' })
   }
+
+  if (comment.userID !== auth && !isAdmin) {
+    return res.status(403).json({ error: 'forbidden' })
+  }
+
+  const editComment = await prisma.comment.update({
+    where: {
+      commentID: commentId,
+    },
+    data: {
+      description: description,
+    },
+  })
+
+  return res.json({message: 'success'})
+
+  
 }
