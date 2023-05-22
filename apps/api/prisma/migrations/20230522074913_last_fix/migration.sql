@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Ticket" ALTER COLUMN "dormID" DROP NOT NULL;

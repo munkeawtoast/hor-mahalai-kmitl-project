@@ -30,7 +30,7 @@ dormRouter.put(
   checkAuth,
   imageUploadBuilder({ fieldName: 'images[]', type: 'array', maxCount: 10 }),
 )
-dormRouter.delete('/:dormId', checkAuth, deleteDorm)
+dormRouter.delete('/:dormId', deleteDorm)
 dormRouter.post('/approve/:dormId', approveDorm)
 
 export default dormRouter

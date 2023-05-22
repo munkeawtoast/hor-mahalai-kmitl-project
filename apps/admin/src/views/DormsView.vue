@@ -2,35 +2,34 @@
 import { onBeforeMount, ref } from 'vue'
 // import MyTable from '../components/MyTable.vue'
 import { axios } from '../utils/axios'
+import { useRoute, useRouter } from 'vue-router'
 
 const data = ref([])
+const router = useRouter()
 
 onBeforeMount(async () => {
   const response = await axios.get('/dorms/')
   data.value = response.data
   console.log(data)
 })
-</script>
-<script>
-export default {
-  methods: {
-    async banfunction(dorm) {
-      console.log(dorm)
-      await axios
-        .delete(`/users/${user}`)
-        .then(this.$router.push(this.$router.currentRoute))
-        .catch(err => alert(err))
-    },
-    async approvefunction(dorm) {
-      await axios
-        .post(`/dorms/approve/${dorm}`)
-        .then(this.$router.push(this.$router.currentRoute))
-        .catch(err => alert(err))
-    },
-  },
+
+function banfunction(dorm) {
+  router.go()
+  axios
+    .delete(`/dorms/${dorm}`)
+    .then(router.go())
+    .catch(err => alert(err))
+}
+
+function approvefunction(dorm) {
+  axios
+    .post(`/dorms/approve/${dorm}`)
+    .then(router.go())
+    .catch(err => alert(err))
 }
 </script>
 <template>
+  {{}}
   <div class="relative overflow-x-auto">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <thead

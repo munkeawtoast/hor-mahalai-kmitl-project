@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express'
 import { PrismaClient } from '@prisma/client'
 import { zPostTicket } from '@shared/validator'
+import { Request as JwtRequest } from 'express-jwt'
 
 // import { zPostDorm, zPatchDorm } from '@shared/validator'
 // import { Request as JwtRequest } from 'express-jwt'
@@ -19,15 +20,17 @@ export const getSpecificTicket: RequestHandler<{ ticketId: string }> = (
   res,
 ) => {}
 
-export const postTicket: RequestHandler = async (req, res) => {
+export const postTicket: RequestHandler = async (req: JwtRequest, res) => {
   const parseResult = zPostTicket().safeParse(req.body)
   if (!parseResult.success) return res.status(400).send(parseResult.error)
+  if (!req.auth) return res.status(401).json({ error: 'bad' })
   const ticketData = parseResult.data
   const dormResult = await prisma.ticket.create({
     data: {
       title: ticketData.title,
       description: ticketData.description,
       TicketCategory: ticketData.ticketcategory,
+      userID: Number(req.auth.sub),
     },
   })
 }

@@ -51,8 +51,8 @@ model Ticket {
   TicketCategory TicketCategory
   User           User           @relation("UserTicket", fields: [userID], references: [userId], onDelete: Cascade)
   userID         Int
-  Dorm           Dorm           @relation("DormTicket", fields: [dormID], references: [dormID], onDelete: Cascade)
-  dormID         Int            @unique
+  Dorm           Dorm?          @relation("DormTicket", fields: [dormID], references: [dormID], onDelete: Cascade)
+  dormID         Int?           @unique
 }
 
 enum TicketCategory {

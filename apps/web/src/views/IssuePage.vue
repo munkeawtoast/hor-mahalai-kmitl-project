@@ -4,7 +4,7 @@ import { zPostTicket } from '@shared/validator'
 import ZormInput from '../components/ZormInput.vue'
 import ZormSelect from '../components/ZormSelect.vue'
 import ZormEditor from '../components/ZormEditor.vue'
-import axios from 'axios'
+import { axios } from '../utils'
 
 const validator = zPostTicket()
 
@@ -14,8 +14,8 @@ export default {
     const zo = useZorm('ticket', validator, {
       onValidSubmit: async e => {
         e.preventDefault()
-        // await axios.post('/tickets/', e.data)
-        console.log(e)
+        await axios.post('/tickets/', e.data)
+        // console.log(e)
         // await axios
         //   .post('/users/login/', e.data)
         //   .then(res => {
@@ -61,7 +61,7 @@ export default {
       <ZormInput
         label="Title:"
         v-model="title"
-        placeholder="Type your username here"
+        placeholder="Type your ticket description"
         :id="zo.fields.title('id')"
         :field="zo.fields.title('name')"
         :error="zo.errors.title"
@@ -89,8 +89,8 @@ export default {
         :id="zo.fields.ticketcategory('id')"
         :field="zo.fields.ticketcategory('name')"
         :error="zo.errors.ticketcategory"
-        label="กรุณาเลือกโซนของหอ"
-        placeholder="กรุณาเลือกโซนของหอ"
+        label="Select your category"
+        placeholder="category"
         :options="ticketOptions"
       />
       <input

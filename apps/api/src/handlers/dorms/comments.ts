@@ -31,8 +31,6 @@ export const postComment: RequestHandler<{ dormId: string }> = async (
   }
 }
 
-
-
 export const deleteComment: RequestHandler<{ commentId: string }> = async (
   req: JwtRequest,
   res,
@@ -77,7 +75,10 @@ export const deleteComment: RequestHandler<{ commentId: string }> = async (
   })
 }
 
-export const putComment: RequestHandler<{ commentId: string }> = (req: JwtRequest, res) => {
+export const putComment: RequestHandler<{ commentId: string }> = async (
+  req: JwtRequest,
+  res,
+) => {
   if (!req.auth) return
   const dormId = parseInt(req.params.dormId)
   const parseResult = zPostComment().safeParse(req.body)

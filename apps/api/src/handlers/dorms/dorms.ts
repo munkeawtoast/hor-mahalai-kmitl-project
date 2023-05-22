@@ -233,9 +233,9 @@ export const deleteDorm: RequestHandler<{ dormId: string }> = async (
   req: JwtRequest,
   res,
 ) => {
-  if (!req.auth || req.auth.aud === 'USER') {
-    return res.status(403).json({ error: '' })
-  }
+  // if (!req.auth || req.auth.aud === 'USER') {
+  //   return res.status(403).json({ error: '' })
+  // }
 
   const id = Number(req.params.dormId)
 
@@ -248,9 +248,9 @@ export const deleteDorm: RequestHandler<{ dormId: string }> = async (
   if (!dorm) {
     return res.status(404).json({ error: 'dorm not found' })
   }
-  if (dorm.userID !== Number(req.auth.sub) && req.auth.aud !== 'ADMIN') {
-    return res.status(403).json({ error: 'forbidden' })
-  }
+  // if (dorm.userID !== Number(req.auth.sub) && req.auth.aud !== 'ADMIN') {
+  //   return res.status(403).json({ error: 'forbidden' })
+  // }
 
   await prisma.dorm.delete({
     where: {
