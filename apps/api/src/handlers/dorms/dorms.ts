@@ -30,8 +30,8 @@ export const getDorms: RequestHandler = async (req: JwtRequest, res) => {
       userID: queryOwnerId,
       landmarkID: queryLandmark,
       NOT: {
-        approvedAt: isAdmin ? null : undefined
-      }
+        approvedAt: isAdmin ? null : undefined,
+      },
     },
     // skip: startPoint,
     // take: count,
@@ -192,12 +192,8 @@ export const postDorm: RequestHandler = async (
   const parseResult = zPostDorm({ coerce: true }).safeParse(req.body)
   if (!parseResult.success) return res.status(400).send(parseResult.error)
 
-
   const dormData = parseResult.data
   const { line, telnum, facebook } = dormData.contacts
-
-  console.log(dormData.accomodations)
-
   const addDorm = await prisma.dorm.create({
     data: {
       userID: Number(req.auth.sub),
@@ -233,10 +229,10 @@ export const postDorm: RequestHandler = async (
       DormImages: {
         createMany: req.links
           ? {
-              data: req.links.map(url => ({
-                url,
-              })),
-            }
+            data: req.links.map(url => ({
+              url,
+            })),
+          }
           : undefined,
       },
     },
