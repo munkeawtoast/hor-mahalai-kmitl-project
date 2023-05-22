@@ -20,10 +20,18 @@ const userStore = useUserStore()
   >
     <div class="w-12 h-12 bg-less-black"></div>
     <div>
-      <p>{{ props.comment.User.username }} {{ }}</p>
-      <p>{{ description }}</p>
+      <p>
+        {{ props.comment.User.username }}
+        {{ props.comment.createdAt.substring(0, 10) }}
+      </p>
+      <p>{{ props.comment.description }}</p>
     </div>
-    <div :class="isOwnerOrAdmin"></div>
+    <div
+      v-for="(comment, index) in props.comment.ChildrenComments"
+      :key="index"
+    >
+      <CommentBox :comment="comment" />
+    </div>
     <div v-if="userStore.role === 'ADMIN' || userStore.id === props.ownerid">
       <IconTrash />
     </div>
