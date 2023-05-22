@@ -37,7 +37,7 @@ export default {
       zo,
       dormData: generateDorms(this.dormID, this.dormID + 1)[0],
       description: '',
-      dormf: null,
+      dormf: [],
     }
   },
   beforeMount() {
@@ -65,19 +65,20 @@ export default {
     :dormID="dormf.dormID"
     v-if="!dormf.Ratings.map(rate => rate.userID).includes(userStore.id)"
   />
-  <form :ref="zo.getRef">
+  <form :ref="zo.getRef" v-if="!userStore.badToken">
     <ZormTextArea
       label="Write your comment"
       v-model="description"
       :id="zo.fields.description('id')"
       :field="zo.fields.description('name')"
       :error="zo.errors.description"
-    ></ZormTextArea>
+    />
     <input
       class="w-48 cursor-pointer rounded-md border border-lesser-gray p-2"
       type="submit"
       value="Submit"
     />
   </form>
-  <CommentBox></CommentBox>
+  {{ dormf.Comments }}
+  <CommentBox v-for="(comment, index) in dormf.Comments" :key="index" :comment="comment" />
 </template>
