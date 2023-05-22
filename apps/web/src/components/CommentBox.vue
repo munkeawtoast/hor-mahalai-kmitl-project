@@ -1,16 +1,17 @@
 <script setup>
 import { IconTrash } from '@tabler/icons-vue'
-import { defineProps, ref } from 'vue'
-import { useUserStore } from '../stores';
+import { defineProps, onBeforeMount, ref } from 'vue'
+import { useUserStore } from '../stores'
 
 const props = defineProps(['comment'])
 
 const isOwnerOrAdmin = ref(false)
 
+onBeforeMount(() => {
+  console.dir(props.comment)
+})
+
 const userStore = useUserStore()
-
-
-
 </script>
 
 <template>
@@ -19,15 +20,12 @@ const userStore = useUserStore()
   >
     <div class="w-12 h-12 bg-less-black"></div>
     <div>
-      <!-- <p>{{name}} {{time}}</p> -->
-      <!-- <p>{{ description}}</p> -->
+      <p>{{ props.comment.User.username }} {{ }}</p>
+      <p>{{ description }}</p>
     </div>
-    <div :class="isOwnerOrAdmin">
-
-    </div>
+    <div :class="isOwnerOrAdmin"></div>
     <div v-if="userStore.role === 'ADMIN' || userStore.id === props.ownerid">
-
-    <IconTrash />
+      <IconTrash />
     </div>
   </div>
 </template>
