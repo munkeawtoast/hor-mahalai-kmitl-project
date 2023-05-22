@@ -113,9 +113,9 @@ export const getOneDorm: RequestHandler<{ dormId: string }> = async (
   const dormResult = await prisma.dorm.findFirst({
     where: {
       dormID: dorm,
-      // NOT: {
-      //   approvedAt: isAdmin ? null : undefined
-      // }
+      NOT: {
+        approvedAt: null,
+      },
     },
     include: {
       Rooms: {
