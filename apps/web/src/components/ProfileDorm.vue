@@ -66,7 +66,6 @@ export default {
     />
     <div class="p-4 flex justify-between w-full">
       <div class="flex flex-col gap-1">
-        <!-- <div>ห่าง {{ search }}</div> -->
         <router-link :to="`/dorms/${roomData.dormID}`">
           <div class="text-3xl font-bold">{{ roomData.name }}</div>
         </router-link>

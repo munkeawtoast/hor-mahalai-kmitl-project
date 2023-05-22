@@ -8,16 +8,9 @@ const props = defineProps({
     required: true,
   },
 })
-
-const { dorms } = props
-
 </script>
 <template>
-  <DormBrief
-    v-for="dorm in dorms"
-    :dorm-data="dorm"
-    :key="dorm.name"
-  />
+  <DormBrief v-for="dorm in props.dorms" :dorm-data="dorm" :key="dorm.name" />
 </template>
 
 <style scoped></style>

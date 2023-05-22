@@ -7,6 +7,7 @@ import ZormInput from '../components/ZormInput.vue'
 import { axios } from '../utils'
 // import jwtDecode from 'jwt-decode'
 import { useUserStore } from '../stores'
+import { IconArrowBackUp } from '@tabler/icons-vue'
 
 const validator = zLogin()
 let userStore = useUserStore()
@@ -15,7 +16,8 @@ export default {
   components: {
     IconLogo,
     ZormInput,
-  },
+    IconArrowBackUp
+},
   data() {
     const zo = useZorm('userlogin', validator, {
       onValidSubmit: async e => {
@@ -84,10 +86,11 @@ export default {
       class="flex h-full w-full flex-col items-center justify-center backdrop-blur-lg"
     >
       <p
-        class="absolute left-4 top-4 cursor-pointer hover:text-danger"
+        class="absolute left-4 flex gap-2 top-4 cursor-pointer hover:text-danger"
         @click="backFunction"
       >
-        &#60; Go back
+        <IconArrowBackUp />
+        <span> Go back </span>
       </p>
       <form
         class="flex flex-col items-center gap-2 rounded-xl border-black bg-white p-48"

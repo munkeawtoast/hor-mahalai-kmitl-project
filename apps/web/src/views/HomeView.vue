@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { onBeforeMount, ref, watch } from 'vue'
 import { axios } from '../utils'
 
 import DormListDisplay from '../components/DormListDisplay.vue'
@@ -23,19 +23,34 @@ async function fetchUniversities() {
   }))
 }
 
+async function fetchAccommodation() {
+  const response = await axios.get('/dorms/accomodations', {
+    params: {
+      type: 'DORM',
+    },
+  })
+  console.log(response.data)
+}
+
 async function fetchDorms() {
   const response = await axios.get(`/dorms`, {
-    uniid: targetUniversity.value != null ? targetUniversity.value : undefined,
-    landmarkid: targetLandmark.value != null ? targetLandmark.value : undefined,
-    query: queryText.value != '' ? queryText.value : undefined,
+    params: {
+      uniid:
+        targetUniversity.value != null ? targetUniversity.value : undefined,
+      landmarkid:
+        targetLandmark.value != null ? targetLandmark.value : undefined,
+      query: queryText.value != '' ? queryText.value : undefined,
+    },
   })
   dorms.value = response.data
 }
 
 // init
-
-fetchUniversities()
-fetchDorms()
+onBeforeMount(() => {
+  fetchAccommodation()
+  fetchUniversities()
+  fetchDorms()
+})
 
 const dorms = ref([])
 const landmarkOptions = ref([])
@@ -49,6 +64,7 @@ watch(targetUniversity, newUni => {
 })
 </script>
 <template>
+  {{ JSON.stringify(dorms, null) }}
   <div class="space-y-4">
     <div class="bg-white space-y-2 rounded-xl p-4">
       <h1 class="text-2xl font-bold">ค้นหาหอ</h1>
@@ -81,7 +97,6 @@ watch(targetUniversity, newUni => {
         ค้นหา
       </button>
     </div>
-    {{ debouncedQuery }}
     <DormListDisplay :dorms="dorms" />
   </div>
 </template>

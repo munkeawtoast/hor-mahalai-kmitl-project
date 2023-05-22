@@ -13,6 +13,7 @@ import {
   IconBolt,
   IconCheckbox,
 } from '@tabler/icons-vue'
+import { IconStarFilled } from '@tabler/icons-vue'
 
 export default {
   props: {
@@ -47,7 +48,8 @@ export default {
     IconCheckbox,
     DescriptionDisplay,
     GoogleMap,
-  },
+    IconStarFilled
+},
 }
 </script>
 
@@ -87,8 +89,8 @@ export default {
           <p>{{ dorminfo.electricityRate }}</p>
         </div>
       </div>
-      <div class="gap-1 align-middle text-xl text-primary-soft">
-        <FontAwesomeIcon icon="fa-solid fa-star" class="mr-2" />
+      <div class="gap-1 items-center flex text-xl text-primary-soft">
+        <IconStarFilled />
         <span class="text-primary">{{
           dorminfo.Ratings.length
             ? dorminfo.Ratings.map(rate => rate.score).reduce(
