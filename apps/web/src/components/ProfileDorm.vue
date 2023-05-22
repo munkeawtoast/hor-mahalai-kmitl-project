@@ -76,6 +76,7 @@ export default {
         <div class="text-xl">
           {{ Math.min(...roomPrices) }} - {{ Math.max(...roomPrices) }}
         </div>
+        <div>Approved At: {{ roomData.approvedAt.substring(0, 10) }}</div>
         <div @click="deleteDorm(roomData.dormID)" class="cursor-pointer">
           <IconTrash :size="48"></IconTrash>
         </div>

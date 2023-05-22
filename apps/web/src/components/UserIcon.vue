@@ -62,16 +62,16 @@ export default {
       class="flex h-10 w-10 items-center justify-center rounded-md bg-primary-soft bg-contain bg-center p-2 text-black hover:cursor-pointer"
       @click.left="handleClick"
       :style="{
-        backgroundImage: `url(${userImage})`,
+        backgroundImage: `url(${userStore.image})`,
       }"
     >
       <font-awesome-icon
         icon="fa-solid fa-user"
         class="translate-y-0.5 text-3xl font-medium text-primary"
-        v-if="!userImage && !userName"
+        v-if="!userStore.image && !userStore.username"
       />
       <span
-        v-if="!userImage && userName"
+        v-if="!userStore.image && userStore.username"
         class="text-3xl font-medium text-primary"
       >
         {{ userName[0] }}
@@ -107,7 +107,7 @@ export default {
             <!-- Icon -->
             <div
               :style="{
-                backgroundImage: `url(${userImage})`,
+                backgroundImage: `url(${userStore.image})`,
               }"
               class="mr-3 flex aspect-square w-16 items-center justify-center rounded-md bg-primary-soft bg-contain bg-center text-4xl font-medium text-primary"
             >
@@ -221,7 +221,7 @@ export default {
       <div class="flex w-max items-center">
         <div
           :style="{
-            backgroundImage: `url(${userImage})`,
+            backgroundImage: `url(${userStore.image})`,
           }"
           @click="profileFunction"
           class="mr-3 flex aspect-square w-16 items-center justify-center rounded-md bg-primary-soft bg-contain bg-center text-4xl font-medium text-primary"
