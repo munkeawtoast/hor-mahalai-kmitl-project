@@ -30,7 +30,10 @@ export const postComment: RequestHandler<{ dormId: string }> = async (
     return
   }
 }
-const deleteComment: RequestHandler<{ commentId: string }> = async (
+
+
+
+export const deleteComment: RequestHandler<{ commentId: string }> = async (
   req: JwtRequest,
   res,
 ) => {
@@ -74,7 +77,23 @@ const deleteComment: RequestHandler<{ commentId: string }> = async (
   })
 }
 
-const patchComment: RequestHandler<{ commentId: string }> = (req, res) => {
-  const { commentId } = req.params
-  const { description } = req.body.data
+export const putComment: RequestHandler<{ commentId: string }> = (req: JwtRequest, res) => {
+  if (!req.auth) return
+  const dormId = parseInt(req.params.dormId)
+  const parseResult = zPostComment().safeParse(req.body)
+  if (!parseResult.success) return res.status(400).send(parseResult.error)
+
+  const description = req.body.description as string
+  const auth = parseInt(req.auth.sub as string)
+
+  const createComment = await prisma.comment.create({
+    data: {
+      description: description,
+      userID: auth,
+      dormID: dormId,
+    },
+  })
+  if (createComment) {
+    return
+  }
 }

@@ -64,7 +64,6 @@ watch(targetUniversity, newUni => {
 })
 </script>
 <template>
-  {{ JSON.stringify(dorms, null) }}
   <div class="space-y-4">
     <div class="bg-white space-y-2 rounded-xl p-4">
       <h1 class="text-2xl font-bold">ค้นหาหอ</h1>
