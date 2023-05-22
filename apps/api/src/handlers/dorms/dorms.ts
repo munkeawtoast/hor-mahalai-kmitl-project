@@ -62,8 +62,8 @@ export const getDorms: RequestHandler = async (req: JwtRequest, res) => {
       },
       Rooms: {
         select: {
-          price: true
-        }
+          price: true,
+        },
       },
       DormImages: true,
     },
@@ -108,7 +108,7 @@ export const getOneDorm: RequestHandler<{ dormId: string }> = async (
 
   const dorm = parseInt(req.params.dormId)
 
-  if (Number.isNaN(dorm)) return res.status(400).json({message: 'bad dormid'})
+  if (Number.isNaN(dorm)) return res.status(400).json({ message: 'bad dormid' })
 
   const dormResult = await prisma.dorm.findFirst({
     where: {
@@ -138,6 +138,7 @@ export const getOneDorm: RequestHandler<{ dormId: string }> = async (
           lastName: true,
         },
       },
+
       Ratings: {
         // select: {
         //   score: true,
@@ -257,4 +258,39 @@ export const deleteDorm: RequestHandler<{ dormId: string }> = async (
     },
   })
   return res.status(200).json({ message: 'dorm deleted successfully' })
+}
+
+export const approveDorm: RequestHandler<{ dormId: string }> = async (
+  req: JwtRequest,
+  res,
+) => {
+  // if (!req.auth || req.auth.aud === 'USER') {
+  //   return res.status(403).json({ error: '' })
+  // }
+  // console.log(req.params)
+  const id = Number(req.params.dormId)
+
+  const dorm = await prisma.dorm.update({
+    where: {
+      dormID: id,
+    },
+    data: {
+      approvedAt: new Date(),
+      approvedBy: 'ADMIN',
+    },
+  })
+
+  if (!dorm) {
+    return res.status(404).json({ error: 'dorm not found' })
+  }
+  // // if (dorm.userID !== Number(req.auth.sub) && req.auth.aud !== 'ADMIN') {
+  // //   return res.status(403).json({ error: 'forbidden' })
+  // // }
+
+  // // await prisma.dorm.delete({
+  // //   where: {
+  // //     dormID: id,
+  // //   },
+  // // })
+  return res.status(200).json({ message: 'dorm Approved' })
 }

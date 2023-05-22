@@ -175,7 +175,7 @@ export default {
           </template>
           <!-- Student -->
           <template v-if="role === 'USER'">
-            <MenuItem as="template" v-slot="{ active }">
+            <!-- <MenuItem as="template" v-slot="{ active }">
               <RouterLink
                 to="/profile/me/"
                 class="flex items-center justify-center rounded-md bg-white p-2 text-black transition-all duration-300 hover:bg-lesser-white"
@@ -184,7 +184,7 @@ export default {
                 <FontAwesomeIcon icon="fa-solid fa-bookmark" class="pr-2" />
                 <span>หอที่ปักหมุดไว้</span>
               </RouterLink>
-            </MenuItem>
+            </MenuItem> -->
             <!-- <MenuItem as="template" v-slot="{ active }">
               <RouterLink
                 to="/profile/me/"

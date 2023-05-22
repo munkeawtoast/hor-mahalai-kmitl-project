@@ -44,7 +44,7 @@ const sidebarItems = [
         :to="item.to"
       >
         <component :is="item.icon" class="text-primary" stroke-width="2" />
-        <span class="pl-2">test</span>
+        <span class="pl-2">{{ item.to.name }}</span>
       </RouterLink>
     </div>
   </aside>

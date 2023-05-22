@@ -1,5 +1,5 @@
 <script>
-import { generateDorms, generateUsers } from '@helper/data-gen'
+// import { generateDorms, generateUsers } from '@helper/data-gen'
 import { axios } from '../utils'
 
 export default {
@@ -14,15 +14,20 @@ export default {
   methods: {
     async banfunction(user) {
       console.log(user)
-      await axios.delete(`/users/${user}`)
+      await axios
+        .delete(`/users/${user}`)
+        .then(this.$router.go(this.$router.currentRoute))
+        .catch(err => alert(err))
       // console.log(response.data)
       // this.users = response.data
-      this.$router.go()
     },
     async fetchUser() {
-      const response = await axios.get(`/users/`)
+      const response = await axios
+        .get(`/users/`)
+        .then(this.$router.push(this.$router.currentRoute))
+        .catch(err => alert(err))
       console.log(response.data)
-      this.users = response.data
+      // this.users = response.data
       // this.universityOptions = response.data.map(uni => ({
       //   id: uni.id,
       //   label: uni.name,
@@ -52,6 +57,9 @@ export default {
           </th>
           <th scope="col" class="px-6 py-4 font-medium text-gray-900">Role</th>
           <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+            banned at
+          </th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">
             Banbutton
           </th>
         </tr>
@@ -68,6 +76,7 @@ export default {
           <td class="px-6 py-4">{{ user.firstName }}</td>
           <td class="px-6 py-4">{{ user.lastName }}</td>
           <td class="px-6 py-4">{{ user.Role }}</td>
+          <td class="px-6 py-4">{{ user.bannedAt }}</td>
           <td class="px-6 py-4">
             <button
               class="bg-red-300 p-2 rounded-md"

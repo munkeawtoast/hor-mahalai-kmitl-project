@@ -1,5 +1,10 @@
 import { NextFunction, Request, Response, Router } from 'express'
-import { deleteDorm, getOneDorm, postDorm } from '~handlers/dorms/dorms.js'
+import {
+  approveDorm,
+  deleteDorm,
+  getOneDorm,
+  postDorm,
+} from '~handlers/dorms/dorms.js'
 import { getAccomodationTypes } from '~handlers/dorms/accomodations.js'
 import { postComment } from '~handlers/dorms/comments.js'
 import { getDorms } from '~handlers/dorms/dorms.js'
@@ -26,6 +31,6 @@ dormRouter.put(
   imageUploadBuilder({ fieldName: 'images[]', type: 'array', maxCount: 10 }),
 )
 dormRouter.delete('/:dormId', checkAuth, deleteDorm)
-
+dormRouter.post('/approve/:dormId', approveDorm)
 
 export default dormRouter

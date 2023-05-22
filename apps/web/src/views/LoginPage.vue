@@ -16,8 +16,8 @@ export default {
   components: {
     IconLogo,
     ZormInput,
-    IconArrowBackUp
-},
+    IconArrowBackUp,
+  },
   data() {
     const zo = useZorm('userlogin', validator, {
       onValidSubmit: async e => {
@@ -110,6 +110,7 @@ export default {
           label="Password"
           v-model="password"
           placeholder="Type your password here"
+          :type="'password'"
           :id="zo.fields.password('id')"
           :field="zo.fields.password('name')"
           :error="zo.errors.password"
