@@ -25,6 +25,7 @@ import ZormSelect from '../components/ZormSelect.vue'
 import MySelect from '../components/MySelect.vue'
 import ZormEditor from '../components/ZormEditor.vue'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import ZormTextArea from '../components/ZormTextArea.vue'
 import { useGeolocation } from '@vueuse/core'
 import { IconPhotoPlus } from '@tabler/icons-vue'
@@ -35,27 +36,22 @@ const dormStore = useDraftCreateStore()
 const { dorm, rooms } = dormStore
 export default {
   setup() {
+    const router = useRouter()
     const validator = zPostDorm({ coerce: true })
 
     const uploadImages = ref([])
     const zo = useZorm('dormpost', validator, {
       onValidSubmit: async e => {
-        try {
-          e.preventDefault()
-          console.log(e)
-          const res = await axios.postForm('/dorms', {
-            ...e.data,
-            images: uploadImages.value,
-          })
-          console.log(res)
-          alert('สร้างหอสำเร็จ!!!')
-          dormStore.$reset()
-
-          this.$router.push({ name: 'home' })
-        } catch (e) {
-          console.log(e)
-          // alert(e)
-        }
+        e.preventDefault()
+        console.log(e)
+        const res = await axios.postForm('/dorms', {
+          ...e.data,
+          images: uploadImages.value,
+        })
+        console.log(res)
+        alert('สร้างหอสำเร็จ!!!')
+        dormStore.$reset()
+        router.push({ name: 'home' })
       },
       onFormData() {
         console.log('onFormData')

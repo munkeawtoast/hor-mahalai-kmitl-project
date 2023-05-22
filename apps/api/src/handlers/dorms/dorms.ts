@@ -29,9 +29,9 @@ export const getDorms: RequestHandler = async (req: JwtRequest, res) => {
     where: {
       userID: queryOwnerId,
       landmarkID: queryLandmark,
-      // NOT: {
-      //   approvedAt: isAdmin ? null : undefined
-      // }
+      NOT: {
+        approvedAt: isAdmin ? null : undefined
+      }
     },
     // skip: startPoint,
     // take: count,
