@@ -1,6 +1,6 @@
 import Router from 'express'
 import { putUser, postUserRegister } from '~handlers/auth/register.js'
-import { postUserLogin } from '~handlers/auth/login.js'
+import { getUser, postUserLogin } from '~handlers/auth/login.js'
 import {
   imageUploadBuilder,
   multerUpload,
@@ -16,6 +16,7 @@ userRounter.patch(
   imageUploadBuilder({ fieldName: 'uploadImage', type: 'single' }),
   putUser,
 )
+userRounter.get('/', getUser)
 // userRounter.post('/profile', multerUpload.,  (req, res) => {
 //   req.uploadedURL
 //   const { file } = req

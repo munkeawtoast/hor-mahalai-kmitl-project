@@ -1,9 +1,7 @@
 import Router from 'express'
-import { putUser, postUserRegister } from '~handlers/auth/register.js'
-import { postUserLogin } from '~handlers/auth/login.js'
-import {
-  imageUploadBuilder,
-} from '~middlewares/supabaseUserUpload.js'
+import { putUser, postUserRegister, banUser } from '~handlers/auth/register.js'
+import { getUser, postUserLogin } from '~handlers/auth/login.js'
+import { imageUploadBuilder } from '~middlewares/supabaseUserUpload.js'
 import { checkAuth } from '~middlewares/auth.js'
 
 const userRounter = Router()
@@ -14,5 +12,7 @@ userRounter.patch(
   imageUploadBuilder({ fieldName: 'uploadImage', type: 'single' }),
   putUser,
 )
+userRounter.get('/', getUser)
+userRounter.delete('/:userid', banUser)
 
 export default userRounter

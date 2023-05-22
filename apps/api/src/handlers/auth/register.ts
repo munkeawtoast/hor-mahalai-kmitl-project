@@ -15,31 +15,44 @@ export const postUserRegister = async (
   // const imageLinks = req.links ?? []
 
   // console.log(user)
+  try {
+    const newUser = await prisma.user.create({
+      data: {
+        username: user.username,
+        password: user.password, //Hash later
+        firstName: user.firstname,
+        lastName: user.lastname,
+        email: user.email,
+        Role: user.role,
+        // imageID: 1,
+        // Image:
+        // imageLinks.length === 1?
+        //   {
+        //     create: {
+        //       url: 'https://cdn-prod.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg',
+        //     },
+        //   },
+        // : undefined,
+      },
+    })
 
-  const newUser = await prisma.user.create({
-    data: {
-      username: user.username,
-      password: user.password, //Hash later
-      firstName: user.firstname,
-      lastName: user.lastname,
-      email: user.email,
-      Role: user.role,
-      // imageID: 1,
-      // Image:
-      // imageLinks.length === 1?
-      //   {
-      //     create: {
-      //       url: 'https://cdn-prod.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg',
-      //     },
-      //   },
-      // : undefined,
-    },
-  })
-
-  res.json(newUser)
+    res.json(newUser)
+  } catch (e) {
+    return res.status(400).json('This username or email is already sign in')
+  }
 }
 
-export const deleteUser: RequestHandler<{ userId: string }> = (req, res) => {}
+export const banUser: RequestHandler<{ userId: any }> = async (req, res) => {
+  const user = Number(req.params.userid)
+  const alluser = await prisma.user.update({
+    where: {
+      userId: user,
+    },
+    data: {
+      bannedAt: new Date(),
+    },
+  })
+}
 
 export const putUser: RequestHandler<{ userId: string }> = async (
   req: any,

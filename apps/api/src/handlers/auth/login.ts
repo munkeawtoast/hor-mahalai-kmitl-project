@@ -6,7 +6,25 @@ import { getEnv } from '../../utils/index.js'
 
 const prisma = new PrismaClient()
 
-export const getUserDorms: RequestHandler = (req, res) => {}
+export const getUser: RequestHandler = async (req, res) => {
+  const alluser = await prisma.user.findMany({
+    where: {
+      Role: {
+        not: 'ADMIN',
+      },
+    },
+  })
+  res.json(alluser)
+}
+
+// export const deleteUser: RequestHandler = async (req, res) => {
+//   const alluser = await prisma.user.delete({
+//     where: {
+//       userId:
+//     },
+//   })
+//   res.json(alluser)
+// }
 
 export const getUserDetails: RequestHandler<{ userId: string }> = (
   req,
@@ -14,7 +32,6 @@ export const getUserDetails: RequestHandler<{ userId: string }> = (
 ) => {}
 
 export const getSelfDetails: RequestHandler = (req, res) => {}
-
 
 export const postUserLogin: RequestHandler = async (req, res) => {
   const parseResult = zLogin().safeParse(req.body)

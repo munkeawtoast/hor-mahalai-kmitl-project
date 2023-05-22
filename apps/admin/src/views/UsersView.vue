@@ -1,116 +1,83 @@
 <script>
 import { generateDorms, generateUsers } from '@helper/data-gen'
+import { axios } from '../utils'
 
 export default {
   data() {
     return {
-      users: generateUsers(0, 30),
-      dorms: generateDorms(0, 30),
+      users: null,
     }
   },
+  mounted() {
+    this.fetchUser()
+  },
   methods: {
-    banUser(user) {
-      const deletingID = user.id
-      this.dorms = this.dorms.filter((iter) => iter.id !== deletingID)
+    async banfunction(user) {
+      console.log(user)
+      await axios.delete(`/users/${user}`)
+      // console.log(response.data)
+      // this.users = response.data
+      this.$router.go()
+    },
+    async fetchUser() {
+      const response = await axios.get(`/users/`)
+      console.log(response.data)
+      this.users = response.data
+      // this.universityOptions = response.data.map(uni => ({
+      //   id: uni.id,
+      //   label: uni.name,
+      // }))
     },
   },
 }
 </script>
 <template>
-  <div class="flex flex-col">
-    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-      <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-        <div class="overflow-hidden">
-          <table class="min-w-full text-left text-sm font-light">
-            <thead class="border-b font-medium dark:border-neutral-500">
-              <tr>
-                <th scope="col" class="px-6 py-4">#</th>
-                <th scope="col" class="px-6 py-4">First</th>
-                <th scope="col" class="px-6 py-4">Last</th>
-                <th scope="col" class="px-6 py-4">Handle</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="border-b dark:border-neutral-500">
-                <td class="whitespace-nowrap px-6 py-4 font-medium">1</td>
-                <td class="whitespace-nowrap px-6 py-4">Mark</td>
-                <td class="whitespace-nowrap px-6 py-4">Otto</td>
-                <td class="whitespace-nowrap px-6 py-4">@mdo</td>
-              </tr>
-              <tr class="border-b dark:border-neutral-500">
-                <td class="whitespace-nowrap px-6 py-4 font-medium">2</td>
-                <td class="whitespace-nowrap px-6 py-4">Jacob</td>
-                <td class="whitespace-nowrap px-6 py-4">Thornton</td>
-                <td class="whitespace-nowrap px-6 py-4">@fat</td>
-              </tr>
-              <tr class="border-b dark:border-neutral-500">
-                <td class="whitespace-nowrap px-6 py-4 font-medium">3</td>
-                <td class="whitespace-nowrap px-6 py-4">Larry</td>
-                <td class="whitespace-nowrap px-6 py-4">Wild</td>
-                <td class="whitespace-nowrap px-6 py-4">@twitter</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="flex flex-col overflow-x-auto">
-    <div class="sm:-mx-6 lg:-mx-8">
-      <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-        <div class="overflow-x-auto">
-          <table class="min-w-full text-left text-sm font-light">
-            <thead class="border-b font-medium dark:border-neutral-500">
-              <tr>
-                <th scope="col" class="px-6 py-4">#</th>
-                <th scope="col" class="px-6 py-4">Heading</th>
-                <th scope="col" class="px-6 py-4">Heading</th>
-                <th scope="col" class="px-6 py-4">Heading</th>
-                <th scope="col" class="px-6 py-4">Heading</th>
-                <th scope="col" class="px-6 py-4">Heading</th>
-                <th scope="col" class="px-6 py-4">Heading</th>
-                <th scope="col" class="px-6 py-4">Heading</th>
-                <th scope="col" class="px-6 py-4">Heading</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="border-b dark:border-neutral-500">
-                <td class="whitespace-nowrap px-6 py-4 font-medium">1</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-              </tr>
-              <tr class="border-b dark:border-neutral-500">
-                <td class="whitespace-nowrap px-6 py-4 font-medium">2</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-              </tr>
-              <tr class="border-b">
-                <td class="whitespace-nowrap px-6 py-4 font-medium">3</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                <td class="whitespace-nowrap px-6 py-4">Cell</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+  <div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+            UserID
+          </th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+            Username
+          </th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+            First name
+          </th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+            Last name
+          </th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">Role</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+            Banbutton
+          </th>
+        </tr>
+      </thead>
+      <tbody v-for="(user, index) in users" :key="index">
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{ user.userId }}
+          </th>
+          <td class="px-6 py-4">{{ user.username }}</td>
+          <td class="px-6 py-4">{{ user.firstName }}</td>
+          <td class="px-6 py-4">{{ user.lastName }}</td>
+          <td class="px-6 py-4">{{ user.Role }}</td>
+          <td class="px-6 py-4">
+            <button
+              class="bg-red-300 p-2 rounded-md"
+              @click="banfunction(user.userId)"
+            >
+              Ban
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>

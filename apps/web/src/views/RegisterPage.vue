@@ -8,19 +8,21 @@ import { axios } from '../utils'
 
 const validator = zRegister()
 
-const zo = useZorm('userlogin', validator, {
-  onValidSubmit: async e => {
-    e.preventDefault()
-    await axios.post('/users/register/', e.data)
-    this.$router.push({ path: '/' })
-  },
-  onFormData: async e => {
-    console.log(e)
-  },
-  // customIssues: serverSideIssues
-})
 export default {
   data() {
+    const zo = useZorm('userlogin', validator, {
+      onValidSubmit: async e => {
+        e.preventDefault()
+        await axios
+          .post('/users/register/', e.data)
+          .then(this.$router.push({ path: '/' }))
+          .catch(err => alert(err.response.data))
+      },
+      onFormData: async e => {
+        console.log(e)
+      },
+      // customIssues: serverSideIssues
+    })
     return {
       zo,
       userName: '',
@@ -149,7 +151,7 @@ export default {
             <input
               class="cursor-pointer rounded-md border border-lesser-gray p-2"
               type="submit"
-              value="login"
+              value="Register"
             />
           </div>
         </form>
