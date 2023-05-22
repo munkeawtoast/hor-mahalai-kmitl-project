@@ -31,25 +31,31 @@ import { IconPhotoPlus } from '@tabler/icons-vue'
 
 //TODO test
 
-const validator = zPostDorm({ coerce: true })
-
 const dormStore = useDraftCreateStore()
 const { dorm, rooms } = dormStore
-
 export default {
   setup() {
+    const validator = zPostDorm({ coerce: true })
+
     const uploadImages = ref([])
     const zo = useZorm('dormpost', validator, {
       onValidSubmit: async e => {
-        e.preventDefault()
-        console.log(e)
-        const res = await axios.postForm('/dorms', {
-          ...e.data,
-          images: uploadImages.value,
-        })
-        console.log(res)
-        alert('สร้างหอสำเร็จ!!!')
-        this.$router.go('/')
+        try {
+          e.preventDefault()
+          console.log(e)
+          const res = await axios.postForm('/dorms', {
+            ...e.data,
+            images: uploadImages.value,
+          })
+          console.log(res)
+          alert('สร้างหอสำเร็จ!!!')
+          dormStore.$reset()
+
+          this.$router.push({ name: 'home' })
+        } catch (e) {
+          console.log(e)
+          alert(e)
+        }
       },
       onFormData() {
         console.log('onFormData')

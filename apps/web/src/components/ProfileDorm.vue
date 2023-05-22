@@ -26,24 +26,21 @@ export default {
     // },
   },
   data() {
+    // console.log(this.roomData)
     return {
       // amenities: Object.entries({
       //   ...this.dormData.dormAmenities,
       //   ...this.dormData.roomAmenities,
       // }),
       // rating: 8,
+      
       roomPrices: this.roomData.Rooms.map(room => room.price),
     }
   },
   components: {
-    FontAwesomeIcon,
     RouterLink,
-    IconPhone,
-    IconBrandFacebook,
-    IconBrandLine,
     IconDroplet,
     IconBolt,
-    IconCheckbox,
     IconTrash,
   },
   methods: {
@@ -55,12 +52,11 @@ export default {
 }
 </script>
 <template>
-  <!-- {{ roomData }} -->
   <div
     class="flex items-stretch overflow-hidden rounded-2xl bg-white shadow-md my-8"
   >
     <img
-      :src="roomData.DormImages[0].url"
+      :src="roomData.DormImages[0]?.url"
       class="aspect-[4/3] w-72 object-cover"
       :alt="`รูปหอพัก${roomData.name}`"
     />

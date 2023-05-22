@@ -35,7 +35,7 @@ export const getDorms: RequestHandler = async (req: JwtRequest, res) => {
     },
     // skip: startPoint,
     // take: count,
-    orderBy: [{ name: 'asc' }],
+    orderBy: [{ dormID: 'asc' }],
     include: {
       Ratings: {
         select: {
@@ -62,15 +62,10 @@ export const getDorms: RequestHandler = async (req: JwtRequest, res) => {
       },
       Rooms: {
         select: {
-          price: true,
-        },
+          price: true
+        }
       },
-      DormImages: {
-        take: 1,
-        select: {
-          url: true,
-        },
-      },
+      DormImages: true,
     },
   })
   if (queryUniversity) {
@@ -91,6 +86,7 @@ export const getDorms: RequestHandler = async (req: JwtRequest, res) => {
     const ratingsCount = d.Ratings.length
     const ratingsTotal = d.Ratings.reduce((acc, b) => acc + b.score, 0)
     return {
+      ...d,
       name: d.name,
       priceRange,
       landmark: d.Landmarks.name,

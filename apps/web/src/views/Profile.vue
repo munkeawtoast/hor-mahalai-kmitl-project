@@ -30,10 +30,11 @@ export default {
     }
   },
   async beforeMount() {
-    await axios
+    axios
       .get(`/dorms/`, { params: { ownerid: this.userStore.id } })
       .then(res => {
         this.ownDorms = res.data
+        console.log(res.data)
       })
       .catch(err => {
         console.log(err.response.data)
