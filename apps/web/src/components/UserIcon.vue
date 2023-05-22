@@ -169,7 +169,7 @@ export default {
                 :class="[active && 'bg-lesser-white']"
               >
                 <FontAwesomeIcon icon="fa-solid fa-plus" class="pr-2" />
-                <span>รายการหอพักของคุณ</span>
+                <span>เพิ่มหอพัก</span>
               </RouterLink>
             </MenuItem>
           </template>

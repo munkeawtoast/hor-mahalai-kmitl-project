@@ -33,7 +33,7 @@ export default {
       //   ...this.dormData.roomAmenities,
       // }),
       // rating: 8,
-      
+
       roomPrices: this.roomData.Rooms.map(room => room.price),
     }
   },

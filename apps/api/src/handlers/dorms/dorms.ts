@@ -30,7 +30,7 @@ export const getDorms: RequestHandler = async (req: JwtRequest, res) => {
       userID: queryOwnerId,
       landmarkID: queryLandmark,
       NOT: {
-        approvedAt: isAdmin ? null : undefined,
+        approvedAt: !isAdmin ? null : undefined,
       },
     },
     // skip: startPoint,
@@ -229,10 +229,10 @@ export const postDorm: RequestHandler = async (
       DormImages: {
         createMany: req.links
           ? {
-            data: req.links.map(url => ({
-              url,
-            })),
-          }
+              data: req.links.map(url => ({
+                url,
+              })),
+            }
           : undefined,
       },
     },

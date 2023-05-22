@@ -43,14 +43,14 @@ export default {
     const zo = useZorm('dormpost', validator, {
       onValidSubmit: async e => {
         e.preventDefault()
-        console.log(e)
+        console.log(e.data)
         const res = await axios.postForm('/dorms', {
           ...e.data,
           images: uploadImages.value,
         })
         console.log(res)
         alert('สร้างหอสำเร็จ!!!')
-        dormStore.$reset()
+        localStorage.removeItem('createDormDraft')
         router.push({ name: 'home' })
       },
       onFormData() {
@@ -404,7 +404,7 @@ export default {
               >
                 <input
                   type="hidden"
-                  v-model.number="acc.id"
+                  v-model="dorm.accomodations[index].id"
                   checked
                   :id="zo.fields.accomodations(index).id('id')"
                   :name="zo.fields.accomodations(index).id('name')"
@@ -415,7 +415,7 @@ export default {
                   :name="zo.fields.accomodations(index).value('name')"
                   :true-value="true"
                   :false-value="false"
-                  v-model="acc.value"
+                  v-model="dorm.accomodations[index].value"
                   class="h-4 w-4 rounded border-lesser-gray bg-gray-100 text-primary focus:ring-2 focus:ring-primary-soft"
                 />
                 <label
@@ -529,7 +529,7 @@ export default {
                   >
                     <input
                       type="hidden"
-                      v-model.number="acc.id"
+                      v-model="rooms[index].accomodations[jindex].id"
                       checked
                       :id="
                         zo.fields.rooms(index).accomodations(jindex).id('id')
