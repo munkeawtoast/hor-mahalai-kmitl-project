@@ -14,7 +14,6 @@ onBeforeMount(async () => {
 })
 
 function banfunction(dorm) {
-  router.go()
   axios
     .delete(`/dorms/${dorm}`)
     .then(router.go())
@@ -73,7 +72,7 @@ function approvefunction(dorm) {
           >
             {{ dorm.id }}
           </th>
-          <td class="px-6 py-4">{{ dorm.name }}td></td>
+          <td class="px-6 py-4">{{ dorm.name }}</td>
           <td class="px-6 py-4">{{ dorm.priceRange[0] }}</td>
           <td class="px-6 py-4">
             {{ dorm.priceRange[1] ? dorm.priceRange[1] : 'null' }}
