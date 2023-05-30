@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt'
-import type { Env } from '../global-types'
+import type { Env } from '../global-types.js'
 import { createClient } from '@supabase/supabase-js'
 import { config } from 'dotenv'
 

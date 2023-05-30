@@ -4,13 +4,13 @@ import {
   deleteDorm,
   getOneDorm,
   postDorm,
-} from '~handlers/dorms/dorms.js'
-import { getAccomodationTypes } from '~handlers/dorms/accomodations.js'
-import { postComment } from '~handlers/dorms/comments.js'
-import { getDorms } from '~handlers/dorms/dorms.js'
-import { checkAuth } from '~middlewares/auth.js'
-import { imageUploadBuilder } from '~middlewares/supabaseUserUpload.js'
-import { postRating } from '~handlers/dorms/ratings.js'
+  getDorms,
+} from '../../handlers/dorms/dorms.js'
+import { getAccomodationTypes } from '../../handlers/dorms/accomodations.js'
+import { postComment } from '../../handlers/dorms/comments.js'
+import { checkAuth } from '../../middlewares/auth.js'
+import { imageUploadBuilder } from '../../middlewares/supabaseUserUpload.js'
+import { postRating } from '../../handlers/dorms/ratings.js'
 
 const dormRouter = Router()
 

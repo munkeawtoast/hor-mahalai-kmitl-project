@@ -3,15 +3,24 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "outDir": "./out",
-    "esModuleInterop": true,
     "paths": {
-      "~handlers/*": ["./handlers/*"],
-      "~router/*": ["./router/*"],
-      "~utils/*": ["./utils/*"],
-      "~middlewares/*": ["./middlewares/*"]
+      "~handlers/*": [
+        "handlers/*"
+      ],
+      "~router/*": [
+        "router/*"
+      ],
+      "~utils/*": [
+        "utils/*"
+      ],
+      "~middlewares/*": [
+        "middlewares/*"
+      ]
     }
   },
   "ts-node": {
+    "transpileOnly": true,
+    "swc": true,
     "esm": true
   }
 }

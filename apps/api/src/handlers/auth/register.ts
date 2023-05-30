@@ -1,7 +1,7 @@
 import { RequestHandler, Response } from 'express'
 import { PrismaClient } from '@prisma/client'
 import { RequestWithUpload } from 'global-types'
-import { getEnv } from '~utils/index.js'
+import { getEnv } from '../../utils/index.js'
 import jwt from 'jsonwebtoken'
 import { zPatchUser } from '@shared/validator'
 const prisma = new PrismaClient()
@@ -82,13 +82,13 @@ export const putUser: RequestHandler<{ userId: string }> = async (
         Image: {
           upsert: req.links[0]
             ? {
-              create: {
-                url: req.links[0],
-              },
-              update: {
-                url: req.links[0],
-              },
-            }
+                create: {
+                  url: req.links[0],
+                },
+                update: {
+                  url: req.links[0],
+                },
+              }
             : undefined,
         },
       },

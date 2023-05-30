@@ -82,12 +82,10 @@ function imageUploader(
   if (filesArr.length === 0) {
     next()
   } else {
-    Promise.all(filesArr.map((file) => uploadToImgBB(file))).then(
-      (responses) => {
-        req.links = responses.map((res: ImgBBResponse) => res.data.data.url)
-        next()
-      },
-    )
+    Promise.all(filesArr.map(file => uploadToImgBB(file))).then(responses => {
+      req.links = responses.map((res: ImgBBResponse) => res.data.data.url)
+      next()
+    })
   }
 }
 

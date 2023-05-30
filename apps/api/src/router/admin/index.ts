@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import cors from 'cors'
-import dormRouter from '~router/web/dorms.js'
-import ticketRouter from '~router/web/tickets.js'
+import dormRouter from '../../router/web/dorms.js'
+import ticketRouter from '../../router/web/tickets.js'
 import userRounter from './users.js'
 
 const adminRouter = Router()

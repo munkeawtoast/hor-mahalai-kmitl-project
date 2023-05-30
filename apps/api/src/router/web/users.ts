@@ -1,11 +1,11 @@
 import Router from 'express'
-import { putUser, postUserRegister } from '~handlers/auth/register.js'
-import { getUser, postUserLogin } from '~handlers/auth/login.js'
+import { putUser, postUserRegister } from '../../handlers/auth/register.js'
+import { getUser, postUserLogin } from '../../handlers/auth/login.js'
 import {
   imageUploadBuilder,
   multerUpload,
-} from '~middlewares/supabaseUserUpload.js'
-import { checkAuth } from '~middlewares/auth.js'
+} from '../../middlewares/supabaseUserUpload.js'
+import { checkAuth } from '../../middlewares/auth.js'
 
 const userRounter = Router()
 userRounter.post('/login', postUserLogin)

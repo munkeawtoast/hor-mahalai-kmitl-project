@@ -1,6 +1,12 @@
 {
   "name": "@config/eslint-config-express",
   "version": "0.0.0",
-  "main": "index.js"
+  "main": "index.js",
+  "devDependencies": {
+    "eslint": "^8.41.0",
+    "eslint-import-resolver-typescript": "^3.5.5",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-require-extensions": "^0.1.3"
+  }
 }
-  

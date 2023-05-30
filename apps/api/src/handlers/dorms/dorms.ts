@@ -104,7 +104,7 @@ export const getOneDorm: RequestHandler<{ dormId: string }> = async (
   req: JwtRequest,
   res,
 ) => {
-  let isAdmin = req.auth?.aud === 'ADMIN'
+  const isAdmin = req.auth?.aud === 'ADMIN'
 
   const dorm = parseInt(req.params.dormId)
 
