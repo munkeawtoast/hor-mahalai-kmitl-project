@@ -12,6 +12,9 @@
   },
   "author": "2gurls",
   "license": "UNLICENSED",
+  "peerDependencies": {
+    "@types/node": "^18.14.2"
+  },
   "devDependencies": {
     "@config/tsconfig": "workspace:^",
     "@types/bcrypt": "^5.0.0",
