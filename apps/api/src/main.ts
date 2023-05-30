@@ -1,17 +1,13 @@
 import express, { json, urlencoded } from 'express'
-import multer from 'multer'
-import dotenv from 'dotenv'
+import { getEnv } from '~utils/index.js'
 
 import webRouter from '~router/web/index.js'
 import testRouter from '~router/test/index.js'
 import adminRouter from '~router/admin/index.js'
 
-import { loggerProvider } from './middlewares/index.js'
+import { loggerProvider } from '~middlewares/index.js'
 
-import { Env } from './global-types.js'
-
-dotenv.config()
-const env = process.env as Env
+const env = getEnv()
 
 const app = express()
 const PORT = env.API_PORT || 4000

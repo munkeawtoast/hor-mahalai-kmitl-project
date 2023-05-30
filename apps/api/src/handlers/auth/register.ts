@@ -1,8 +1,7 @@
 import { RequestHandler, Response } from 'express'
 import { PrismaClient } from '@prisma/client'
 import { RequestWithUpload } from 'global-types'
-import { create } from 'ts-node'
-import { getEnv } from '../../utils/index.js'
+import { getEnv } from '~utils/index.js'
 import jwt from 'jsonwebtoken'
 import { zPatchUser } from '@shared/validator'
 const prisma = new PrismaClient()

@@ -9,5 +9,5 @@ export const extendSession: RequestHandler = (req: JwtRequest, res, next) => {
   if (!req.auth) {
     return next()
   }
-  const {} = req.auth
+  const { } = req.auth
 }

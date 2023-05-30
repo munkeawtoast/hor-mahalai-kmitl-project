@@ -16,10 +16,10 @@
     "externalHelpers": false,
     "baseUrl": "./src",
     "paths": {
-      "~handlers/*": ["./handlers/*"],
-      "~router/*": ["./router/*"],
-      "~utils/*": ["./handlers/*"],
-      "~middlewares/*": ["./middlewares/*"]
+      "~handlers/*": ["handlers/*"],
+      "~router/*": ["router/*"],
+      "~utils/*": ["utils/*"],
+      "~middlewares/*": ["middlewares/*"]
     }
   },
   "minify": false

@@ -7,7 +7,7 @@
     "paths": {
       "~handlers/*": ["./handlers/*"],
       "~router/*": ["./router/*"],
-      "~utils/*": ["./handlers/*"],
+      "~utils/*": ["./utils/*"],
       "~middlewares/*": ["./middlewares/*"]
     }
   },

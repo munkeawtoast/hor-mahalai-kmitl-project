@@ -2,7 +2,6 @@ import bcrypt from 'bcrypt'
 import type { Env } from '../global-types'
 import { createClient } from '@supabase/supabase-js'
 import { config } from 'dotenv'
-import multer from 'multer'
 
 export function hashPassword(password: string) {
   const salt = bcrypt.genSaltSync(10)
