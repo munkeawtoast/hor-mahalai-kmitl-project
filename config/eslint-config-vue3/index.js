@@ -4,6 +4,5 @@ module.exports = {
     'plugin:vue/vue3-strongly-recommended',
     '@vue/eslint-config-prettier',
     'prettier',
-    
   ],
 }
