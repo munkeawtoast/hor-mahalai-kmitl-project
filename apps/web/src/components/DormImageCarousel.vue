@@ -53,11 +53,7 @@ export default {
     >
       <button
         class="flex aspect-square items-center justify-center rounded-xl bg-white bg-opacity-0 transition-all duration-200 hover:bg-opacity-25"
-        @click="
-          () => {
-            this.currentImage -= 1
-          }
-        "
+        @click="currentImage -= 1"
       >
         <FontAwesomeIcon
           icon="fa-solid fa-play"

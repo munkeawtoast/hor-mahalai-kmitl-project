@@ -1,28 +1,30 @@
-<script setup>
-import { defineEmits, defineProps } from 'vue'
-
-const emit = defineEmits(['buttonClicked'])
-const props = defineProps({
-  handlers: {
-    type: Array,
-    default: () => [],
+<script>
+// convert from composition api to options api
+export default {
+  data() {
+    return {
+      page: null,
+    }
   },
-  headers: {
-    type: Array,
-    required: true,
+  props: {
+    handlers: {
+      type: Array,
+      default: () => [],
+    },
+    headers: {
+      type: Array,
+      required: true,
+    },
+    values: {
+      type: Array,
+      required: true,
+    },
+    otherButtons: {
+      type: Array,
+      required: true,
+    },
   },
-  values: {
-    type: Array,
-    required: true,
-  },
-  otherButtons: {
-    type: Array,
-    required: true,
-  },
-})
-
-const page = ref([])
-
+}
 </script>
 <template>
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">

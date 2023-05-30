@@ -1,22 +1,29 @@
-<script setup>
-import { IconBuildingEstate, IconStarFilled } from '@tabler/icons-vue'
-import { IconStar } from '@tabler/icons-vue'
-import { IconSchool } from '@tabler/icons-vue'
-import { RouterLink } from 'vue-router'
-
-const props = defineProps({
-  dormData: {
-    type: Object,
-    required: true,
-  },
-  search: {
-    type: Object,
-    required: false,
-    default: () => {
-      return {}
+<script>
+import {
+  IconBuildingEstate,
+  IconStarFilled,
+  IconSchool,
+} from '@tabler/icons-vue'
+export default {
+  props: {
+    dormData: {
+      type: Object,
+      required: true,
+    },
+    search: {
+      type: Object,
+      required: false,
+      default: () => {
+        return {}
+      },
     },
   },
-})
+  components: {
+    IconBuildingEstate,
+    IconStarFilled,
+    IconSchool,
+  },
+}
 </script>
 <template>
   <div

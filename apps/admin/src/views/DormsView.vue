@@ -1,34 +1,35 @@
-<script setup>
-import { onBeforeMount, ref } from 'vue'
-// import MyTable from '../components/MyTable.vue'
+<script>
 import { axios } from '../utils/axios'
-import { useRoute, useRouter } from 'vue-router'
 
-const data = ref([])
-const router = useRouter()
-
-onBeforeMount(async () => {
-  const response = await axios.get('/dorms/')
-  data.value = response.data
-  console.log(data)
-})
-
-function banfunction(dorm) {
-  axios
-    .delete(`/dorms/${dorm}`)
-    .then(router.go())
-    .catch(err => alert(err))
-}
-
-function approvefunction(dorm) {
-  axios
-    .post(`/dorms/approve/${dorm}`)
-    .then(router.go())
-    .catch(err => alert(err))
+export default {
+  name: 'DormsView',
+  data() {
+    return {
+      data: [],
+    }
+  },
+  beforeMount: async function () {
+    const response = await axios.get('/dorms/')
+    this.data = response.data
+    console.log(this.data)
+  },
+  methods: {
+    banfunction(dorm) {
+      axios
+        .delete(`/dorms/${dorm}`)
+        .then(this.$router.go())
+        .catch(err => alert(err))
+    },
+    approvefunction(dorm) {
+      axios
+        .post(`/dorms/approve/${dorm}`)
+        .then(this.$router.go())
+        .catch(err => alert(err))
+    },
+  },
 }
 </script>
 <template>
-  {{}}
   <div class="relative overflow-x-auto">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <thead

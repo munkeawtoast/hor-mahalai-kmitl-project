@@ -3,6 +3,7 @@ export default {
   props: {
     modelValue: {
       type: null,
+      default: null,
     },
     id: {
       required: true,

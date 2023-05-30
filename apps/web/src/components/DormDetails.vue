@@ -1,10 +1,8 @@
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { googleMapsApiKey } from '../utils/google_maps'
 import DormImageCarousel from './DormImageCarousel.vue'
-import { googleMapsApiKey, center } from '../utils/google_maps'
 import DescriptionDisplay from './DescriptionDisplay.vue'
-import { GoogleMap, Marker } from 'vue3-google-map'
-import { generateUsers } from '@helper/data-gen'
+import { GoogleMap } from 'vue3-google-map'
 import {
   IconPhone,
   IconBrandFacebook,
@@ -12,24 +10,18 @@ import {
   IconDroplet,
   IconBolt,
   IconCheckbox,
+  IconStarFilled,
 } from '@tabler/icons-vue'
-import { IconStarFilled } from '@tabler/icons-vue'
 
 export default {
   props: {
-    // dormData: {
-    //   type: Object,
-    //   required: true,
-    // },
-    dorminfo: Object,
+    dorminfo: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   data() {
     return {
-      // amenities: Object.entries({
-      //   ...this.dormData.dormAmenities,
-      //   ...this.dormData.roomAmenities,
-      // }),
-      // rooms: [{ ...this.dormData }, { ...this.dormData }, { ...this.dormData }],
       description: this.dorminfo?.description,
       googleMapsApiKey,
       dormaccommodations: this.dorminfo.Accommodations.map(
@@ -39,7 +31,6 @@ export default {
   },
   components: {
     DormImageCarousel,
-    FontAwesomeIcon,
     IconPhone,
     IconBrandFacebook,
     IconBrandLine,
@@ -48,8 +39,8 @@ export default {
     IconCheckbox,
     DescriptionDisplay,
     GoogleMap,
-    IconStarFilled
-},
+    IconStarFilled,
+  },
 }
 </script>
 

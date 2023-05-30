@@ -1,8 +1,9 @@
 <script>
-import { IconProgress } from '@tabler/icons-vue'
-import { IconCircleDotted } from '@tabler/icons-vue'
-import { IconCircleDashed } from '@tabler/icons-vue'
-import { IconCircleCheckFilled } from '@tabler/icons-vue'
+import {
+  IconProgress,
+  IconCircleDotted,
+  IconCircleCheckFilled,
+} from '@tabler/icons-vue'
 
 export default {
   props: {
@@ -21,7 +22,6 @@ export default {
   },
   components: {
     IconCircleCheckFilled,
-    IconCircleDashed,
     IconProgress,
     IconCircleDotted,
   },

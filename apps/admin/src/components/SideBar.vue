@@ -1,36 +1,46 @@
-<script setup>
+<script>
 import { IconLogo } from '@shared/components'
 import {
   IconUsers,
   IconBuildingEstate,
   IconMessageReport,
 } from '@tabler/icons-vue'
-import { RouterLink } from 'vue-router'
 
-const sidebarItems = [
-  {
-    icon: IconUsers,
-    label: 'ผู้ใช้งาน',
-    to: {
-      name: 'users',
-    },
+export default {
+  data() {
+    const sidebarItems = [
+      {
+        icon: IconUsers,
+        label: 'ผู้ใช้งาน',
+        to: {
+          name: 'users',
+        },
+      },
+      {
+        icon: IconBuildingEstate,
+        label: 'หอพัก',
+        to: {
+          name: 'dorms',
+        },
+      },
+      {
+        icon: IconMessageReport,
+        label: 'รายงานจากผู้ใช้',
+        to: {
+          name: 'tickets',
+        },
+      },
+    ]
+    return {
+      sidebarItems,
+    }
   },
-  {
-    icon: IconBuildingEstate,
-    label: 'หอพัก',
-    to: {
-      name: 'dorms',
-    },
+  components: {
+    IconLogo,
   },
-  {
-    icon: IconMessageReport,
-    label: 'รายงานจากผู้ใช้',
-    to: {
-      name: 'tickets',
-    },
-  },
-]
+}
 </script>
+
 <template>
   <aside class="w-[19.5rem] border-lesser-gray border-1 border-r-2">
     <div class="border-lesser-white border-b p-2 w-full">

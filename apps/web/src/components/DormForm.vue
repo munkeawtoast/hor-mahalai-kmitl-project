@@ -1,13 +1,4 @@
 <script>
-// import DormCreateRoomTab from '../components/DormCreateRoomTab.vue'
-import {
-  IconBuildingEstate,
-  IconInfoCircle,
-  IconAlertCircle,
-  IconBed,
-  IconSquarePlus,
-  IconAlertTriangleFilled,
-} from '@tabler/icons-vue'
 import {
   zPostDorm,
   dormAccommodations,
@@ -17,18 +8,24 @@ import { useZorm, createCustomIssues } from 'vue-zorm'
 import { axios } from '../utils'
 import DescriptionTextEditor from './DescriptionTextEditor.vue'
 import { useDraftCreateStore } from '../stores'
+import ZormInput from './ZormInput.vue'
+import ZormSelect from './ZormSelect.vue'
+import MySelect from './MySelect.vue'
 import {
   Dialog,
-  DialogBackdrop,
   DialogDescription,
   DialogPanel,
   DialogTitle,
   TransitionRoot,
 } from '@headlessui/vue'
-import ZormInput from './ZormInput.vue'
-import ZormSelect from './ZormSelect.vue'
-import MySelect from './MySelect.vue'
-// import ZormCheckboxes from './ZormCheckboxes.vue'
+import {
+  IconBuildingEstate,
+  IconInfoCircle,
+  IconAlertCircle,
+  IconBed,
+  IconSquarePlus,
+  IconAlertTriangleFilled,
+} from '@tabler/icons-vue'
 
 const defaultRoom = {
   name: '',
@@ -37,22 +34,6 @@ const defaultRoom = {
 }
 
 //TODO test
-
-const validator = zPostDorm({ coerce: true })
-
-const serverSideIssues = createCustomIssues(validator) // Todo
-
-const zo = useZorm('dormpost', validator, {
-  onValidSubmit(e) {
-    e.preventDefault()
-    console.log(e)
-  },
-  onFormData(e) {},
-  // customIssues: serverSideIssues
-})
-
-const dormStore = useDraftCreateStore()
-const { dorm, rooms } = dormStore
 
 export default {
   props: {
@@ -64,34 +45,49 @@ export default {
       },
     },
   },
-  data: () => ({
-    zo,
-    currentStep: 1,
-    steps: [
-      {
-        title: 'ข้อมูลทั่วไป',
+  data() {
+    const validator = zPostDorm({ coerce: true })
+    const zo = useZorm('dormpost', validator, {
+      onValidSubmit(e) {
+        e.preventDefault()
+        console.log(e)
       },
-      {
-        title: 'เพิ่มห้อง',
+      //   onFormData(e) {},
+      //   // customIssues: serverSideIssues
+    })
+
+    const dormStore = useDraftCreateStore()
+    const { dorm, rooms } = dormStore
+    return {
+      zo,
+      currentStep: 1,
+      steps: [
+        {
+          title: 'ข้อมูลทั่วไป',
+        },
+        {
+          title: 'เพิ่มห้อง',
+        },
+        {
+          title: 'ตัวอย่าง',
+        },
+      ],
+      landmarkOptions: [],
+      universityOptions: [],
+      selectedUniversity: null,
+      accomodations: dormAccommodations,
+      roomAccomodations,
+      defaultRoom,
+      activeRoom: 0,
+      dialogShow: {
+        submit: false,
+        deleteRoom: false,
       },
-      {
-        title: 'ตัวอย่าง',
-      },
-    ],
-    landmarkOptions: [],
-    universityOptions: [],
-    selectedUniversity: null,
-    accomodations: dormAccommodations,
-    roomAccomodations,
-    defaultRoom,
-    activeRoom: 0,
-    dialogShow: {
-      submit: false,
-      deleteRoom: false,
-    },
-    dorm,
-    rooms,
-  }),
+      dorm,
+      rooms,
+    }
+  },
+
   mounted() {
     this.fetchUniversities()
   },
@@ -136,18 +132,17 @@ export default {
     IconSquarePlus,
     IconBuildingEstate,
     IconAlertCircle,
+    IconAlertTriangleFilled,
+    IconInfoCircle,
     DescriptionTextEditor,
     Dialog,
     DialogPanel,
     DialogTitle,
-    IconAlertTriangleFilled,
     TransitionRoot,
-    IconInfoCircle,
     DialogDescription,
     ZormInput,
     ZormSelect,
     MySelect,
-    // ZormCheckboxes,
   },
 }
 </script>
@@ -288,7 +283,7 @@ export default {
               <button
                 @click="addNewRoom"
                 for="add-new-room"
-                class="flex cursor-pointer items-center border-primary border text-primary border bg-white space-x-2 rounded-md p-4 py-3"
+                class="flex cursor-pointer items-center border-primary text-primary border bg-white space-x-2 rounded-md p-4 py-3"
               >
                 <IconSquarePlus size="18" />
                 <label class="cursor-pointer"> เพิ่มห้องใหม่ </label>

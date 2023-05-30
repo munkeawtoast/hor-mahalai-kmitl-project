@@ -1,9 +1,18 @@
-<script setup>
-import { RouterLink } from 'vue-router'
+<script>
 import { IconAlertTriangle } from '@tabler/icons-vue'
 import { useUserStore } from '../stores'
 
-const user = useUserStore()
+export default {
+  data() {
+    const user = useUserStore()
+    return {
+      user,
+    }
+  },
+  components: {
+    IconAlertTriangle,
+  },
+}
 </script>
 <template>
   <div v-if="user.token || $route.meta.hideIssues">

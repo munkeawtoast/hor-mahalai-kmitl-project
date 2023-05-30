@@ -95,7 +95,7 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach((from, to, next) => {
+router.beforeEach((from, _to, next) => {
   if (from.meta.noLogin) {
     const userStore = useUserStore()
     if (userStore.token && userStore.badToken === false) {

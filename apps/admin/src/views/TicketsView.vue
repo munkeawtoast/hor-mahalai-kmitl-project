@@ -1,17 +1,23 @@
-<script setup>
-import { onBeforeMount, ref } from 'vue'
-// import MyTable from '../components/MyTable.vue'
+<script>
 import { axios } from '../utils/axios'
-import { useRoute, useRouter } from 'vue-router'
 
-const data = ref([])
-const router = useRouter()
+export default {
+  data() {
+    return {
+      tickets: [],
+    }
+  },
 
-onBeforeMount(async () => {
-  const response = await axios.get('/tickets/')
-  data.value = response.data
-  console.log(data)
-})
+  mounted() {
+    this.fetchTicket()
+  },
+  methods: {
+    async fetchTicket() {
+      const response = await axios.get(`/tickets/`)
+      this.tickets = response.data
+    },
+  },
+}
 </script>
 <template>
   <div class="relative overflow-x-auto">
@@ -32,7 +38,7 @@ onBeforeMount(async () => {
           </th>
         </tr>
       </thead>
-      <tbody v-for="(ticket, index) in data" :key="index">
+      <tbody v-for="(ticket, index) in tickets" :key="index">
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
           <th
             scope="row"

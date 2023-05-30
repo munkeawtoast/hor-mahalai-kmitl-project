@@ -1,10 +1,5 @@
 <script>
-// import { generateDorms, generateUsers } from '@helper/data-gen'
-import { useRoute, useRouter } from 'vue-router'
 import { axios } from '../utils'
-const router = useRouter()
-// import { useRoute, useRouter } from 'vue-router'
-// const router = useRouter()
 export default {
   data() {
     return {
@@ -19,7 +14,7 @@ export default {
       console.log(user)
       await axios
         .delete(`/users/${user}`)
-        .then(this.router.go())
+        .then(this.$router.go())
         .catch(err => alert(err))
       // console.log(response.data)
       // this.users = response.data

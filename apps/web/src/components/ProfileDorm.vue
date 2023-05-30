@@ -1,5 +1,4 @@
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { RouterLink } from 'vue-router'
 import { axios } from '../utils'
 import {
@@ -26,14 +25,7 @@ export default {
     // },
   },
   data() {
-    // console.log(this.roomData)
     return {
-      // amenities: Object.entries({
-      //   ...this.dormData.dormAmenities,
-      //   ...this.dormData.roomAmenities,
-      // }),
-      // rating: 8,
-
       roomPrices: this.roomData.Rooms.map(room => room.price),
     }
   },

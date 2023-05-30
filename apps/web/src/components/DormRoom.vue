@@ -1,13 +1,5 @@
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import DormImageCarousel from './DormImageCarousel.vue'
-import { generateUsers } from '@helper/data-gen'
 import {
-  IconPhone,
-  IconBrandFacebook,
-  IconBrandLine,
-  IconDroplet,
-  IconBolt,
   IconBed,
   IconCurrencyDollar,
   IconArrowAutofitWidth,
@@ -24,9 +16,6 @@ export default {
   data() {
     return {
       activeRoom: 0,
-      // roomaccom: this.room.Accommodations.map(
-      //   acc => acc.AccommodationType.accommodationName,
-      // ),
     }
   },
   components: {

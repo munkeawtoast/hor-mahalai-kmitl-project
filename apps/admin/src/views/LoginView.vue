@@ -20,7 +20,7 @@ export default {
     checkUser() {
       userData.forEach(element => {
         if (element.userName === this.ID || element.email === this.ID) {
-          if (element.password == this.password) {
+          if (element.password === this.password) {
             let loginData = {
               id: element.id,
               userName: element.userName,
@@ -43,7 +43,6 @@ export default {
     },
     sendLoginRequest(e) {
       e.preventDefault()
-      // this.checkUser()
     },
   },
 }

@@ -7,7 +7,6 @@ import { useUserStore } from '../stores'
 export default {
   data() {
     const userStore = useUserStore()
-    // const userData = JSON.parse(localStorage.getItem('userObject'))
     return {
       userImage: userStore?.userImage,
       userName: userStore?.username,

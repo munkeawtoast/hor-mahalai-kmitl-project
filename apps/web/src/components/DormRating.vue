@@ -1,16 +1,16 @@
 <script>
 import StarRating from 'vue-star-rating'
-import { string } from 'zod'
-import { useRoute, useRouter } from 'vue-router'
 import { axios } from '../utils'
 
-const router = useRouter()
 export default {
   components: {
     StarRating,
   },
   props: {
-    dormID: Number,
+    dormID: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
     return { rating: 1, dormid: this.dormID }
@@ -27,7 +27,7 @@ export default {
           rating: this.rating,
         },
       })
-      router.go()
+      this.$router.go()
     },
   },
 }
