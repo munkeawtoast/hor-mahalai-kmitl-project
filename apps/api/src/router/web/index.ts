@@ -12,8 +12,5 @@ webRouter.use('/dorms', dormRouter)
 webRouter.use('/universities', universityRouter)
 webRouter.use('/users', userRounter)
 webRouter.use('/tickets', ticketsRounter)
-webRouter.use((err, req, res, next) => {
-  console.log('This is the invalid field ->', err.field)
-  next(err)
-})
+
 export default webRouter

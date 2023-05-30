@@ -41,9 +41,9 @@ export const postUserRegister = async (
   }
 }
 
-export const banUser: RequestHandler<{ userId: any }> = async (req, res) => {
-  const user = Number(req.params.userid)
-  const alluser = await prisma.user.update({
+export const banUser: RequestHandler<{ userId: string }> = async (req, res) => {
+  const user = Number(req.params.userId)
+  await prisma.user.update({
     where: {
       userId: user,
     },
@@ -82,13 +82,13 @@ export const putUser: RequestHandler<{ userId: string }> = async (
         Image: {
           upsert: req.links[0]
             ? {
-                create: {
-                  url: req.links[0],
-                },
-                update: {
-                  url: req.links[0],
-                },
-              }
+              create: {
+                url: req.links[0],
+              },
+              update: {
+                url: req.links[0],
+              },
+            }
             : undefined,
         },
       },
