@@ -14,7 +14,7 @@ dotenv.config()
 const env = process.env as Env
 
 const app = express()
-const PORT = env.API_PORT || 4000
+const PORT = Number(env.API_PORT) || 4000
 
 app.use(loggerProvider)
 app.use(json())
@@ -24,6 +24,6 @@ app.use('/web', webRouter)
 app.use('/test', testRouter)
 app.use('/admin', adminRouter)
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on port ${PORT}`)
 })
