@@ -2,7 +2,7 @@ import bareAxios from 'axios'
 import { useUserStore } from '../stores'
 
 const axios = bareAxios.create({
-  baseURL: 'http://localhost:3500/web',
+  baseURL: 'http://44.222.12.220:3500/web',
 })
 
 axios.interceptors.request.use(
