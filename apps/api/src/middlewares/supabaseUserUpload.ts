@@ -5,7 +5,7 @@ import crypto from 'node:crypto'
 import { MulterFile, RequestWithMulter, RequestWithUpload } from 'global-types'
 import { NextFunction, Request, RequestHandler, Response } from 'express'
 import { S3 } from '@aws-sdk/client-s3'
-import { NodeHttp2Handler } from '@smithy/node-http-handler'
+import { NodeHttpHandler } from '@smithy/node-http-handler'
 
 // import AWS from 'aws-sdk'
 // const { S3 } = AWS
@@ -37,9 +37,9 @@ const s3Client = new S3({
   },
 
   region: 'us-east-1',
-  requestHandler: new NodeHttp2Handler({
+  requestHandler: new NodeHttpHandler({
     requestTimeout: 10 * 1000,
-    sessionTimeout: 10 * 1000,
+    connectionTimeout: 10 * 1000,
   }),
 })
 
