@@ -34,6 +34,7 @@ const s3Client = new S3({
   credentials: {
     accessKeyId: getEnv().S3_ACCESS_KEY_ID,
     secretAccessKey: getEnv().S3_SECRET_ACCESS_KEY,
+    sessionToken: getEnv().S3_SESSION_TOKEN,
   },
 
   region: 'us-east-1',
