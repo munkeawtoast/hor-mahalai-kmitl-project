@@ -1,6 +1,8 @@
 import { Stream } from 'form-data'
 import { Request, Response, NextFunction } from 'express'
 export declare type Env = {
+  S3_ACCESS_KEY_ID: string
+  S3_SECRET_ACCESS_KEY: string
   SUPABASE_PROJECT_URL: string
   SUPABASE_API_KEY: string
   POSTGRES_HOST: string

@@ -1,10 +1,10 @@
-import { createClient } from '@supabase/supabase-js'
 import { getEnv } from '../utils/index.js'
 import multer from 'multer'
 import path from 'node:path'
 import crypto from 'node:crypto'
 import { MulterFile, RequestWithMulter, RequestWithUpload } from 'global-types'
 import { NextFunction, Request, RequestHandler, Response } from 'express'
+import { S3 } from '@aws-sdk/client-s3'
 
 export type UploadSingle = {
   type: 'single'
@@ -17,10 +17,13 @@ export type UploadArray = {
   maxCount?: number
 }
 
-const supabase = createClient(
-  getEnv().SUPABASE_PROJECT_URL,
-  getEnv().SUPABASE_API_KEY,
-)
+const s3Client = new S3({
+  credentials: {
+    accessKeyId: getEnv().S3_ACCESS_KEY_ID,
+    secretAccessKey: getEnv().S3_SECRET_ACCESS_KEY,
+  },
+  region: 'us-east-1',
+})
 
 export const multerUpload = multer({
   storage: multer.memoryStorage(),
@@ -76,35 +79,32 @@ const imageUploader = (
   } else {
     ;(async () => {
       try {
-        const resArr = await Promise.all(
-          filesArr.map(file => {
-            return supabase.storage
-              .from('images')
-              .upload(
-                `${file.fieldname.replaceAll(
-                  '[]',
-                  '',
-                )}_${crypto.randomUUID()}${path.extname(file.originalname)}`,
-                file.buffer,
-                {
-                  upsert: false,
-                  contentType: file.mimetype,
-                },
-              )
+        const linkArr = await Promise.all(
+          filesArr.map(async file => {
+            const fileName = `${file.fieldname.replaceAll(
+              '[]',
+              '',
+            )}_${crypto.randomUUID()}${path.extname(file.originalname)}`
+            s3Client.putObject(
+              {
+                Bucket: 'hormahalai',
+                Key: fileName,
+                ACL: 'public-read',
+                ContentType: file.mimetype,
+                Body: file.buffer,
+              },
+              err => {
+                if (err) {
+                  throw new Error('bad ')
+                }
+              },
+            )
+            return Promise.resolve(
+              `https://hormahalai.s3.us-east-1.amazonaws.com/${fileName}`,
+            )
           }),
         )
-        console.log(resArr)
-        const linksRes = await Promise.all(
-          resArr.map(res => {
-            const { data, error } = res
-            if (error) {
-              throw error
-            }
-            return supabase.storage.from('images').getPublicUrl(data.path)
-          }),
-        )
-        const links = linksRes.map(linkres => linkres.data.publicUrl)
-        req.links = links
+        req.links = linkArr
         next()
       } catch (e) {
         next(e)
