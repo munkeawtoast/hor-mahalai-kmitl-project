@@ -5,6 +5,10 @@ import crypto from 'node:crypto'
 import { MulterFile, RequestWithMulter, RequestWithUpload } from 'global-types'
 import { NextFunction, Request, RequestHandler, Response } from 'express'
 import { S3 } from '@aws-sdk/client-s3'
+import { NodeHttp2Handler } from '@smithy/node-http-handler'
+
+// import AWS from 'aws-sdk'
+// const { S3 } = AWS
 
 export type UploadSingle = {
   type: 'single'
@@ -17,12 +21,26 @@ export type UploadArray = {
   maxCount?: number
 }
 
+// const s3Client = new S3({
+//   credentials: {
+//     accessKeyId: getEnv().S3_ACCESS_KEY_ID,
+//     secretAccessKey: getEnv().S3_SECRET_ACCESS_KEY,
+//   },
+
+//   region: 'us-east-1',
+// })
+
 const s3Client = new S3({
   credentials: {
     accessKeyId: getEnv().S3_ACCESS_KEY_ID,
     secretAccessKey: getEnv().S3_SECRET_ACCESS_KEY,
   },
+
   region: 'us-east-1',
+  requestHandler: new NodeHttp2Handler({
+    requestTimeout: 10 * 1000,
+    sessionTimeout: 10 * 1000,
+  }),
 })
 
 export const multerUpload = multer({
@@ -85,20 +103,27 @@ const imageUploader = (
               '[]',
               '',
             )}_${crypto.randomUUID()}${path.extname(file.originalname)}`
-            s3Client.putObject(
-              {
-                Bucket: 'hormahalai',
-                Key: fileName,
-                ACL: 'public-read',
-                ContentType: file.mimetype,
-                Body: file.buffer,
-              },
-              err => {
-                if (err) {
-                  throw new Error('bad ')
-                }
-              },
-            )
+            // s3Client.putObject(
+            //   {
+            //     Bucket: 'hormahalai',
+            //     Key: fileName,
+            //     ACL: 'public-read',
+            //     ContentType: file.mimetype,
+            //     Body: file.buffer,
+            //   },
+            //   err => {
+            //     if (err) {
+            //       throw new Error('bad ')
+            //     }
+            //   },
+            // )
+            const output = await s3Client.putObject({
+              Bucket: 'hormahalai',
+              Key: fileName,
+              ACL: 'public-read',
+              ContentType: file.mimetype,
+              Body: file.buffer,
+            })
             return Promise.resolve(
               `https://hormahalai.s3.us-east-1.amazonaws.com/${fileName}`,
             )
