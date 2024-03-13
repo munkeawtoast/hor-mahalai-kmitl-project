@@ -3,7 +3,7 @@ import bareAxios from 'axios'
 let FOREVER_TOKEN
 
 const axios = bareAxios.create({
-  baseURL: 'http://localhost:3500/admin',
+  baseURL: 'http://44.222.12.220:3500/admin',
 })
 
 axios.interceptors.request.use(
